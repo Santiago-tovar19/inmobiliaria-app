@@ -1,0 +1,12 @@
+<div class="w-full file-input">
+	<mat-form-field class="w-full">
+		<input [formControl]="fileName" matInput [disabled]="true">
+		<div class="flex items-center gap-4">
+			<button *ngIf="fileName.value" mat-button (click)="removeFile()">
+				<mat-icon>delete</mat-icon>
+			</button>
+			<button (click)="fileInput.click()" mat-button class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300 w-52">Seleccionar archivo</button>
+		</div>
+		<input (change)="selectFile($event)" #fileInput type="file" class="hidden">
+	</mat-form-field>
+</div>

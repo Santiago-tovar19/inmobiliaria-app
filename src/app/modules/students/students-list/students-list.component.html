@@ -1,0 +1,124 @@
+<mat-drawer-container class="w-full" autosize>
+			<div class="grid sm:grid-cols-2 gap-8 w-full mb-6">
+				<div class="w-full col-span-1">
+					<div class="text-3xl font-bold">Alumnos</div>
+					<div class="text-secondary">Una lista de alumnos registradas en el sistema</div>
+				</div>
+				<div class="w-full col-span-1">
+					<div class='text-right'>
+						<button [routerLink]="'/alumnos/crear'" class="rounded mr-1 px-3 bg-primary-300 text-on-primary-300" mat-stroked-button>Crear Alumno</button>
+					</div>
+				</div>
+				<div class="w-full col-span-1">
+					<!-- Success -->
+					<fuse-alert *ngIf="m" [type]="'success'">
+						<span fuseAlertTitle>Exito</span>
+						El alumno ha sido
+						<span *ngIf="m==='1'">creada</span>
+						<span *ngIf="m==='2'">actualizada</span>
+						exitosamente
+					</fuse-alert>
+				</div>
+			</div>
+			<div class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+				<!-- Section -->
+				<div class="grid grid-cols-2">
+					<div class="col-span-1">
+						<div class="text-lg font-medium tracking-tight leading-6 truncate">Detalles de alumnos</div>
+					</div>
+					<div class="col-span-1">
+						<div class="w-72 ml-auto">
+							<mat-form-field class="w-72">
+								<mat-label>Buscar Alumno</mat-label>
+								<input [formControl]="search" matInput />
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+				<div class="flex flex-col flex-auto mt-2 overflow-x-auto">
+						<table
+								class="min-w-240 overflow-y-visible"
+								mat-table
+								[dataSource]="dataSource">
+
+								<!-- id -->
+								<ng-container matColumnDef="code">
+									<th mat-header-cell *matHeaderCellDef>Code</th>
+									<td mat-cell *matCellDef="let student">
+										<span class="font-medium text-right">
+											{{student.code}}
+										</span>
+									</td>
+								</ng-container>
+
+								<!-- Nombre -->
+								<ng-container matColumnDef="first_name">
+										<th mat-header-cell *matHeaderCellDef>Nombres</th>
+										<td mat-cell *matCellDef="let student">
+                      <span class="font-medium text-right">
+												{{student.first_name || '-'}}
+										</span>
+									</td>
+								</ng-container>
+
+								<!-- Email -->
+								<ng-container matColumnDef="last_name">
+									<th mat-header-cell *matHeaderCellDef>Apellidos</th>
+									<td mat-cell *matCellDef="let student">
+										<span class="font-medium text-right">
+												{{student.last_name || '-'}}
+										</span>
+									</td>
+							</ng-container>
+
+							<!-- Email -->
+								<ng-container matColumnDef="document">
+									<th mat-header-cell *matHeaderCellDef>Documento</th>
+									<td mat-cell *matCellDef="let student">
+										<span class="font-medium text-right">
+												{{student.document || '-'}}
+										</span>
+									</td>
+							</ng-container>
+
+							<!-- Email -->
+								<ng-container matColumnDef="email">
+									<th mat-header-cell *matHeaderCellDef>Email</th>
+									<td mat-cell *matCellDef="let student">
+										<span class="font-medium text-right">
+												{{student.email || '-'}}
+										</span>
+									</td>
+							</ng-container>
+
+							<!-- Email -->
+								<ng-container matColumnDef="phone">
+									<th mat-header-cell *matHeaderCellDef> Phone</th>
+									<td mat-cell *matCellDef="let student">
+										<span class="font-medium text-right">
+												{{student.phone || '-'}}
+										</span>
+									</td>
+							</ng-container>
+
+							<!-- Acciones -->
+							<ng-container matColumnDef="acciones">
+								<th mat-header-cell *matHeaderCellDef>Acciones</th>
+								<td mat-cell *matCellDef="let student">
+										<button (click)="editStudent(student.id)" class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
+								</td>
+						</ng-container>
+
+							<tr mat-header-row *matHeaderRowDef="columns"></tr>
+							<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: columns;" (click)="showStudentDetails(row)"></tr>
+						</table>
+						<mat-paginator [length]="studentsPaginated?.total"
+								[pageSize]="studentsPaginated?.per_page"
+								[pageSizeOptions]="[10, 25, 100]"
+								(page)="paginate($event)"
+								aria-label="Select page">
+						</mat-paginator>
+				</div>
+			</div>
+	<app-student-details #sidenav></app-student-details>
+</mat-drawer-container>

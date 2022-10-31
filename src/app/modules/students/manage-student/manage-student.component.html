@@ -1,0 +1,179 @@
+		<div class="w-full max-w-3xl m-auto">
+
+			<mat-tab-group>
+				<mat-tab label="Registro individual">
+					<!-- Form -->
+					<form>
+							<!-- Section -->
+							<div class="grid sm:grid-cols-2 gap-8 w-full mb-8">
+								<div class="w-full col-span-1">
+										<div class="text-3xl font-bold">Crear Alumno</div>
+										<div class="text-secondary">Ingresa la informacion para crear un alumno</div>
+								</div>
+								<div class="col-span-1 relative">
+									<div class="absolute -translate-y-2/4 top-2/4 left-0 right-0">
+										<fuse-alert
+													*ngIf="showAlert"
+													[appearance]="'outline'"
+													[showIcon]="false"
+													[type]="alert.type"
+													[@shake]="alert.type === 'error'">
+													{{alert.message}}
+										</fuse-alert>
+									</div>
+								</div>
+							</div>
+							<div [formGroup]="asignaturaForm" class="grid sm:grid-cols-2 gap-y-1 gap-x-5 w-full mt-8">
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Codigo</mat-label>
+										<input id='code' type="text" formControlName="code" matInput>
+										<mat-error
+										*ngIf="asignaturaForm.get('code').hasError('required')"
+										>Este campo es obligatorio</mat-error>
+										<mat-error
+										*ngIf="asignaturaForm.get('code').hasError('code')"
+										>Este campo es obligatorio</mat-error>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('code'))">
+											<ng-container *ngIf="asignaturaForm.get('code').hasError(i)">
+												{{asignaturaForm.get('code').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Nombres</mat-label>
+										<input id='first_name' type="text" formControlName="first_name" matInput>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('first_name'))">
+											<ng-container *ngIf="asignaturaForm.get('first_name').hasError(i)">
+												{{asignaturaForm.get('first_name').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Apellidos</mat-label>
+										<input id='last_name' type="text" formControlName="last_name" matInput>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('last_name'))">
+											<ng-container *ngIf="asignaturaForm.get('last_name').hasError(i)">
+												{{asignaturaForm.get('last_name').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Email</mat-label>
+										<input id='email' type="text" formControlName="email" matInput>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('email'))">
+											<ng-container *ngIf="asignaturaForm.get('email').hasError(i)">
+												{{asignaturaForm.get('email').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Nro Documento</mat-label>
+										<input id='document' type="text" formControlName="document" matInput>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('document'))">
+											<ng-container *ngIf="asignaturaForm.get('document').hasError(i)">
+												{{asignaturaForm.get('document').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Dirección</mat-label>
+										<input id='address' type="text" formControlName="address" matInput>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('address'))">
+											<ng-container *ngIf="asignaturaForm.get('address').hasError(i)">
+												{{asignaturaForm.get('address').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Nacionalidad</mat-label>
+										<mat-select matInput id='country_id' type="text" formControlName="country_id">
+											<mat-option *ngFor="let country of (countries$ | async)" [value]="country.id">{{country.name}}</mat-option>
+										</mat-select>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('country_id'))">
+											<ng-container *ngIf="asignaturaForm.get('country_id').hasError(i)">
+												{{asignaturaForm.get('country_id').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Sexo</mat-label>
+										<mat-select matInput id='sex' type="text" formControlName="sex">
+											<mat-option value="Masculino">Masculino</mat-option>
+											<mat-option value="Femenino">Femenino</mat-option>
+										</mat-select>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('sex'))">
+											<ng-container *ngIf="asignaturaForm.get('sex').hasError(i)">
+												{{asignaturaForm.get('sex').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Fecha nacimiento</mat-label>
+										<input formControlName="born_at" (click)="picker.open()" matInput [matDatepicker]="picker">
+										<mat-hint>MM/DD/YYYY</mat-hint>
+										<mat-datepicker #picker></mat-datepicker>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('born_at'))">
+											<ng-container *ngIf="asignaturaForm.get('born_at').hasError(i)">
+												{{asignaturaForm.get('born_at').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-span-1">
+									<mat-form-field class="w-full">
+										<mat-label>Telefono</mat-label>
+										<input id='phone' type="text" formControlName="phone" matInput>
+										<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('phone'))">
+											<ng-container *ngIf="asignaturaForm.get('phone').hasError(i)">
+												{{asignaturaForm.get('phone').errors[i]}}
+											</ng-container>
+										</mat-error>
+									</mat-form-field>
+								</div>
+							</div>
+							<!-- Divider -->
+							<div class="mt-11 mb-10 border-t"></div>
+							<!-- Actions -->
+							<div class="flex items-center justify-end">
+									<button
+											class="ml-4"
+											mat-flat-button
+											type="button"
+											(click)="gestionarAsignatura()"
+											[color]="'primary'">Guardar
+									</button>
+							</div>
+					</form>
+				</mat-tab>
+				<mat-tab label="Carga masiva">
+					<div>
+						<file-input #fileInput></file-input>
+						<button
+								class="ml-4"
+								mat-flat-button
+								type="button"
+								(click)="uploadStudentDocument()"
+								[color]="'primary'">Cargar al sistema
+						</button>
+					</div>
+				</mat-tab>
+			</mat-tab-group>
+
+		</div>

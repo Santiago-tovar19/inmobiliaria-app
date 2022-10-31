@@ -1,0 +1,28 @@
+<mat-drawer #drawer class="fixed" mode="side" [position]="'end'">
+	<div class='px-7 py-5'>
+		<div class="header">
+			<div class="grid grid-cols-12 items-baseline">
+				<div class="col-span-10">
+					<div class="text-2xl font-bold trncate">Detalles del nivel</div>
+				</div>
+				<div class="col-span-2">
+					<div class="w-fit ml-auto">
+						<button class="bg-transparent h-3 w-3 min-w-0" mat-button (click)="cerrarDetalles()">
+							<mat-icon class="text-xl">close</mat-icon>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr class="my-3">
+		<div class="detalles-institucion">
+			<div class="info">
+				<div class="mt-3 font-bold text-sm trncate">Nombre</div>
+				<div class="text-base trncate">{{student.first_name}}</div>
+			</div>
+			<div class="info">
+				<div class="mt-3 font-bold text-sm trncate">Descripción</div>
+			</div>
+		</div>
+	</div>
+</mat-drawer>

@@ -1,0 +1,69 @@
+		<div class="w-full max-w-3xl m-auto">
+
+			<!-- Form -->
+			<form>
+
+					<!-- Section -->
+					<div class="grid sm:grid-cols-2 gap-8 w-full mb-8">
+						<div class="w-full col-span-1">
+								<div class="text-3xl font-bold">Crear Asignatura</div>
+								<div class="text-secondary">Ingresa la informacion para crear un asignatura</div>
+						</div>
+						<div class="col-span-1 relative">
+							<div class="absolute -translate-y-2/4 top-2/4 left-0 right-0">
+								<fuse-alert
+											*ngIf="showAlert"
+											[appearance]="'outline'"
+											[showIcon]="false"
+											[type]="alert.type"
+											[@shake]="alert.type === 'error'">
+											{{alert.message}}
+								</fuse-alert>
+							</div>
+						</div>
+					</div>
+					<div [formGroup]="asignaturaForm" class="grid sm:grid-cols-2 gap-y-1 gap-x-5 w-full mt-8">
+						<div class="col-span-2">
+							<mat-form-field class="w-full">
+								<mat-label>Nombre</mat-label>
+								<input id='name' type="text" formControlName="name" matInput>
+								<mat-error
+								*ngIf="asignaturaForm.get('name').hasError('required')"
+								>Este campo es obligatorio</mat-error>
+								<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('name'))">
+									<ng-container *ngIf="asignaturaForm.get('name').hasError(i)">
+										{{asignaturaForm.get('name').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-2">
+							<mat-form-field class="w-full">
+								<mat-label>Descripción</mat-label>
+								<input id='description' type="text" formControlName="description" matInput>
+								<mat-error *ngFor="let i of _globalService.errorsLength(asignaturaForm.get('description'))">
+									<ng-container *ngIf="asignaturaForm.get('description').hasError(i)">
+										{{asignaturaForm.get('description').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+					</div>
+
+
+					<!-- Divider -->
+					<div class="mt-11 mb-10 border-t"></div>
+
+					<!-- Actions -->
+					<div class="flex items-center justify-end">
+							<button
+									class="ml-4"
+									mat-flat-button
+									type="button"
+									(click)="gestionarAsignatura()"
+									[color]="'primary'">Guardar
+							</button>
+					</div>
+			</form>
+
+		</div>
