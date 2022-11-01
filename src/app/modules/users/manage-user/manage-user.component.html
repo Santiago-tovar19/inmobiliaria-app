@@ -1,0 +1,139 @@
+<div class="w-full max-w-3xl m-auto">
+			<!-- Form -->
+			<form>
+					<!-- Section -->
+					<div class="grid sm:grid-cols-2 gap-8 w-full mb-8">
+						<div class="w-full col-span-1">
+								<div class="text-3xl font-bold">Crear Usero</div>
+								<div class="text-secondary">Ingresa la informacion para crear un usero</div>
+						</div>
+						<div class="col-span-1 relative">
+							<div class="absolute -translate-y-2/4 top-2/4 left-0 right-0">
+								<fuse-alert
+											*ngIf="showAlert"
+											[appearance]="'outline'"
+											[showIcon]="false"
+											[type]="alert.type"
+											[@shake]="alert.type === 'error'">
+											{{alert.message}}
+								</fuse-alert>
+							</div>
+						</div>
+					</div>
+					<div [formGroup]="userForm" class="grid sm:grid-cols-2 gap-y-1 gap-x-5 w-full mt-8">
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Nombres</mat-label>
+								<input id='full_name' type="text" formControlName="full_name" matInput>
+								<mat-error
+								*ngIf="userForm.get('full_name').hasError('required')"
+								>Este campo es obligatorio</mat-error>
+								<mat-error
+								*ngIf="userForm.get('full_name').hasError('full_name')"
+								>Este campo es obligatorio</mat-error>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('full_name'))">
+									<ng-container *ngIf="userForm.get('code').hasError(i)">
+										{{userForm.get('full_name').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Email</mat-label>
+								<input id='email' type="text" formControlName="email" matInput>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('email'))">
+									<ng-container *ngIf="userForm.get('email').hasError(i)">
+										{{userForm.get('email').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Nombre usuario</mat-label>
+								<input id='username' type="text" formControlName="username" matInput>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('username'))">
+									<ng-container *ngIf="userForm.get('username').hasError(i)">
+										{{userForm.get('username').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Telefono</mat-label>
+								<input id='phone' type="text" formControlName="phone" matInput>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('phone'))">
+									<ng-container *ngIf="userForm.get('phone').hasError(i)">
+										{{userForm.get('phone').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Nombre de corredora</mat-label>
+								<input id='broker_name' type="text" formControlName="broker_name" matInput>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_name'))">
+									<ng-container *ngIf="userForm.get('broker_name').hasError(i)">
+										{{userForm.get('broker_name').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Direccion de corredora</mat-label>
+								<input id='broker_address' type="text" formControlName="broker_address" matInput>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_address'))">
+									<ng-container *ngIf="userForm.get('broker_address').hasError(i)">
+										{{userForm.get('broker_address').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-2">
+							<mat-form-field class="w-full">
+								<mat-label>Rol de usuario</mat-label>
+								<mat-select formControlName="role_id">
+									<mat-option [value]="role.id" *ngFor="let role of roles">{{role.name}}</mat-option>
+								</mat-select>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_address'))">
+									<ng-container *ngIf="userForm.get('broker_address').hasError(i)">
+										{{userForm.get('broker_address').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-2">
+							<file-input
+							[label]="'Imagen de perfil'"
+							[fileControl]="userForm.get('img')"
+							[fileChangedControl]="userForm.get('img_changed')"
+							></file-input>
+						</div>
+						<div class="col-span-2 mt-5">
+							<file-input
+							[label]="'Logo de corredora'"
+							[fileControl]="userForm.get('broker_logo')"
+							[fileChangedControl]="userForm.get('broker_logo_changed')"
+							></file-input>
+						</div>
+					</div>
+					<!-- Divider -->
+					<div class="mt-11 mb-10 border-t"></div>
+					<!-- Actions -->
+					<div class="flex items-center justify-end">
+							<button
+									class="ml-4"
+									mat-flat-button
+									type="button"
+									(click)="this.userID ? updateUser() : createUser()"
+									[color]="'primary'">Guardar
+							</button>
+					</div>
+			</form>
+
+</div>

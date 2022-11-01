@@ -1,3 +1,20 @@
 ::ng-deep .file-input .mat-form-field-flex{
 	padding-right: 0px !important;
 }
+
+::ng-deep .file-input .mat-form-field-wrapper{
+	margin: 0px !important;
+}
+.file-input{
+	border: 2px dashed #ccc;
+	border-radius: 20px;
+	padding: 20px;
+}
+
+.description{
+	font-weight: 500;
+	color: #1e293bd9;
+	letter-spacing: normal;
+	margin-left: 6px;
+	margin-bottom: 8px;
+}

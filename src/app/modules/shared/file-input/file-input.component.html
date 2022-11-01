@@ -1,12 +1,20 @@
-<div class="w-full file-input">
-	<mat-form-field class="w-full">
-		<input [formControl]="fileName" matInput [disabled]="true">
-		<div class="flex items-center gap-4">
-			<button *ngIf="fileName.value" mat-button (click)="removeFile()">
-				<mat-icon>delete</mat-icon>
-			</button>
-			<button (click)="fileInput.click()" mat-button class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300 w-52">Seleccionar archivo</button>
+<div class="cont">
+	<div class="description">{{label}}</div>
+	<div class="w-full file-input flex gap-2 items-center">
+		<div [ngClass]="{'w-10/12': base64, 'w-full': !base64}">
+			<mat-form-field class="w-full">
+				<input class="h-full p-0" [formControl]="fileName" matInput>
+				<div class="flex items-center gap-4">
+					<button *ngIf="fileName.value" mat-button (click)="removeFile()">
+						<mat-icon>delete</mat-icon>
+					</button>
+					<button (click)="fileInput.click()" mat-button class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300 w-52">Seleccionar archivo</button>
+				</div>
+				<input (change)="selectFile($event)" #fileInput type="file" class="hidden">
+			</mat-form-field>
 		</div>
-		<input (change)="selectFile($event)" #fileInput type="file" class="hidden">
-	</mat-form-field>
+		<div class="w-2/12" *ngIf="base64">
+			<img class='w-full' [src]="base64" alt="">
+		</div>
+	</div>
 </div>
