@@ -15,5 +15,5 @@
 	RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
 
 	RewriteRule ^.*$ - [NC,L]
-	RewriteRule ^(.*) /directorio/index.html [NC,L]
+	RewriteRule ^(.*) /inmobiliaria/index.html [NC,L]
 </IfModule>
