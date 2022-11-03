@@ -43,6 +43,14 @@ export const appRoutes: Route[] = [
 							loadChildren: () =>
 								import('app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule),
 						},
+						{
+							path: 'crear-cuenta',
+							resolve: {
+								checkToken: ResetPasswordResolver,
+							},
+							loadChildren: () =>
+								import('app/modules/auth/crear-cuenta/crear-cuenta.module').then(m => m.CrearCuentaModule),
+						},
         ]
 
     },

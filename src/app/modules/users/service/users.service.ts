@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from 'app/interfaces/entities/user';
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 import { HttpSimpleResponse } from 'app/interfaces/http-responses/http-simple-response';
 import { environment } from 'environments/environment';
@@ -61,8 +62,15 @@ export class UsersService {
 			}
 		}
 
-		formData.append('img', data.img, data.img?.name);
-		formData.append('broker_logo', data.broker_logo, data.broker_logo?.name);
+		if(data.img_changed && data.img)
+			formData.append('img', data.img, data.img?.name)
+		else
+		formData.append('img', '')
+
+		if(data.broker_logo_changed && data.broker_logo)
+			formData.append('broker_logo', data.broker_logo, data.broker_logo?.name)
+		else
+			formData.append('broker_logo', '');
 
 		const headers = new HttpHeaders();
 		headers.append('Content-Type', 'multipart/form-data');
@@ -80,7 +88,7 @@ export class UsersService {
 				formData.append(key, element);
 			}
 		}
-		console.log(data);
+
 		if(data.img_changed && data.img)
 			formData.append('img', data.img, data.img?.name)
 		else
@@ -101,6 +109,14 @@ export class UsersService {
 
 	getPropertyEntities(): Observable<any> {
 		return this._httpClient.get<any>(`${environment.api}/users/get-property-entities`);
+	}
+
+	completeSignUp(usuario: User, token: string): Observable<HttpSimpleResponse> {
+		return this._httpClient.post<HttpSimpleResponse>(`${environment.api}/users/complete-signup/${token}`, usuario);
+	}
+
+	resendSignUpEmail(id: number): Observable<HttpSimpleResponse> {
+		return this._httpClient.get<HttpSimpleResponse>(`${environment.api}/users/resend-signup-email/${id}`, {});
 	}
 
 }

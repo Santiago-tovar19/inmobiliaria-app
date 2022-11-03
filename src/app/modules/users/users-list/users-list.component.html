@@ -111,7 +111,14 @@
 				<ng-container matColumnDef="acciones">
 					<th mat-header-cell *matHeaderCellDef>Acciones</th>
 					<td mat-cell *matCellDef="let user">
-							<button (click)="goToUser(user.id)" class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
+						<div class="flex gap-2">
+							<div class="1/2">
+								<button (click)="goToUser(user.id)" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
+							</div>
+							<div *ngIf='!user.email_verified_at' class="1/2">
+								<button (click)="resendSignUpEmail(user.id)" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Reenviar Correo</button>
+							</div>
+						</div>
 					</td>
 			</ng-container>
 

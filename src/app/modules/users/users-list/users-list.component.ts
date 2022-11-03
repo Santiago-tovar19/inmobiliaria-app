@@ -113,5 +113,12 @@ export class UsersListComponent implements OnInit {
 		});
 	}
 
+	resendSignUpEmail(id: number): void{
+		this._usersService.resendSignUpEmail(id).subscribe((response) => {
+			this._globalService.openSnackBar('Correo enviado', 5000, 'success');
+			console.log(response);
+		});
+	}
+
 
 }
