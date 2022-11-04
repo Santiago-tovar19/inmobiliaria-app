@@ -52,7 +52,7 @@
 						<ng-container matColumnDef="id">
 							<th mat-header-cell *matHeaderCellDef>ID</th>
 							<td mat-cell *matCellDef="let user">
-								<span class="font-medium text-right">
+								<span class="font-medium">
 									{{user.id}}
 								</span>
 							</td>
@@ -62,7 +62,7 @@
 						<ng-container matColumnDef="nombres">
 							<th mat-header-cell *matHeaderCellDef>Nombres y apellidos</th>
 							<td mat-cell *matCellDef="let user">
-								<span class="font-medium text-right">
+								<span class="font-medium">
 									{{user.full_name}}
 								</span>
 							</td>
@@ -72,7 +72,7 @@
 						<ng-container matColumnDef="email">
 							<th mat-header-cell *matHeaderCellDef>Nombres y apellidos</th>
 							<td mat-cell *matCellDef="let user">
-								<span class="font-medium text-right">
+								<span class="font-medium">
 									{{user.email}}
 								</span>
 							</td>
@@ -82,7 +82,7 @@
 						<ng-container matColumnDef="role">
 							<th mat-header-cell *matHeaderCellDef>Rol</th>
 							<td mat-cell *matCellDef="let user">
-								<span class="font-medium text-right">
+								<span class="font-medium">
 									{{user.role?.name || '-'}}
 								</span>
 							</td>
@@ -91,7 +91,7 @@
 						<ng-container matColumnDef="broker_phone">
 							<th mat-header-cell *matHeaderCellDef>Telefono Corredora</th>
 							<td mat-cell *matCellDef="let user">
-								<span class="font-medium text-right">
+								<span class="font-medium">
 									{{user.broker_phone || '-'}}
 								</span>
 							</td>
@@ -100,8 +100,18 @@
 						<ng-container matColumnDef="broker_address">
 							<th mat-header-cell *matHeaderCellDef>Direccion Corredora</th>
 							<td mat-cell *matCellDef="let user">
-								<span class="font-medium text-right">
+								<span class="font-medium">
 									{{user.broker_address || '-'}}
+								</span>
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="status">
+							<th mat-header-cell *matHeaderCellDef>Status Registro</th>
+							<td mat-cell *matCellDef="let user" class="px-5">
+								<span class="font-medium">
+									<div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
+									<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div>
 								</span>
 							</td>
 						</ng-container>

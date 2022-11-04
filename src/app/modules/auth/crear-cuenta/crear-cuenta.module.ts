@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {FuseAlertModule} from '@fuse/components/alert';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
 	declarations: [CrearCuentaComponent],
@@ -21,6 +22,7 @@ import {FuseAlertModule} from '@fuse/components/alert';
 		MatFormFieldModule,
 		MatInputModule,
 		MatIconModule,
+		MatCheckboxModule,
 		FuseAlertModule
 	],
 })

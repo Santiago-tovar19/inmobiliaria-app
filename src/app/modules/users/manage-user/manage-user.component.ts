@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
+import { Broker } from 'app/interfaces/entities/brokers';
 import { HttpValidationErrorResponse } from 'app/interfaces/http-responses/http-validation-error-response';
+import { BrokersService } from 'app/modules/brokers/service/brokers.service';
 import { EntityPropertiesService } from 'app/services/entity-properties/entity-properties.service';
 import { GlobalService } from 'app/services/global/global.service';
 import { takeUntil } from 'rxjs';
@@ -24,6 +26,7 @@ export class ManageUserComponent implements OnInit {
 	showAlert: boolean = false;
 	userID: string = '';
 	roles: any
+	brokers: Broker[];
 
   constructor(
 		public _globalService: GlobalService,
@@ -31,10 +34,14 @@ export class ManageUserComponent implements OnInit {
 		private _formBuilder: FormBuilder,
 		private _router: Router,
 		private _usersService: UsersService,
-		private _entityPropertiesService: EntityPropertiesService
+		private _entityPropertiesService: EntityPropertiesService,
+		private _brokersService: BrokersService
 	) { }
 
   ngOnInit(): void {
+		this._brokersService.getAll().subscribe((response) => {
+			this.brokers = response.data
+		});
 		this._entityPropertiesService.getAllRoles().subscribe((response) => {
 			console.log(response)
 			this.roles = response.data;
@@ -51,17 +58,15 @@ export class ManageUserComponent implements OnInit {
 
 	initForm(): void{
 		this.userForm = this._formBuilder.group({
-			full_name: [''],
-			email: [''],
-			username: [''],
-			phone: [''],
-			broker_name: [''],
-			broker_address: [''],
-			role_id: [''],
-			img: [''],
-			img_changed: [false],
-			broker_logo: [''],
-			broker_logo_changed: [false],
+			first_name  : [''],
+			last_name  : [''],
+			email      : [''],
+			phone      : [''],
+			broker_id  : [''],
+			role_id    : [''],
+			img        : [''],
+			verified   : [false],
+			img_changed: [false]
 		});
 	}
 

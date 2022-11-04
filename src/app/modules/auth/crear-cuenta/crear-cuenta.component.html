@@ -63,30 +63,6 @@
 								</mat-error>
 						</mat-form-field>
 
-						<!-- nombre field -->
-						<mat-form-field class="w-full">
-								<mat-label>Nombre de corredora</mat-label>
-								<input id="broker_name" matInput type="broker_name" [formControlName]="'broker_name'" #broker_nameField>
-								<mat-error id='required-nombre-error'>Este campo es obligatorio</mat-error>
-								<mat-error *ngFor="let i of _globalService.errorsLength(registroForm.get('broker_name'))">
-									<ng-container *ngIf="registroForm.get('broker_name').hasError(i)">
-										{{registroForm.get('broker_name').errors[i]}}
-									</ng-container>
-								</mat-error>
-						</mat-form-field>
-
-						<!-- nombre field -->
-						<mat-form-field class="w-full">
-								<mat-label>Direccion de corredora</mat-label>
-								<input id="broker_address" matInput type="broker_address" [formControlName]="'broker_address'" #broker_addressField>
-								<mat-error id='required-nombre-error'>Este campo es obligatorio</mat-error>
-								<mat-error *ngFor="let i of _globalService.errorsLength(registroForm.get('broker_address'))">
-									<ng-container *ngIf="registroForm.get('broker_address').hasError(i)">
-										{{registroForm.get('broker_address').errors[i]}}
-									</ng-container>
-								</mat-error>
-						</mat-form-field>
-
 							<!-- Password field -->
 							<mat-form-field class="w-full">
 									<mat-label>Password</mat-label>

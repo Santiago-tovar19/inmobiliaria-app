@@ -29,7 +29,7 @@ export class FileInputComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-		this.fileControl.valueChanges.subscribe((value) => {
+		this.fileControl?.valueChanges.subscribe((value) => {
 			if(value){
 				this.base64 = `${environment.assets}/files/${value}`;
 				this.fileName.setValue(value);

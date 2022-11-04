@@ -4,8 +4,13 @@
 					<!-- Section -->
 					<div class="grid sm:grid-cols-2 gap-8 w-full mb-8">
 						<div class="w-full col-span-1">
-								<div class="text-3xl font-bold">Crear Usero</div>
-								<div class="text-secondary">Ingresa la informacion para crear un usero</div>
+								<div class="text-3xl font-bold">Crear Usuario</div>
+								<div class="text-secondary">Ingresa la informacion para crear un usuario</div>
+						</div>
+						<div class="w-full col-span-1" [formGroup]="userForm">
+							<div>
+								<mat-checkbox formControlName="verified" class="flex w-full justify-end items-center">Usuario verificado</mat-checkbox>
+							</div>
 						</div>
 						<div class="col-span-1 relative">
 							<div class="absolute -translate-y-2/4 top-2/4 left-0 right-0">
@@ -24,16 +29,33 @@
 						<div class="col-span-1">
 							<mat-form-field class="w-full">
 								<mat-label>Nombres</mat-label>
-								<input id='full_name' type="text" formControlName="full_name" matInput>
+								<input id='first_name' type="text" formControlName="first_name" matInput>
 								<mat-error
-								*ngIf="userForm.get('full_name').hasError('required')"
+								*ngIf="userForm.get('first_name').hasError('required')"
 								>Este campo es obligatorio</mat-error>
 								<mat-error
-								*ngIf="userForm.get('full_name').hasError('full_name')"
+								*ngIf="userForm.get('first_name').hasError('first_name')"
 								>Este campo es obligatorio</mat-error>
-								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('full_name'))">
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('first_name'))">
 									<ng-container *ngIf="userForm.get('code').hasError(i)">
-										{{userForm.get('full_name').errors[i]}}
+										{{userForm.get('first_name').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-1">
+							<mat-form-field class="w-full">
+								<mat-label>Apellidos</mat-label>
+								<input id='last_name' type="text" formControlName="last_name" matInput>
+								<mat-error
+								*ngIf="userForm.get('last_name').hasError('required')"
+								>Este campo es obligatorio</mat-error>
+								<mat-error
+								*ngIf="userForm.get('last_name').hasError('last_name')"
+								>Este campo es obligatorio</mat-error>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('last_name'))">
+									<ng-container *ngIf="userForm.get('code').hasError(i)">
+										{{userForm.get('last_name').errors[i]}}
 									</ng-container>
 								</mat-error>
 							</mat-form-field>
@@ -52,44 +74,11 @@
 						</div>
 						<div class="col-span-1">
 							<mat-form-field class="w-full">
-								<mat-label>Nombre usuario</mat-label>
-								<input id='username' type="text" formControlName="username" matInput>
-								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('username'))">
-									<ng-container *ngIf="userForm.get('username').hasError(i)">
-										{{userForm.get('username').errors[i]}}
-									</ng-container>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<div class="col-span-1">
-							<mat-form-field class="w-full">
 								<mat-label>Telefono</mat-label>
 								<input id='phone' type="text" formControlName="phone" matInput>
 								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('phone'))">
 									<ng-container *ngIf="userForm.get('phone').hasError(i)">
 										{{userForm.get('phone').errors[i]}}
-									</ng-container>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<div class="col-span-1">
-							<mat-form-field class="w-full">
-								<mat-label>Nombre de corredora</mat-label>
-								<input id='broker_name' type="text" formControlName="broker_name" matInput>
-								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_name'))">
-									<ng-container *ngIf="userForm.get('broker_name').hasError(i)">
-										{{userForm.get('broker_name').errors[i]}}
-									</ng-container>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<div class="col-span-1">
-							<mat-form-field class="w-full">
-								<mat-label>Direccion de corredora</mat-label>
-								<input id='broker_address' type="text" formControlName="broker_address" matInput>
-								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_address'))">
-									<ng-container *ngIf="userForm.get('broker_address').hasError(i)">
-										{{userForm.get('broker_address').errors[i]}}
 									</ng-container>
 								</mat-error>
 							</mat-form-field>
@@ -100,9 +89,22 @@
 								<mat-select formControlName="role_id">
 									<mat-option [value]="role.id" *ngFor="let role of roles">{{role.name}}</mat-option>
 								</mat-select>
-								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_address'))">
-									<ng-container *ngIf="userForm.get('broker_address').hasError(i)">
-										{{userForm.get('broker_address').errors[i]}}
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('role_id'))">
+									<ng-container *ngIf="userForm.get('role_id').hasError(i)">
+										{{userForm.get('role_id').errors[i]}}
+									</ng-container>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<div class="col-span-2" *ngIf="userForm.get('role_id').value===3">
+							<mat-form-field class="w-full">
+								<mat-label>Corredora</mat-label>
+								<mat-select formControlName="broker_id">
+									<mat-option [value]="broker.id" *ngFor="let broker of brokers">{{broker.name}}</mat-option>
+								</mat-select>
+								<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('broker_id'))">
+									<ng-container *ngIf="userForm.get('broker_id').hasError(i)">
+										{{userForm.get('broker_id').errors[i]}}
 									</ng-container>
 								</mat-error>
 							</mat-form-field>
@@ -114,13 +116,13 @@
 							[fileChangedControl]="userForm.get('img_changed')"
 							></file-input>
 						</div>
-						<div class="col-span-2 mt-5">
+						<!-- <div class="col-span-2 mt-5">
 							<file-input
 							[label]="'Logo de corredora'"
 							[fileControl]="userForm.get('broker_logo')"
 							[fileChangedControl]="userForm.get('broker_logo_changed')"
 							></file-input>
-						</div>
+						</div> -->
 					</div>
 					<!-- Divider -->
 					<div class="mt-11 mb-10 border-t"></div>

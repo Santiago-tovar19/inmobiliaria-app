@@ -59,8 +59,6 @@ export class CrearCuentaComponent implements OnInit, OnDestroy {
 
 				username: [''],
 				phone: [''],
-				broker_name: [''],
-				broker_address: [''],
 
 				password: ['', Validators.required],
 				// eslint-disable-next-line @typescript-eslint/naming-convention
