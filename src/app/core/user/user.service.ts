@@ -8,7 +8,7 @@ import {User} from 'app/interfaces/entities/user';
 })
 export class UserService {
 	public userObject: User;
-	private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
+	public _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
 	/**
 	 * Constructor

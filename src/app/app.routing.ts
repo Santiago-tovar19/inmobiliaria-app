@@ -4,6 +4,7 @@ import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { ResetPasswordResolver } from './modules/auth/reset-password/resolver/reset-password.resolver';
+import { UserResolver } from './user.resolver';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -11,7 +12,7 @@ import { ResetPasswordResolver } from './modules/auth/reset-password/resolver/re
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'
-    {path: '', pathMatch : 'full', redirectTo: 'dashboard'},
+    // {path: '', pathMatch : 'full', redirectTo: 'dashboard'},
 
     // Redirect signed in user to the '/example'
     //
@@ -19,6 +20,31 @@ export const appRoutes: Route[] = [
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
     {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'dashboard'},
+
+
+
+
+		// Public routes
+		{
+			path: '',
+			canActivate: [],
+			canActivateChild: [],
+			component: LayoutComponent,
+			data: {
+					layout: 'modern'
+			},
+			resolve: {
+					initialData: UserResolver
+			},
+			children: [
+				{
+					path: '',
+					loadChildren: () =>
+						import('app/modules/public/properties/properties.module').then(m => m.PropertyModule),
+				}
+			]
+		},
+
 
     // Auth routes for guests
     {

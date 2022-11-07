@@ -1,0 +1,37 @@
+.owl-carousel-o{
+	width: 100%;
+}
+
+::ng-deep .owl-nav{
+	display: flex !important;
+	justify-content: space-between !important;
+	margin: 0 20px !important;
+	transform: translateY(-275px) !important;
+	z-index: 999 !important;
+	position: relative !important;
+}
+
+::ng-deep .owl-theme .owl-nav [class*=owl-]{
+	background: rgb(0 0 0 / 51%) !important;
+	height: 40px !important;
+	width: 40px !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	font-size: 19px !important;
+}
+
+::ng-deep .bar1 .mat-progress-bar-fill::after {
+	background-color: #00ba74
+	!important;
+}
+::ng-deep .bar2 .mat-progress-bar-fill::after {
+	background-color: #fbb851 !important;
+}
+::ng-deep .bar3 .mat-progress-bar-fill::after {
+	background-color: #83ce36
+	!important;
+}
+::ng-deep .bar4 .mat-progress-bar-fill::after {
+	background-color: #e6453c!important;
+}

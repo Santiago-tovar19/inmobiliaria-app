@@ -23,7 +23,7 @@
 <mat-menu
     [xPosition]="'before'"
     #userActions="matMenu">
-    <button mat-menu-item>
+    <button *ngIf="user" mat-menu-item>
         <span class="flex flex-col leading-none">
             <span>Has ingresado como</span>
             <span class="mt-1.5 text-md font-medium">{{user.email}}</span>
@@ -46,10 +46,25 @@
     </button> -->
     <mat-divider class="my-2"></mat-divider>
     <button
+				*ngIf="user"
+        mat-menu-item
+        routerLink="/dashboard">
+        <mat-icon [svgIcon]="'heroicons_outline:dashboard'"></mat-icon>
+        <span>Dashboard</span>
+    </button>
+		<button
+				*ngIf="user"
         mat-menu-item
         (click)="signOut()">
         <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>
         <span>Cerrar sesión</span>
+    </button>
+		<button
+				*ngIf="!user"
+        mat-menu-item
+        routerLink="/ingresar">
+        <mat-icon [svgIcon]="'heroicons_outline:login'"></mat-icon>
+        <span>Ingresar</span>
     </button>
 </mat-menu>
 
