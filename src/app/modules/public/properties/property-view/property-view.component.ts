@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { Property } from 'app/interfaces/entities/properties';
+import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -26,9 +30,37 @@ export class PropertyViewComponent implements OnInit {
     nav: true
   }
 
-	constructor() { }
+	propertyID: string;
+	property: Property = {} as any;
+
+	constructor(
+		private _propertiesService: PropertiesService,
+		private _activatedRouter: ActivatedRoute,
+		private sanitizer: DomSanitizer
+	) { }
 
 	ngOnInit(): void {
+
+		this._activatedRouter.params.subscribe(params => {
+			if(params.id) {
+				this.propertyID = params.id;
+				this.getProperty();
+			}else{
+				this.propertyID = '1';
+				this.getProperty();
+			}
+		});
+	}
+
+
+	getProperty(): void {
+		this._propertiesService.get(this.propertyID).subscribe(res => {
+			this.property = res.data;
+		});
+	}
+
+	updateVideoUrl(url) {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 	}
 
 }
