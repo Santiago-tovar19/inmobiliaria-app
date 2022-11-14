@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Property } from 'app/interfaces/entities/properties';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
+import { environment } from 'environments/environment';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -32,6 +33,9 @@ export class PropertyViewComponent implements OnInit {
 
 	propertyID: string;
 	property: Property = {} as any;
+	environment = environment;
+	bannerImgs = [];
+	galleryImgs = [];
 
 	constructor(
 		private _propertiesService: PropertiesService,
@@ -40,7 +44,6 @@ export class PropertyViewComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-
 		this._activatedRouter.params.subscribe(params => {
 			if(params.id) {
 				this.propertyID = params.id;
@@ -56,6 +59,8 @@ export class PropertyViewComponent implements OnInit {
 	getProperty(): void {
 		this._propertiesService.get(this.propertyID).subscribe(res => {
 			this.property = res.data;
+			this.bannerImgs = this.property.images.filter(img => img.type == 'Banner');
+			this.galleryImgs = this.property.images.filter(img => img.type == 'Gallery');
 		});
 	}
 

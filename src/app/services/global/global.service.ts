@@ -52,16 +52,21 @@ export class GlobalService {
 		return [];
 	}
 
-	openSnackBar(message: string, duration: number = 3000, type: string = 'success'): void {
-		const className = type === 'success' ? ['bg-green-700', 'text-white'] : ['bg-red-700', 'text-red-100'];
-		this._ngZone.run(() => {
-			this._snackBar.open(message, null, {
-				horizontalPosition: 'center',
-				verticalPosition: 'top',
-				duration: duration,
-				panelClass: className,
-			});
-		});
+	openSnackBar(message: string, duration: number = 3000, type: string = 'success', action = null): Promise<any> {
+		const className = type === 'success' ? ['bg-green-700', 'text-white'] : ['bg-red-700', 'text-red-100']
+		return new Promise(resolve => {
+
+			this._ngZone.run(() => {
+				this._snackBar.open(message, action, {
+					horizontalPosition: 'center',
+					verticalPosition: 'top',
+					duration: duration,
+					panelClass: className,
+				}).onAction().subscribe(() => {
+					resolve(true)
+				});
+			})
+		})
 	}
 
 	formatDataForChart(chart: any, data: any, dateTimeKey: string, valueKey: string, label: string): any {

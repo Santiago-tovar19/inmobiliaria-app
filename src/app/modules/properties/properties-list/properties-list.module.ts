@@ -40,6 +40,10 @@ import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
 		ExcerptPipesModule,
 		MatPaginatorModule,
 		FileInputModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		MatInputModule,
+
   ]
 })
 export class PropertiesListModule { }

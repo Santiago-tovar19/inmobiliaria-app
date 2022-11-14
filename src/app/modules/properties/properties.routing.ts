@@ -1,4 +1,5 @@
 import {Route} from '@angular/router';
+import { ManagePropertyComponent } from './manage-property/manage-property.component';
 import { PropertiesListComponent } from './properties-list/properties-list.component';
 
 export const propertiesRoutes: Route[] = [
@@ -6,14 +7,14 @@ export const propertiesRoutes: Route[] = [
 		path: 'lista',
 		component: PropertiesListComponent,
 	},
-	// {
-	// 	path: 'crear',
-	// 	component: ManageUserComponent,
-	// },
-	// {
-	// 	path: 'editar/:id',
-	// 	component: ManageUserComponent,
-	// },
+	{
+		path: 'crear',
+		component: ManagePropertyComponent,
+	},
+	{
+		path: 'editar/:id',
+		component: ManagePropertyComponent,
+	},
     {
 		path: '',
 		// redirectTo: 'lista',

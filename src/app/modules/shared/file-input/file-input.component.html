@@ -10,11 +10,8 @@
 					</button>
 					<button (click)="fileInput.click()" mat-button class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300 w-52">Seleccionar archivo</button>
 				</div>
-				<input (change)="selectFile($event)" #fileInput type="file" class="hidden">
+				<input (change)="selectFile($event)" #fileInput type="file" multiple class="hidden">
 			</mat-form-field>
-		</div>
-		<div class="w-2/12" *ngIf="base64">
-			<img class='w-full' [src]="base64" alt="">
 		</div>
 	</div>
 </div>

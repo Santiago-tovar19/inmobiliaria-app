@@ -5,9 +5,9 @@
 			<div class="text-secondary">Una lista de propiedades registradas en el sistema</div>
 		</div>
 		<div class="w-full col-span-1">
-			<!-- <div class='text-right'>
-				<button [routerLink]="'/usuarios/crear'" class="rounded mr-1 px-3 bg-primary-300 text-on-primary-300" mat-stroked-button>Crear Usuario</button>
-			</div> -->
+			<div class='text-right'>
+				<button [routerLink]="'/propiedades/crear'" class="rounded mr-1 px-3 bg-primary-300 text-on-primary-300" mat-stroked-button>Crear Propiedad</button>
+			</div>
 		</div>
 		<div class="w-full col-span-1">
 			<!-- Success -->
@@ -111,7 +111,7 @@
 					<td mat-cell *matCellDef="let property">
 						<div class="flex gap-2">
 							<div class="1/2">
-									<mat-icon class="text-on-primary-300">edit</mat-icon>
+									<mat-icon [routerLink]="'/propiedades/editar/'+property.id" class="text-on-primary-300">edit</mat-icon>
 							</div>
 							<div class="1/2">
 									<mat-icon (click)="newTab('propiedad/'+property.id)" class="text-on-primary-300">visibility</mat-icon>

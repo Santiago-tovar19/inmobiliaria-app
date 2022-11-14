@@ -12,6 +12,11 @@ export interface Property {
 	property_type_id: number;
 	property_type: Generic;
 	address: string;
+	kitchen: number;
+	elevator: number;
+	construction_year: string;
+	wifi: number;
+	fireplace: number;
 	mls_number: string;
 	location_type: string;
 	bedrooms: number;
@@ -23,10 +28,11 @@ export interface Property {
 	youtube_link: string;
 	status_id: number;
 	status: Generic;
-	images: {
+	images: Array<{
 		id: number;
-		path: string;
-	}
+		name: string;
+		type: string;
+	}>;
 	parking: 0 | 1;
 	hoa: 0 | 1;
 	stories: 0 | 1;

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { propertiesRoutes } from './properties.routing';
 import { PropertiesListModule } from './properties-list/properties-list.module';
+import { ManagePropertyModule } from './manage-property/manage-property.module';
 
 
 
@@ -11,7 +12,8 @@ import { PropertiesListModule } from './properties-list/properties-list.module';
   imports: [
     CommonModule,
 		RouterModule.forChild(propertiesRoutes),
-		PropertiesListModule
+		PropertiesListModule,
+		ManagePropertyModule
   ]
 })
 export class PropertiesModule { }

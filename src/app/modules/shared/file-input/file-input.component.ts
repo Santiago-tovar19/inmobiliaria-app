@@ -10,7 +10,7 @@ import { environment } from 'environments/environment';
 export class FileInputComponent implements OnInit, OnChanges {
 
 	@ViewChild('fileInput') fileInput: HTMLInputElement;
-	@Output() fileChange = new EventEmitter<File>();
+	@Output() fileChange = new EventEmitter<FileList>();
 	@Input() fileControl: FormControl
 	@Input() fileChangedControl: FormControl
 	@Input() label = 'Subir archivo';
@@ -42,22 +42,9 @@ export class FileInputComponent implements OnInit, OnChanges {
 
 	selectFile(event: Event): void {
 		const target = event.target as HTMLInputElement;
-		const file = target.files[0];
-		this.fileName.setValue(file.name);
-		this.fileChange.emit(file);
-		this.fileToBase64(file).then((base64) => {
-			this.base64 = base64;
-		});
-		this.fileChangedControl.setValue(true);
-		this.fileControl.setValue(file);
+		const files = target.files;
+		this.fileChange.emit(files);
 	}
 
-	removeFile(): void {
-		this.fileChangedControl.setValue(true);
-		this.fileName.setValue('');
-		this.fileControl.setValue(null);
-		this.fileInput.value = '';
-		this.base64 = '';
-	}
 
 }

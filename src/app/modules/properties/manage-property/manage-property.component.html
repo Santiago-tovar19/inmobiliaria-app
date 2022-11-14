@@ -1,0 +1,616 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<div class="w-full" [formGroup]="propertyFG">
+	<!-- {{property.images | json}} -->
+	<div class="w-full -my-5">
+		<owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
+			<ng-template *ngFor="let imgs of filesBanner" carouselSlide id="carou1">
+				<div>
+					<div style="background-image: url({{imgs.base64}})" class="img h-120 bg-cover bg-no-repeat bg-center">
+						<mat-icon style="width:95%" class="w-full justify-end text-red-700 cursor-pointer mt-2" (click)="removeBanner(imgs.id)">delete</mat-icon>
+					</div>
+				</div>
+			</ng-template>
+		</owl-carousel-o>
+	</div>
+	<div class="grid grid-cols-3 gap-5 max-w-320 mx-auto">
+		<div class="col-span-2">
+			<div class="bg-card shadow rounded-2xl p-6 mb-4">
+				<div>Imagenes de slide</div>
+				<div class="mb-5">
+					<file-input (fileChange)="fileChangesBanner($event)"></file-input>
+				</div>
+				<div class="w-full flex flex-wrap gap-3">
+					<div *ngFor="let img of this.files" style="background-image: url({{img.base64}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md">
+						<mat-icon style="width:95%" class="w-full justify-end text-red-700 cursor-pointer mt-2" (click)="remove(img.id)">delete</mat-icon>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col gap-10">
+				<div class="bg-card shadow rounded-2xl p-6">
+					<div class="flex flex-col gap-2">
+						<select formControlName="contract_type_id" class="w-50 p-1 rounded-md border border-solid" placeholder="Modo">
+							<option disabled [value]="null">Venta/Alquiler</option>
+							<option *ngFor="let contracts of contractTypes" [value]="contracts.id">{{contracts.name}}</option>
+						</select>
+						<!-- <span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">En venta</span> -->
+						<input formControlName="name" placeholder="Nombre" class="font-bold text-3xl leading-8 w-100 p-1 rounded-md border border-solid" type="text">
+						<!-- <h1 class="font-bold text-3xl leading-8">{{property.name}}</h1> -->
+						<div class="flex gap-1 items-center">
+							<mat-icon class="font-light text-slate-600">location_on</mat-icon>
+							<input formControlName="address" placeholder="Direccion" class="font-light text-slate-600 w-100 p-1 rounded-md border border-solid" type="text">
+						</div>
+						<div>
+							<input formControlName="price" class="w-50 rounded-md border border-solid text-3xl text-green-600" placeholder="Precio" type="text">
+							<!-- <span class="text-3xl text-green-600 font-extrabold">{{property.price}}</span> -->
+							<!-- <span class="text-sm text-slate-400"> {{property.currency?.name}}</span> -->
+							<select formControlName="currency_id" class="ml-1 w-40 p-1 rounded-md border border-solid" placeholder="Moneda">
+								<option disabled [value]="null">Moneda</option>
+								<option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
+							</select>
+						</div>
+						<div class="mt-2 flex gap-4">
+							<div class="flex items-center gap-1">
+								<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="mat_solid:bed"></mat-icon>
+								<select formControlName="bedrooms" class="w-40 p-1 rounded-md border border-solid" placeholder="Habitaciones">
+									<option [value]="0">0 Habitaciones</option>
+									<option [value]="1">1 Habitación</option>
+									<option [value]="2">2 Habitaciones</option>
+									<option [value]="3">3 Habitaciones</option>
+									<option [value]="4">4 Habitaciones</option>
+									<option [value]="5">5 Habitaciones</option>
+									<option [value]="6">6 Habitaciones</option>
+									<option [value]="6">6 Habitaciones</option>
+									<option [value]="6">6 Habitaciones</option>
+									<option [value]="6">6 Habitaciones</option>
+									<option [value]="6">6 Habitaciones</option>
+								</select>
+							</div>
+							<div class="flex items-center gap-1">
+								<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="mat_solid:bathtub"></mat-icon>
+								<select formControlName="bathrooms" class="w-40 p-1 rounded-md border border-solid" placeholder="Baños">
+									<option [value]="1">0 Baños</option>
+									<option [value]="1">1 Baño</option>
+									<option [value]="2">2 Baños</option>
+									<option [value]="3">3 Baños</option>
+									<option [value]="4">4 Baños</option>
+									<option [value]="5">5 Baños</option>
+									<option [value]="6">6 Baños</option>
+									<option [value]="6">6 Baños</option>
+									<option [value]="6">6 Baños</option>
+									<option [value]="6">6 Baños</option>
+									<option [value]="6">6 Baños</option>
+								</select>
+							</div>
+							<div class="flex items-center gap-1">
+								<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="feather:move"></mat-icon>
+								<!-- <span class="text-slate-400 text-base">{{property.size}}m<sup>2</sup></span> -->
+								<input formControlName="size" class="w-20 rounded-md border border-solid" placeholder="Area" type="text"> m<sup>2</sup>
+							</div>
+						</div>
+					</div>
+				</div>
+				<mat-accordion class="example-headers-align" multi>
+
+					<mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">Detalles y características</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class="flex flex-wrap">
+							<div class="w-1/3 flex flex-col gap-5">
+								<div>
+									<strong class="text-base text-slate-600">Garaje: </strong>
+									<select formControlName="parking" class="w-20 p-1 rounded-md border border-solid" placeholder="Garaje">
+										<option [value]="true">Si</option>
+										<option [value]="false">No</option>
+									</select>
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Status: </strong>
+									<select formControlName="status_id" class="w-20 p-1 rounded-md border border-solid" placeholder="Status">
+										<option *ngFor="let stat of status" [value]="stat.id">{{stat.name}}</option>
+									</select>
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Cocina: </strong>
+									<select formControlName="kitchen" class="w-20 p-1 rounded-md border border-solid" placeholder="Cocina">
+										<option [value]="true">Si</option>
+										<option [value]="false">No</option>
+									</select>
+								</div>
+							</div>
+							<div class="w-1/3 flex flex-col gap-5">
+								<div>
+									<strong class="text-base text-slate-600">Tipo de propiedad: </strong>
+									<select formControlName="property_type_id" class="w-20 p-1 rounded-md border border-solid" placeholder="Status">
+										<option *ngFor="let propertyType of status" [value]="propertyType.id">{{propertyType.name}}</option>
+									</select>
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Chimenea: </strong>
+									<select formControlName="fireplace" class="w-20 p-1 rounded-md border border-solid" placeholder="Chimenea">
+										<option [value]="true">Si</option>
+										<option [value]="false">No</option>
+									</select>
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Elevador: </strong>
+									<select formControlName="elevator" class="w-20 p-1 rounded-md border border-solid" placeholder="Elevador">
+										<option [value]="true">Si</option>
+										<option [value]="false">No</option>
+									</select>
+								</div>
+							</div>
+							<div class="w-1/3 flex flex-col gap-5">
+								<div>
+									<strong class="text-base text-slate-600">Año: </strong>
+									<input formControlName="construction_year" class="w-30 rounded-md border border-solid" placeholder="Año contrucción" type="text">
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Piscina: </strong>
+									<select formControlName="swimming_pool" class="w-20 p-1 rounded-md border border-solid" placeholder="Piscina">
+										<option [value]="true">Si</option>
+										<option [value]="false">No</option>
+									</select>
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Wifi gratis: </strong>
+									<select formControlName="wifi" class="w-20 p-1 rounded-md border border-solid" placeholder="Wifi">
+										<option [value]="true">Si</option>
+										<option [value]="false">No</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</mat-expansion-panel>
+
+					<mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">Descripción</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<textarea formControlName="description" class="p-1 rounded-md border border-solid w-full" name="" id="" cols="30" rows="10"></textarea>
+					</mat-expansion-panel>
+
+					<mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">Comodidades</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class="flex flex-wrap">
+							<div class="w-1/3 flex flex-col gap-5">
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('security').value==1" [class.text-red-500]="propertyFG.get('security').value==0" >{{propertyFG.get('security').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Seguridad </span>
+									<select formControlName="security" class="w-20 p-1 rounded-md border border-solid" placeholder="Seguridad">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('power_plant').value==1" [class.text-red-500]="propertyFG.get('power_plant').value==0" >{{propertyFG.get('power_plant').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Planta de poder </span>
+									<select formControlName="power_plant" class="w-20 p-1 rounded-md border border-solid" placeholder="Planta poder">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('walk_in_closet').value==1" [class.text-red-500]="propertyFG.get('walk_in_closet').value==0" >{{propertyFG.get('walk_in_closet').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Vestidor </span>
+									<select formControlName="walk_in_closet" class="w-20 p-1 rounded-md border border-solid" placeholder="Vestidor">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+							</div>
+							<div class="w-1/3 flex flex-col gap-5">
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('fireplace').value==1" [class.text-red-500]="propertyFG.get('fireplace').value==0" >{{propertyFG.get('fireplace').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Vestibulo </span>
+									<select formControlName="lobby" class="w-20 p-1 rounded-md border border-solid" placeholder="Vestibulo">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('balcony').value==1" [class.text-red-500]="propertyFG.get('balcony').value==0" >{{propertyFG.get('balcony').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Balcon </span>
+									<select formControlName="balcony" class="w-20 p-1 rounded-md border border-solid" placeholder="Balcon">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('terrace').value==1" [class.text-red-500]="propertyFG.get('terrace').value==0" >{{propertyFG.get('terrace').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Terraza </span>
+									<select formControlName="terrace" class="w-20 p-1 rounded-md border border-solid" placeholder="Terraza">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+							</div>
+							<div class="w-1/3 flex flex-col gap-5">
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('gym').value==1" [class.text-red-500]="propertyFG.get('gym').value==0" >{{propertyFG.get('gym').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Gym </span>
+									<select formControlName="gym" class="w-20 p-1 rounded-md border border-solid" placeholder="Gym">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('kids_area').value==1" [class.text-red-500]="propertyFG.get('kids_area').value==0" >{{propertyFG.get('kids_area').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Area de niños </span>
+									<select formControlName="kids_area" class="w-20 p-1 rounded-md border border-solid" placeholder="Area de niños">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="propertyFG.get('pets_allowed').value==1" [class.text-red-500]="propertyFG.get('pets_allowed').value==0" >{{propertyFG.get('pets_allowed').value==1 ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Mascotas permitidas </span>
+									<select formControlName="pets_allowed" class="w-20 p-1 rounded-md border border-solid" placeholder="Mascotas permitidas">
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</mat-expansion-panel>
+
+					<mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">Video</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class="flex flex-wrap" *ngIf="property.youtube_link">
+							<input placeholder="Introduce la URL del video de youtube" formControlName="youtube_link" class="w-full rounded-md border border-solid" type="text">
+							<iframe *ngIf="propertyFG.get('youtube_link').value" width="100%" height="400" [src]="updateVideoUrl(propertyFG.get('youtube_link').value)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+					</mat-expansion-panel>
+
+					<!-- <mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">Pisos</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class="flex flex-wrap">
+								<div class="w-full flex flex-col gap-5">
+									<div class="flex gap-6 items-center">
+										<strong class="text-base text-slate-600">Primero piso: </strong>
+										<span class="px-3 py-1 text-slate-200 bg-slate-400">740m<sup>2</sup></span>
+									</div>
+									<div class="flex gap-9 items-center">
+										<strong class="text-base text-slate-600">Segundo piso: </strong>
+										<span class="px-3 py-1 text-slate-200 bg-slate-400">710m<sup>2</sup></span>
+									</div>
+									<div class="flex gap-9 items-center">
+										<strong class="text-base text-slate-600">Garaje: </strong>
+										<span class="px-3 py-1 text-slate-200 bg-slate-400">520m<sup>2</sup></span>
+									</div>
+							</div>
+						</div>
+					</mat-expansion-panel> -->
+
+					<mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">Galeria</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class="mb-5">
+							<file-input (fileChange)="fileChanges($event)"></file-input>
+						</div>
+						<div class="w-full flex flex-wrap gap-3">
+							<div *ngFor="let img of this.files" style="background-image: url({{img.base64}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md">
+								<mat-icon style="width:95%" class="w-full justify-end text-red-700 cursor-pointer mt-2" (click)="remove(img.id)">delete</mat-icon>
+							</div>
+						</div>
+					</mat-expansion-panel>
+
+				</mat-accordion>
+
+				<!-- Otra -->
+				<div class="bg-card shadow rounded-2xl p-6">
+					<div class="flex flex-row gap-2 items-center">
+						<div class="w-1/6">
+							<div class="text-center">
+								<div class="text-8xl text-slate-800 font-extrabold">4.2</div>
+								<div style="transform: translateY(-15px);">
+									<div class="text-lg text-slate-500">de 5.0</div>
+									<div class="flex justify-center">
+										<mat-icon class="text-xl text-yellow-500 justify-center">star_border</mat-icon>
+										<mat-icon class="text-xl text-yellow-500 justify-center">star_border</mat-icon>
+										<mat-icon class="text-xl text-yellow-500 justify-center">star_border</mat-icon>
+										<mat-icon class="text-xl text-yellow-500 justify-center">star_border</mat-icon>
+										<mat-icon class="text-xl text-yellow-500 justify-center">star_border</mat-icon>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="w-5/6">
+							<div class="flex gap-10 items-center">
+								<div class="w-1/2">
+									<div>
+										Service
+										<div class="flex justify-center items-center gap-5">
+											<mat-progress-bar class="bar1" mode="determinate" value="40"></mat-progress-bar>
+											<div class="bg-slate-200 p-1 rounded-full">4.7</div>
+										</div>
+									</div>
+									<div>
+										Localidad
+										<div class="flex justify-center items-center gap-5">
+											<mat-progress-bar class="bar2" mode="determinate" value="40"></mat-progress-bar>
+											<div class="bg-slate-200 p-1 rounded-full">4.7</div>
+										</div>
+									</div>
+								</div>
+								<div class="w-1/2">
+									<div>
+										Relación calidad-precio
+										<div class="flex justify-center items-center gap-5">
+											<mat-progress-bar class="bar3" mode="determinate" value="40"></mat-progress-bar>
+											<div class="bg-slate-200 p-1 rounded-full">4.7</div>
+										</div>
+									</div>
+									<div>
+										Limpieza
+										<div class="flex justify-center items-center gap-5">
+											<mat-progress-bar class="bar4" mode="determinate" value="40"></mat-progress-bar>
+											<div class="bg-slate-200 p-1 rounded-full">4.7</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- Otro Acordeon -->
+				<!-- <mat-accordion class="example-headers-align" multi>
+
+					<mat-expansion-panel [expanded]="true">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								<span class="font-bold text-lg">10 Reseñas</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div>
+							<div class="flex gap-2">
+								<div class="w-2/12">
+									<img class="w-20 h-20 rounded-full mx-auto" src="https://themezhub.net/resido-live/resido/assets/img/user-1.jpg">
+								</div>
+								<div class="w-10/12">
+									<div style="color: #2d3954;" class="text-xl font-bold">Rosalina Kelian</div>
+									<div style="color: #00ba74" class="text-sm">19TH MAY 2018</div>
+									<div>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab. perspiciatis unde omnis iste natus error.</div>
+								</div>
+							</div>
+							<hr>
+							<div class="flex gap-2">
+								<div class="w-2/12">
+									<img class="w-20 h-20 rounded-full mx-auto" src="https://themezhub.net/resido-live/resido/assets/img/user-5.jpg">
+								</div>
+								<div class="w-10/12">
+									<div style="color: #2d3954;" class="text-xl font-bold">Rosalina Kelian</div>
+									<div style="color: #00ba74" class="text-sm">19TH MAY 2018</div>
+									<div>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab. perspiciatis unde omnis iste natus error.</div>
+								</div>
+							</div>
+							<hr class="mb-4">
+							<div style="color: #1266e3;" class="text-center font-semibold cursor-pointer">Ver mas reseñas</div>
+						</div>
+					</mat-expansion-panel>
+
+				</mat-accordion> -->
+
+
+
+			</div>
+		</div>
+		<div class="col-span-1">
+			<fuse-alert *ngFor="let error of errors" [type]="'warn'" class="mb-4">
+				<span fuseAlertTitle>Campo: {{nameKeys[error.key]}}</span>
+				El campo es obligatorio
+			</fuse-alert>
+		</div>
+		<!-- <div class="col-span-1">
+			<div class="flex flex-col gap-3">
+				<div class="bg-card shadow rounded-2xl p-6">
+					<div class="w-full flex gap-4">
+						<button class="w-1/2 rounded-sm border-green-800 text-green-800 bg-green-100" mat-stroked-button>
+							<div class="flex items-center gap-2">
+								<mat-icon class="text-lg">share</mat-icon>
+								<span>Compartir</span>
+							</div>
+						</button>
+						<button class="w-1/2 rounded-sm border-red-700 text-red-700 bg-red-100" mat-stroked-button>
+							<div class="flex items-center gap-2">
+								<mat-icon class="icon-size-4 text-red-700" svgIcon="feather:heart"></mat-icon>
+								<span>Guardar</span>
+							</div>
+						</button>
+					</div>
+				</div>
+
+				<div #card class="bg-card shadow rounded-2xl p-6">
+					<div class="flex gap-4 rounded-t-2xl -m-6 p-6 items-center" [style]="'width: '+ (card.offsetWidth) + 'px'" style="background: #0fca98">
+							<div >
+								<img class="w-15 h-15 rounded-full font-bold" src="https://themezhub.net/resido-live/resido/assets/img/user-6.jpg">
+							</div>
+							<div>
+								<div class="text-white text-2xl font-extrabold">Shivangi Preet</div>
+								<div class="text-base text-slate-100 flex items-center gap-2">
+									<mat-icon class="text-slage-100 text-base">phone</mat-icon>
+									(91) 123 456 7895
+								</div>
+							</div>
+					</div>
+					<div class="mt-10">
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Email</mat-label>
+								<input matInput type="text">
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Telefono</mat-label>
+								<input matInput type="text">
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Mensaje</mat-label>
+								<textarea matInput type="text"></textarea>
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<button class="w-full rounded-lg text-white" mat-stroked-button style="background: #263547">
+								<div class="flex items-center gap-2">
+									<mat-icon class="text-lg text-white">send</mat-icon>
+									<span>Enviar</span>
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div #card2 class="bg-card shadow rounded-2xl p-6">
+					<div class="flex gap-4 rounded-t-2xl -m-6 p-6 items-center" [style]="'width: '+ (card2.offsetWidth) + 'px'" style="background: #0fca98">
+							<div>
+								<div class="text-white text-2xl font-extrabold">Shivangi Preet</div>
+								<div class="text-base text-slate-100 flex items-center gap-2">
+									View your Interest Rate
+								</div>
+							</div>
+					</div>
+					<div class="mt-10">
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Precio de venta</mat-label>
+								<input matInput type="text">
+								<mat-icon matSuffix>attach_money</mat-icon>
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Depósito</mat-label>
+								<input matInput type="text">
+								<mat-icon matSuffix>attach_money</mat-icon>
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Plazo del préstamo (años)</mat-label>
+								<input matInput type="text">
+								<mat-icon matSuffix>calendar_today</mat-icon>
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<mat-form-field class="w-full">
+								<mat-label>Tasa de interés</mat-label>
+								<input matInput type="text">
+
+								<mat-icon matSuffix>percent</mat-icon>
+							</mat-form-field>
+						</div>
+						<div class="w-full">
+							<button class="w-full rounded-lg text-white" mat-stroked-button style="background: #263547">
+								<div class="flex items-center gap-2">
+									<mat-icon class="text-lg text-white" svgIcon="mat_solid:calculate"></mat-icon>
+									<span>Calcular</span>
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="mt-5">
+					<div class="font-bold text-2xl mb-2" style="color: #2D3954">Propiedades destacadas</div>
+
+
+						<div class="bg-card shadow rounded-2xl p-3">
+							<div class="flex gap-2">
+								<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-1.jpg);"></div>
+								<div class="w-3/4">
+									<div style="color: #4e5c79" class="font-bold text-lg">Loss Vengel New Apartment</div>
+									<div class="flex gap-1 items-center text-sm">
+										<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
+										<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
+									</div>
+									<div class="flex w-full justify-between items-center text-sm mt-2">
+										<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">En venta</span>
+										<div class="text-slate-600 text-lg font-extrabold">$4,240</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bg-card shadow rounded-2xl p-3 mt-4">
+							<div class="flex gap-2">
+								<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-2.jpg);"></div>
+								<div class="w-3/4">
+									<div style="color: #4e5c79" class="font-bold text-lg">Loss Vengel New Apartment</div>
+									<div class="flex gap-1 items-center text-sm">
+										<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
+										<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
+									</div>
+									<div class="flex w-full justify-between items-center text-sm mt-2">
+										<span class="bg-orange-200 text-orange-600 py-1 px-2 rounded-full text-sm w-fit">En renta</span>
+										<div class="text-slate-600 text-lg font-extrabold">$5,540</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bg-card shadow rounded-2xl p-3 mt-4">
+							<div class="flex gap-2">
+								<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-3.jpg);"></div>
+								<div class="w-3/4">
+									<div style="color: #4e5c79" class="font-bold text-lg">Montreal Quriqe Apartment</div>
+									<div class="flex gap-1 items-center text-sm">
+										<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
+										<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
+									</div>
+									<div class="flex w-full justify-between items-center text-sm mt-2">
+										<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">En venta</span>
+										<div class="text-slate-600 text-lg font-extrabold">$1,240</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bg-card shadow rounded-2xl p-3 mt-4">
+							<div class="flex gap-2">
+								<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-4.jpg);"></div>
+								<div class="w-3/4">
+									<div style="color: #4e5c79" class="font-bold text-lg">Montreal Quebec City</div>
+									<div class="flex gap-1 items-center text-sm">
+										<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
+										<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
+									</div>
+									<div class="flex w-full justify-between items-center text-sm mt-2">
+										<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">En venta</span>
+										<div class="text-slate-600 text-lg font-extrabold">$8,240</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+				</div>
+			</div>
+		</div> -->
+</div>
+
+<div class="fixed right-8 bottom-8">
+	<button (click)="this.propertyID ? actualizar() : guardar()" mat-button class="rounded mr-1 px-3 bg-primary-300 text-on-primary-300">Guardar</button>
+</div>

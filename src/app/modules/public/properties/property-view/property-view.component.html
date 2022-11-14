@@ -2,9 +2,9 @@
 	<!-- {{property.images | json}} -->
 	<div class="w-screen -my-5 -mx-10">
 		<owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
-			<ng-template *ngFor="let img of property?.images" carouselSlide id="carou1">
+			<ng-template *ngFor="let img of bannerImgs" carouselSlide id="carou1">
 				<div>
-					<div style="background-image: url({{img.path}})" class="img h-120 bg-cover bg-no-repeat bg-center"></div>
+					<div style="background-image: url({{environment.assets}}/storage/properties/{{img.name}})" class="img h-120 bg-cover bg-no-repeat bg-center"></div>
 				</div>
 			</ng-template>
 		</owl-carousel-o>
@@ -56,63 +56,51 @@
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Garaje: </strong>
-									<span class="text-slate-400">1</span>
+									<span class="text-slate-400">{{property.parking ? 'Si' : 'No'}}</span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Status: </strong>
-									<span class="text-slate-400">Activo</span>
+									<span class="text-slate-400">{{property.status?.name}}</span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Cocina: </strong>
-									<span class="text-slate-400">Si</span>
-								</div>
-								<div>
-									<strong class="text-base text-slate-600">Elevador: </strong>
-									<span class="text-slate-400">Si</span>
+									<span class="text-slate-400">{{property.kitchen ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
 							<div class="w-1/3 flex flex-col gap-5">
 								<div>
 									<strong class="text-base text-slate-600">Baños: </strong>
-									<span class="text-slate-400">2 baños</span>
+									<span class="text-slate-400">{{property.bathrooms}} baños</span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Tipo de propiedad: </strong>
-									<span class="text-slate-400">Apartamento</span>
-								</div>
-								<div>
-									<strong class="text-base text-slate-600">Enfriamiento: </strong>
-									<span class="text-slate-400">Central A/C</span>
-								</div>
-								<div>
-									<strong class="text-base text-slate-600">Exterior: </strong>
-									<span class="text-slate-400">FinishBrick</span>
+									<span class="text-slate-400">{{property.property_type?.name}}</span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Chimenea: </strong>
-									<span class="text-slate-400">No</span>
+									<span class="text-slate-400">{{property.fireplace ? 'Si' : 'No'}}</span>
+								</div>
+								<div>
+									<strong class="text-base text-slate-600">Elevador: </strong>
+									<span class="text-slate-400">{{property.elevator ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
 							<div class="w-1/3 flex flex-col gap-5">
 								<div>
 									<strong class="text-base text-slate-600">Area: </strong>
-									<span class="text-slate-400">4,240 m<sup>2</sup></span>
+									<span class="text-slate-400">{{property.size}} m<sup>2</sup></span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Año: </strong>
-									<span class="text-slate-400">2000</span>
-								</div>
-								<div>
-									<strong class="text-base text-slate-600">Tipo calefaccion: </strong>
-									<span class="text-slate-400">Aire forzado</span>
+									<span class="text-slate-400">{{property.construction_year}}</span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Piscina: </strong>
-									<span class="text-slate-400">Si</span>
+									<span class="text-slate-400">{{property.swimming_pool}}</span>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Wifi gratis: </strong>
-									<span class="text-slate-400">No</span>
+									<span class="text-slate-400">{{property.wifi ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
 						</div>
@@ -138,68 +126,68 @@
 						<div class="flex flex-wrap">
 							<div class="w-1/3 flex flex-col gap-5">
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
+									<mat-icon [class.text-lime-500]="property.bedrooms" [class.text-red-500]="!property.bedrooms" >{{property.bedrooms ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Habitaciones </span>
 								</div>
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
+									<mat-icon [class.text-lime-500]="property.parking" [class.text-red-500]="!property.parking" >{{property.parking ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Garaje </span>
 								</div>
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Status </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
+									<mat-icon [class.text-lime-500]="property.kitchen" [class.text-red-500]="!property.kitchen" >{{property.kitchen ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Cocina </span>
 								</div>
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
+									<mat-icon [class.text-lime-500]="property.elevator" [class.text-red-500]="!property.elevator" >{{property.elevator ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Elevador </span>
 								</div>
-							</div>
-							<div class="w-1/3 flex flex-col gap-5">
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Baños </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Tipo de propiedad </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Enfriamiento </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Exterior </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Chimenea </span>
+									<mat-icon [class.text-lime-500]="property.security" [class.text-red-500]="!property.security" >{{property.security ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Seguridad </span>
 								</div>
 							</div>
 							<div class="w-1/3 flex flex-col gap-5">
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
+									<mat-icon [class.text-lime-500]="property.bathrooms" [class.text-red-500]="!property.bathrooms" >{{property.bathrooms ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Baños </span>
 								</div>
 								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Tipo de propiedad </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Enfriamiento </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
-									<span class="text-base text-slate-600">Exterior </span>
-								</div>
-								<div class="flex gap-1 items-center">
-									<mat-icon class="text-lime-500">check_circle_outline</mat-icon>
+									<mat-icon [class.text-lime-500]="property.fireplace" [class.text-red-500]="!property.fireplace" >{{property.fireplace ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Chimenea </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.lobby" [class.text-red-500]="!property.lobby" >{{property.lobby ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Vestibulo </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.balcony" [class.text-red-500]="!property.balcony" >{{property.balcony ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Balcon </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.terrace" [class.text-red-500]="!property.terrace" >{{property.terrace ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Terraza </span>
+								</div>
+							</div>
+							<div class="w-1/3 flex flex-col gap-5">
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.power_plant" [class.text-red-500]="!property.power_plant" >{{property.power_plant ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Planta de poder </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.walk_in_closet" [class.text-red-500]="!property.walk_in_closet" >{{property.walk_in_closet ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Vestidor </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.swimming_pool" [class.text-red-500]="!property.swimming_pool" >{{property.swimming_pool ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Piscina </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.kids_area" [class.text-red-500]="!property.kids_area" >{{property.kids_area ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Area de niños </span>
+								</div>
+								<div class="flex gap-1 items-center">
+									<mat-icon [class.text-lime-500]="property.pets_allowed" [class.text-red-500]="!property.pets_allowed" >{{property.pets_allowed ? 'check_circle_outline' : 'close'}}</mat-icon>
+									<span class="text-base text-slate-600">Mascotas permitidas </span>
 								</div>
 							</div>
 						</div>
@@ -216,7 +204,7 @@
 						</div>
 					</mat-expansion-panel>
 
-					<mat-expansion-panel [expanded]="true">
+					<!-- <mat-expansion-panel [expanded]="true">
 						<mat-expansion-panel-header>
 							<mat-panel-title>
 								<span class="font-bold text-lg">Pisos</span>
@@ -238,7 +226,7 @@
 									</div>
 							</div>
 						</div>
-					</mat-expansion-panel>
+					</mat-expansion-panel> -->
 
 					<mat-expansion-panel [expanded]="true">
 						<mat-expansion-panel-header>
@@ -247,7 +235,7 @@
 							</mat-panel-title>
 						</mat-expansion-panel-header>
 						<div class="w-full flex flex-wrap gap-3">
-							<div *ngFor="let imgs of property.images" style="background-image: url({{imgs.path}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md"></div>
+							<div *ngFor="let img of galleryImgs" style="background-image: url({{environment.assets}}/storage/properties/{{img?.name}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md"></div>
 						</div>
 					</mat-expansion-panel>
 
