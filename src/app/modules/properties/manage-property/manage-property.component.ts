@@ -224,7 +224,7 @@ export class ManagePropertyComponent implements OnInit {
 				}))
 
 			this._globalService.openSnackBar('Propiedad actualizada correctamente', 10000,'success', 'Ver pagina publica de propiedad').then(() => {
-				const url = new URL('/propiedad/'+response.data.id, window.location.origin);
+				const url = new URL('/propiedad/'+response.data.id, environment.front_url);
 				window.open(url.toString(), '_blank');
 			});
 		});
@@ -249,7 +249,7 @@ export class ManagePropertyComponent implements OnInit {
 		const bannerImgs = this.filesBanner.map(file => file.file);
 		this._propertiesService.crear(this.propertyFG.value, imgs, bannerImgs).subscribe(response => {
 			this._globalService.openSnackBar('Propiedad creada correctamente', 10000,'success', 'Ver pagina publica de propiedad').then(() => {
-				const url = new URL('/propiedad/'+response.data.id, window.location.origin);
+				const url = new URL('/propiedad/'+response.data.id, environment.front_url);
 				window.open(url.toString(), '_blank');
 			});
 		});

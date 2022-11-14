@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
 		app: 'directory',
+		front_url: 'http://localhost:4200',
     api: 'http://localhost:8000/api',
 		assets: 'http://localhost:8000',
 };

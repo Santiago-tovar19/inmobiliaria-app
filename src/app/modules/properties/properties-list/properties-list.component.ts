@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PaginatorEvent } from 'app/interfaces/general/paginator-event';
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 import { SearchObject } from 'app/modules/users/service/users.service';
+import { environment } from 'environments/environment';
 import { Subject } from 'rxjs';
 import { PropertiesService } from '../service/properties.service';
 
@@ -46,7 +47,7 @@ export class PropertiesListComponent implements OnInit {
 
 	newTab(path: string): void {
 
-		const url = new URL(path, window.location.origin);
+		const url = new URL(path, environment.front_url);
 		window.open(url.toString(), '_blank');
 	}
 
