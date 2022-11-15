@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
+import { DashboardsService } from 'app/modules/dashboards/service/dashboards.service';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
+import { UsersService } from 'app/modules/users/service/users.service';
 import { environment } from 'environments/environment';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
@@ -36,11 +39,15 @@ export class PropertyViewComponent implements OnInit {
 	environment = environment;
 	bannerImgs = [];
 	galleryImgs = [];
+	featureProperties;
+	user;
 
 	constructor(
 		private _propertiesService: PropertiesService,
 		private _activatedRouter: ActivatedRoute,
-		private sanitizer: DomSanitizer
+		private sanitizer: DomSanitizer,
+		private _userService: UserService,
+		private _dashboardsService: DashboardsService
 	) { }
 
 	ngOnInit(): void {
@@ -53,6 +60,24 @@ export class PropertyViewComponent implements OnInit {
 				this.getProperty();
 			}
 		});
+		this.getUser();
+
+		this.getFeatureProperties();
+
+		setTimeout(() => {
+			if(!this.user || this.user?.role_id===4){
+				this._propertiesService.registerView(this.user?.id, this.propertyID).subscribe(res => {
+					console.log(res);
+				});
+			}
+		}, 5000);
+	}
+
+	getUser(): void {
+		this._userService._user.subscribe(res => {
+			this.user = res;
+
+		});
 	}
 
 
@@ -64,6 +89,12 @@ export class PropertyViewComponent implements OnInit {
 		});
 	}
 
+
+	getFeatureProperties(): void {
+		this._propertiesService.getFeatureProperties(this.propertyID).subscribe(res => {
+			this.featureProperties = res.data;
+		});
+	}
 	updateVideoUrl(url) {
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 	}

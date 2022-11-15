@@ -69,8 +69,6 @@ export class ModernLayoutComponent implements OnInit, OnDestroy
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
 
-				console.log('Hola que tal como vas?');
-
 				this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user) => {
 					this._navigationService.navi.default = this._navigationService.formatMenu(user);
 				});

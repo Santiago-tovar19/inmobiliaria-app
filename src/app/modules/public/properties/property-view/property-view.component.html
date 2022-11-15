@@ -9,12 +9,12 @@
 			</ng-template>
 		</owl-carousel-o>
 	</div>
-	<div class="grid grid-cols-3 gap-5 max-w-320 mx-auto">
+	<div class="grid grid-cols-3 gap-5 max-w-320 mx-auto mt-5">
 		<div class="col-span-2">
 			<div class="flex flex-col gap-10">
 				<div class="bg-card shadow rounded-2xl p-6">
 					<div class="flex flex-col gap-2">
-						<span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">En venta</span>
+						<span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">{{property.contact_type?.name}}</span>
 						<h1 class="font-bold text-3xl leading-8">{{property.name}}</h1>
 						<div class="flex gap-1 items-center">
 							<mat-icon class="font-light text-slate-600">location_on</mat-icon>
@@ -379,14 +379,16 @@
 
 				<div #card class="bg-card shadow rounded-2xl p-6">
 					<div class="flex gap-4 rounded-t-2xl -m-6 p-6 items-center" [style]="'width: '+ (card.offsetWidth) + 'px'" style="background: #0fca98">
-							<div >
-								<img class="w-15 h-15 rounded-full font-bold" src="https://themezhub.net/resido-live/resido/assets/img/user-6.jpg">
+							<div>
+								<!-- https://themezhub.net/resido-live/resido/assets/img/user-6.jpg -->
+								<img *ngIf="!property.created_by?.img" class="w-15 h-15 rounded-full font-bold" [src]="'https://dummyimage.com/200/263547/fff&text='+property.created_by?.first_name[0]">
+								<img *ngIf="property.created_by?.img" class="w-15 h-15 rounded-full font-bold" [src]="property.created_by?.img">
 							</div>
 							<div>
-								<div class="text-white text-2xl font-extrabold">Shivangi Preet</div>
+								<div class="text-white text-2xl font-extrabold">{{property.created_by?.first_name}} {{property.created_by?.last_name}}</div>
 								<div class="text-base text-slate-100 flex items-center gap-2">
 									<mat-icon class="text-slage-100 text-base">phone</mat-icon>
-									(91) 123 456 7895
+									{{property.created_by?.phone}}
 								</div>
 							</div>
 					</div>
@@ -475,69 +477,18 @@
 					<div class="font-bold text-2xl mb-2" style="color: #2D3954">Propiedades destacadas</div>
 
 
-					<div class="bg-card shadow rounded-2xl p-3">
+					<div class="bg-card shadow rounded-2xl p-3" *ngFor="let featureProperty of featureProperties">
 						<div class="flex gap-2">
-							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-1.jpg);"></div>
+							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url({{environment.assets}}/storage/properties/{{featureProperty.images[0].name}});"></div>
 							<div class="w-3/4">
-								<div style="color: #4e5c79" class="font-bold text-lg">Loss Vengel New Apartment</div>
+								<div style="color: #4e5c79" class="font-bold text-lg">{{featureProperty.name}}</div>
 								<div class="flex gap-1 items-center text-sm">
 									<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
-									<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
+									<div class="font-light text-slate-600">{{featureProperty.address}}</div>
 								</div>
 								<div class="flex w-full justify-between items-center text-sm mt-2">
-									<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">En venta</span>
-									<div class="text-slate-600 text-lg font-extrabold">$4,240</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="bg-card shadow rounded-2xl p-3 mt-4">
-						<div class="flex gap-2">
-							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-2.jpg);"></div>
-							<div class="w-3/4">
-								<div style="color: #4e5c79" class="font-bold text-lg">Loss Vengel New Apartment</div>
-								<div class="flex gap-1 items-center text-sm">
-									<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
-									<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
-								</div>
-								<div class="flex w-full justify-between items-center text-sm mt-2">
-									<span class="bg-orange-200 text-orange-600 py-1 px-2 rounded-full text-sm w-fit">En renta</span>
-									<div class="text-slate-600 text-lg font-extrabold">$5,540</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="bg-card shadow rounded-2xl p-3 mt-4">
-						<div class="flex gap-2">
-							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-3.jpg);"></div>
-							<div class="w-3/4">
-								<div style="color: #4e5c79" class="font-bold text-lg">Montreal Quriqe Apartment</div>
-								<div class="flex gap-1 items-center text-sm">
-									<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
-									<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
-								</div>
-								<div class="flex w-full justify-between items-center text-sm mt-2">
-									<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">En venta</span>
-									<div class="text-slate-600 text-lg font-extrabold">$1,240</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="bg-card shadow rounded-2xl p-3 mt-4">
-						<div class="flex gap-2">
-							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url(https://themezhub.net/resido-live/resido/assets/img/p-4.jpg);"></div>
-							<div class="w-3/4">
-								<div style="color: #4e5c79" class="font-bold text-lg">Montreal Quebec City</div>
-								<div class="flex gap-1 items-center text-sm">
-									<mat-icon class="font-light text-lg text-slate-600">location_on</mat-icon>
-									<div class="font-light text-slate-600">778 Country St. Panama City, FL</div>
-								</div>
-								<div class="flex w-full justify-between items-center text-sm mt-2">
-									<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">En venta</span>
-									<div class="text-slate-600 text-lg font-extrabold">$8,240</div>
+									<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">{{featureProperty.contact_type?.name}}</span>
+									<div class="text-slate-600 text-lg font-extrabold">${{featureProperty.price}}</div>
 								</div>
 							</div>
 						</div>

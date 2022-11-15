@@ -3,6 +3,7 @@ import {HttpGeneralResponse} from '../http-responses/http-general-response';
 import { Generic } from './generic';
 import {Module} from './module';
 import {Role} from './role';
+import { User } from './user';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface Property {
@@ -33,6 +34,11 @@ export interface Property {
 		name: string;
 		type: string;
 	}>;
+	contact_type: {
+		id: number;
+		name: string;
+	};
+	created_by: User
 	parking: 0 | 1;
 	hoa: 0 | 1;
 	stories: 0 | 1;

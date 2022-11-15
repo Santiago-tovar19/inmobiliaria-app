@@ -69,4 +69,12 @@ export class PropertiesService {
 
 		return this._httpClient.post<any>(`${environment.api}/properties/${id}?_method=PUT`, formData, {headers});
 	}
+
+	getFeatureProperties(id: string): Observable<any> {
+		return this._httpClient.get<any>(`${environment.api}/properties/get-feature-properties?property_id=${id}`);
+	}
+
+	registerView(userID: string, propertyID: string): Observable<any> {
+		return this._httpClient.post<any>(`${environment.api}/properties/register-view`, {userID, propertyID});
+	}
 }

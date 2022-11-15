@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { ReturnStatement } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
@@ -60,8 +61,10 @@ export class ManagePropertyComponent implements OnInit {
 		private _activatedRouter: ActivatedRoute,
 		private sanitizer: DomSanitizer,
 		private _formBuilder: FormBuilder,
-		private _globalService: GlobalService
-	) { }
+		private _globalService: GlobalService,
+		private location: Location
+	) {
+	}
 
 	ngOnInit(): void {
 		this.propertyFG = this._formBuilder.group({
@@ -103,6 +106,10 @@ export class ManagePropertyComponent implements OnInit {
 			this.contractTypes = res.data.contractTypes;
 		});
 
+		this.checkIfEdit();
+	}
+
+	checkIfEdit(): void {
 		this._activatedRouter.params.subscribe(params => {
 			if(params.id) {
 				this.propertyID = params.id;
@@ -248,6 +255,25 @@ export class ManagePropertyComponent implements OnInit {
 		const imgs = this.files.map(file => file.file);
 		const bannerImgs = this.filesBanner.map(file => file.file);
 		this._propertiesService.crear(this.propertyFG.value, imgs, bannerImgs).subscribe(response => {
+
+			this.location.go('/propiedades/editar/'+response.data.id);
+
+			this.propertyFG.patchValue(response.data);
+			this.property = response.data;
+			this.propertyID = response.data.id;
+			this.filesBanner = this.property.images
+				.filter(i => i.type === 'Banner').map(i => ({
+					id: i.id,
+					base64:`${environment.assets}/storage/properties/${i.name}`
+				}))
+				this.files = this.property.images
+				.filter(i => i.type === 'Gallery').map(i => ({
+					id: i.id,
+					base64:`${environment.assets}/storage/properties/${i.name}`
+				}))
+
+
+
 			this._globalService.openSnackBar('Propiedad creada correctamente', 10000,'success', 'Ver pagina publica de propiedad').then(() => {
 				const url = new URL('/propiedad/'+response.data.id, environment.front_url);
 				window.open(url.toString(), '_blank');

@@ -118,7 +118,7 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children   : [
-            {path: 'dashboard', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
+            {path: 'dashboard', loadChildren: () => import('app/modules/dashboards/adminmaster/adminmaster-dashboard.module').then(m => m.AdminMasterDashboardModule)},
         {
 					path: 'usuarios',
 					loadChildren: () => import('app/modules/users/users.module').then(m => m.UsersModule),

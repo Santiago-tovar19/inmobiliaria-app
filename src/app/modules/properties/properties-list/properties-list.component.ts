@@ -15,6 +15,7 @@ import { PropertiesService } from '../service/properties.service';
 export class PropertiesListComponent implements OnInit {
 
   columns: Array<string> = ['id', 'description', 'address', 'location_type', 'price', 'published_at', 'acciones'];
+	newColumns: Array<string> = ['id', 'name', 'address', 'price', 'rooms', 'bathrooms', 'actions'];
 	dataSource: MatTableDataSource<any>;
 	propertiesPaginated: any;
 	m: '1' | '2' | null = null;
