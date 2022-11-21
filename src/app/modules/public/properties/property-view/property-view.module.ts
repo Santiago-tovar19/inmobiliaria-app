@@ -11,6 +11,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ImagesViewerModule } from 'app/modules/shared/images-viewer/images-viewer.module';
+import {MatTabsModule} from '@angular/material/tabs';
+import { RouterModule } from '@angular/router';
+
 
 
 
@@ -23,6 +28,7 @@ import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
   imports: [
     CommonModule,
 		MatIconModule,
+		RouterModule,
     CarouselModule,
 		FormsModule,
 		MatExpansionModule,
@@ -30,8 +36,11 @@ import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
 		CarouselModule,
 		HttpClientModule,
 		MatFormFieldModule,
+		MatTabsModule,
+		MatDialogModule,
 		MatProgressBarModule,
 		MatInputModule,
+		ImagesViewerModule,
 		ReactiveFormsModule
   ]
 })

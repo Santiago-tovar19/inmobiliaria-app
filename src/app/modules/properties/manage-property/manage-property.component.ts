@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { GlobalService } from 'app/services/global/global.service';
@@ -44,8 +45,11 @@ export class ManagePropertyComponent implements OnInit {
 	contractTypes;
 	files = [];
 	filesBanner = [];
+	video: any;
+	videoUrl: any;
 	filesToRemove = [];
 	errors;
+	user;
 
 	propertyFG: FormGroup;
 
@@ -62,25 +66,34 @@ export class ManagePropertyComponent implements OnInit {
 		private sanitizer: DomSanitizer,
 		private _formBuilder: FormBuilder,
 		private _globalService: GlobalService,
+		private _userService: UserService,
 		private location: Location
 	) {
 	}
 
 	ngOnInit(): void {
+
+		this._userService.user$.subscribe((user: any) => {
+			this.user = user;
+		});
+
 		this.propertyFG = this._formBuilder.group({
 			name: ['', Validators.required],
 			description: [''],
 			address: ['', Validators.required],
 			currency_id: [null, Validators.required],
 			price: ['', Validators.required],
-			bedrooms: [null],
-			bathrooms: [null],
+			bedrooms: [0],
+			bathrooms: [0],
 			construction_year: [null],
+			trashed: [false],
 			size: [null],
 			property_type_id: [null],
 			contract_type_id: [null],
 			status_id: [null],
 
+			published: [true],
+			deleteVideo: [false],
 			wifi: [1],
 			kitchen: [1],
 			lobby: [1],
@@ -161,6 +174,13 @@ export class ManagePropertyComponent implements OnInit {
 					id: i.id,
 					base64:`${environment.assets}/storage/properties/${i.name}`
 				}))
+				if(this.property.video){
+					this.video    = this.property.video;
+					this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.assets+'/storage/properties/'+this.property.video);
+				}
+				if(this.property.deleted_at){
+					this.propertyFG.patchValue({trashed: true});
+				}
 		});
 	}
 
@@ -215,9 +235,11 @@ export class ManagePropertyComponent implements OnInit {
 		const imgs = this.files.filter(file => file.file).map(file => file.file);
 		const bannerImgs = this.filesBanner.filter(file => file.file).map(file => file.file);
 		const values = {...this.propertyFG.value, filesToRemove: this.filesToRemove};
-		this._propertiesService.actualizar(this.propertyID, values, imgs, bannerImgs).subscribe(response => {
+		console.log(values);
+		this._propertiesService.actualizar(this.propertyID, values, imgs, bannerImgs, this.video).subscribe(response => {
 
 			this.propertyFG.patchValue(response.data);
+			this.propertyFG.get('deleteVideo').setValue(false);
 			this.property = response.data;
 			this.filesBanner = this.property.images
 				.filter(i => i.type === 'Banner').map(i => ({
@@ -254,7 +276,7 @@ export class ManagePropertyComponent implements OnInit {
 
 		const imgs = this.files.map(file => file.file);
 		const bannerImgs = this.filesBanner.map(file => file.file);
-		this._propertiesService.crear(this.propertyFG.value, imgs, bannerImgs).subscribe(response => {
+		this._propertiesService.crear(this.propertyFG.value, imgs, bannerImgs, this.video).subscribe(response => {
 
 			this.location.go('/propiedades/editar/'+response.data.id);
 
@@ -279,6 +301,23 @@ export class ManagePropertyComponent implements OnInit {
 				window.open(url.toString(), '_blank');
 			});
 		});
+	}
+
+	selectVideo(file: File): void {
+		this.video = file;
+		console.log(this.video);
+
+		// Make an object URL that points to the File object
+		const url = URL.createObjectURL(file);
+		this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+
+	deleteVideo(): void {
+		this.video = null;
+		this.videoUrl = null;
+		if(this.propertyID) {
+			this.propertyFG.get('deleteVideo').setValue(true);
+		}
 	}
 
 }

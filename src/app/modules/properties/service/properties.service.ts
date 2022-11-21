@@ -33,7 +33,7 @@ export class PropertiesService {
 		return this._httpClient.get<any>(`${environment.api}/properties/get-features`);
 	}
 
-	crear(data: any, images: File[], bannerImgs: File[]): Observable<any> {
+	crear(data: any, images: File[], bannerImgs: File[], video: File): Observable<any> {
 		const formData = new FormData();
 		Object.keys(data).forEach(key => {
 			formData.append(key, data[key]);
@@ -44,6 +44,9 @@ export class PropertiesService {
 		bannerImgs.forEach(image => {
 			formData.append('bannerImgs[]', image, image.name);
 		});
+		if(video instanceof File) {
+			formData.append('video', video, video.name);
+		}
 		const headers = new HttpHeaders();
 		headers.append('Content-Type', 'multipart/form-data');
 		headers.append('Accept', 'application/json');
@@ -51,7 +54,7 @@ export class PropertiesService {
 		return this._httpClient.post<any>(`${environment.api}/properties`, formData, {headers});
 	}
 
-	actualizar(id, data: any, images: File[], bannerImgs: File[]): Observable<any> {
+	actualizar(id, data: any, images: File[], bannerImgs: File[], video: File | string): Observable<any> {
 		const formData = new FormData();
 		Object.keys(data).forEach(key => {
 			formData.append(key, data[key]);
@@ -62,6 +65,10 @@ export class PropertiesService {
 		bannerImgs.forEach(image => {
 			formData.append('bannerImgs[]', image, image.name);
 		});
+		if(video instanceof File) {
+			formData.append('video', video, video.name);
+		}
+
 		const headers = new HttpHeaders();
 		headers.append('Content-Type', 'multipart/form-data');
 		headers.append('Accept', 'application/json');
@@ -76,5 +83,10 @@ export class PropertiesService {
 
 	registerView(userID: string, propertyID: string): Observable<any> {
 		return this._httpClient.post<any>(`${environment.api}/properties/register-view`, {userID, propertyID});
+	}
+
+
+	delete(id: string): Observable<any> {
+		return this._httpClient.delete<any>(`${environment.api}/properties/${id}`);
 	}
 }

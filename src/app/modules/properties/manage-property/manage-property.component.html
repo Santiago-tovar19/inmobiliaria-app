@@ -1,7 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <div class="w-full" [formGroup]="propertyFG">
 	<!-- {{property.images | json}} -->
-	<div class="w-full -my-5">
+	<div class="w-full property-banner -my-5">
 		<owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
 			<ng-template *ngFor="let imgs of filesBanner" carouselSlide id="carou1">
 				<div>
@@ -14,81 +14,102 @@
 	</div>
 	<div class="grid grid-cols-3 gap-5 max-w-320 mx-auto">
 		<div class="col-span-2">
-			<div class="bg-card shadow rounded-2xl p-6 mb-4">
-				<div>Imagenes de slide</div>
-				<div class="mb-5">
-					<file-input (fileChange)="fileChangesBanner($event)"></file-input>
-				</div>
-				<div class="w-full flex flex-wrap gap-3">
-					<div *ngFor="let img of this.files" style="background-image: url({{img.base64}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md">
-						<mat-icon style="width:95%" class="w-full justify-end text-red-700 cursor-pointer mt-2" (click)="remove(img.id)">delete</mat-icon>
+			<div class="bg-card shadow rounded-2xl p-6">
+				<div class="flex flex-col gap-2">
+					<div class='flex w-full'>
+						<div class="w-1/2">
+							<select formControlName="contract_type_id" class="w-50 p-1 rounded-md border border-solid" placeholder="Modo">
+								<option disabled [value]="null">Venta/Alquiler</option>
+								<option *ngFor="let contracts of contractTypes" [value]="contracts.id">{{contracts.name}}</option>
+							</select>
+						</div>
+						<div class="w-1/2 text-right">
+							<mat-slide-toggle
+									formControlName="published"
+									class="example-margin mr-4"
+									[checked]="true">
+								Publicada
+							</mat-slide-toggle>
+							<mat-slide-toggle
+							*ngIf="user.role_id == 1"
+									formControlName="trashed"
+									class="example-margin"
+									[checked]="true">
+								Papelera
+							</mat-slide-toggle>
+						</div>
+					</div>
+					<!-- <span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">En venta</span> -->
+					<input formControlName="name" placeholder="Nombre" class="font-bold text-3xl leading-8 w-100 p-1 rounded-md border border-solid" type="text">
+					<!-- <h1 class="font-bold text-3xl leading-8">{{property.name}}</h1> -->
+					<div class="flex gap-1 items-center">
+						<mat-icon class="font-light text-slate-600">location_on</mat-icon>
+						<input formControlName="address" placeholder="Direccion" class="font-light text-slate-600 w-100 p-1 rounded-md border border-solid" type="text">
+					</div>
+					<div>
+						<input formControlName="price" class="w-50 rounded-md border border-solid text-3xl text-green-600" placeholder="Precio" type="text">
+						<!-- <span class="text-3xl text-green-600 font-extrabold">{{property.price}}</span> -->
+						<!-- <span class="text-sm text-slate-400"> {{property.currency?.name}}</span> -->
+						<select formControlName="currency_id" class="ml-1 w-40 p-1 rounded-md border border-solid" placeholder="Moneda">
+							<option disabled [value]="null">Moneda</option>
+							<option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
+						</select>
+					</div>
+					<div class="mt-2 flex gap-4">
+						<div class="flex items-center gap-1">
+							<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="mat_solid:bed"></mat-icon>
+							<select formControlName="bedrooms" class="w-40 p-1 rounded-md border border-solid" placeholder="Habitaciones">
+								<option [value]="0">0 Habitaciones</option>
+								<option [value]="1">1 Habitación</option>
+								<option [value]="2">2 Habitaciones</option>
+								<option [value]="3">3 Habitaciones</option>
+								<option [value]="4">4 Habitaciones</option>
+								<option [value]="5">5 Habitaciones</option>
+								<option [value]="6">6 Habitaciones</option>
+								<option [value]="6">6 Habitaciones</option>
+								<option [value]="6">6 Habitaciones</option>
+								<option [value]="6">6 Habitaciones</option>
+								<option [value]="6">6 Habitaciones</option>
+							</select>
+						</div>
+						<div class="flex items-center gap-1">
+							<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="mat_solid:bathtub"></mat-icon>
+							<select formControlName="bathrooms" class="w-40 p-1 rounded-md border border-solid" placeholder="Baños">
+								<option [value]="0">0 Baños</option>
+								<option [value]="1">1 Baño</option>
+								<option [value]="2">2 Baños</option>
+								<option [value]="3">3 Baños</option>
+								<option [value]="4">4 Baños</option>
+								<option [value]="5">5 Baños</option>
+								<option [value]="6">6 Baños</option>
+								<option [value]="6">6 Baños</option>
+								<option [value]="6">6 Baños</option>
+								<option [value]="6">6 Baños</option>
+								<option [value]="6">6 Baños</option>
+							</select>
+						</div>
+						<div class="flex items-center gap-1">
+							<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="feather:move"></mat-icon>
+							<!-- <span class="text-slate-400 text-base">{{property.size}}m<sup>2</sup></span> -->
+							<input formControlName="size" class="w-20 rounded-md border border-solid" placeholder="Area" type="text"> m<sup>2</sup>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="flex flex-col gap-10">
-				<div class="bg-card shadow rounded-2xl p-6">
-					<div class="flex flex-col gap-2">
-						<select formControlName="contract_type_id" class="w-50 p-1 rounded-md border border-solid" placeholder="Modo">
-							<option disabled [value]="null">Venta/Alquiler</option>
-							<option *ngFor="let contracts of contractTypes" [value]="contracts.id">{{contracts.name}}</option>
-						</select>
-						<!-- <span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">En venta</span> -->
-						<input formControlName="name" placeholder="Nombre" class="font-bold text-3xl leading-8 w-100 p-1 rounded-md border border-solid" type="text">
-						<!-- <h1 class="font-bold text-3xl leading-8">{{property.name}}</h1> -->
-						<div class="flex gap-1 items-center">
-							<mat-icon class="font-light text-slate-600">location_on</mat-icon>
-							<input formControlName="address" placeholder="Direccion" class="font-light text-slate-600 w-100 p-1 rounded-md border border-solid" type="text">
-						</div>
-						<div>
-							<input formControlName="price" class="w-50 rounded-md border border-solid text-3xl text-green-600" placeholder="Precio" type="text">
-							<!-- <span class="text-3xl text-green-600 font-extrabold">{{property.price}}</span> -->
-							<!-- <span class="text-sm text-slate-400"> {{property.currency?.name}}</span> -->
-							<select formControlName="currency_id" class="ml-1 w-40 p-1 rounded-md border border-solid" placeholder="Moneda">
-								<option disabled [value]="null">Moneda</option>
-								<option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
-							</select>
-						</div>
-						<div class="mt-2 flex gap-4">
-							<div class="flex items-center gap-1">
-								<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="mat_solid:bed"></mat-icon>
-								<select formControlName="bedrooms" class="w-40 p-1 rounded-md border border-solid" placeholder="Habitaciones">
-									<option [value]="0">0 Habitaciones</option>
-									<option [value]="1">1 Habitación</option>
-									<option [value]="2">2 Habitaciones</option>
-									<option [value]="3">3 Habitaciones</option>
-									<option [value]="4">4 Habitaciones</option>
-									<option [value]="5">5 Habitaciones</option>
-									<option [value]="6">6 Habitaciones</option>
-									<option [value]="6">6 Habitaciones</option>
-									<option [value]="6">6 Habitaciones</option>
-									<option [value]="6">6 Habitaciones</option>
-									<option [value]="6">6 Habitaciones</option>
-								</select>
-							</div>
-							<div class="flex items-center gap-1">
-								<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="mat_solid:bathtub"></mat-icon>
-								<select formControlName="bathrooms" class="w-40 p-1 rounded-md border border-solid" placeholder="Baños">
-									<option [value]="1">0 Baños</option>
-									<option [value]="1">1 Baño</option>
-									<option [value]="2">2 Baños</option>
-									<option [value]="3">3 Baños</option>
-									<option [value]="4">4 Baños</option>
-									<option [value]="5">5 Baños</option>
-									<option [value]="6">6 Baños</option>
-									<option [value]="6">6 Baños</option>
-									<option [value]="6">6 Baños</option>
-									<option [value]="6">6 Baños</option>
-									<option [value]="6">6 Baños</option>
-								</select>
-							</div>
-							<div class="flex items-center gap-1">
-								<mat-icon class="text-2xl p-1 bg-slate-300 text-slate-600 rounded-full" svgIcon="feather:move"></mat-icon>
-								<!-- <span class="text-slate-400 text-base">{{property.size}}m<sup>2</sup></span> -->
-								<input formControlName="size" class="w-20 rounded-md border border-solid" placeholder="Area" type="text"> m<sup>2</sup>
-							</div>
+
+				<div class="bg-card shadow rounded-2xl p-6 mt-4">
+					<div>Imagenes principales de la propiedad</div>
+					<div class="mb-5">
+						<file-input (fileChange)="fileChangesBanner($event)"></file-input>
+					</div>
+					<div class="w-full flex flex-wrap gap-3">
+						<div *ngFor="let img of this.filesBanner" style="background-image: url({{img.base64}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md">
+							<mat-icon style="width:95%" class="w-full justify-end text-red-700 cursor-pointer mt-2" (click)="remove(img.id)">delete</mat-icon>
 						</div>
 					</div>
 				</div>
+
 				<mat-accordion class="example-headers-align" multi>
 
 					<mat-expansion-panel [expanded]="true">
@@ -124,7 +145,7 @@
 								<div>
 									<strong class="text-base text-slate-600">Tipo de propiedad: </strong>
 									<select formControlName="property_type_id" class="w-20 p-1 rounded-md border border-solid" placeholder="Status">
-										<option *ngFor="let propertyType of status" [value]="propertyType.id">{{propertyType.name}}</option>
+										<option *ngFor="let propertyType of propertyTypes" [value]="propertyType.id">{{propertyType.name}}</option>
 									</select>
 								</div>
 								<div>
@@ -268,10 +289,26 @@
 								<span class="font-bold text-lg">Video</span>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
-						<div class="flex flex-wrap" *ngIf="property.youtube_link">
-							<input placeholder="Introduce la URL del video de youtube" formControlName="youtube_link" class="w-full rounded-md border border-solid" type="text">
-							<iframe *ngIf="propertyFG.get('youtube_link').value" width="100%" height="400" [src]="updateVideoUrl(propertyFG.get('youtube_link').value)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-						</div>
+						<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+							<mat-tab label="Link de youtube">
+								<div class="flex flex-wrap">
+									<input placeholder="Introduce la URL del video de youtube" formControlName="youtube_link" class="w-full rounded-md border border-solid" type="text">
+									<iframe *ngIf="propertyFG.get('youtube_link').value" width="100%" height="400" [src]="updateVideoUrl(propertyFG.get('youtube_link').value)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								</div>
+							</mat-tab>
+							<mat-tab label="Subir video">
+								<file-input *ngIf="!videoUrl" [multiple]="false" (fileChange)="selectVideo($event)"></file-input>
+								<div *ngIf="video">
+									<div class='delete-video mb-3'>
+										<button (click)="deleteVideo()" mat-button class="bg-red-400 text-white">Eliminar video</button>
+									</div>
+									<video width="100%" height="400" controls>
+										<source [src]="videoUrl" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+								</div>
+							</mat-tab>
+						</mat-tab-group>
 					</mat-expansion-panel>
 
 					<!-- <mat-expansion-panel [expanded]="true">

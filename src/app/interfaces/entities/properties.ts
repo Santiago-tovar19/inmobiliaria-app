@@ -27,6 +27,7 @@ export interface Property {
 	currency_id: number;
 	currency: Generic;
 	youtube_link: string;
+	video: string;
 	status_id: number;
 	status: Generic;
 	images: Array<{
@@ -34,7 +35,7 @@ export interface Property {
 		name: string;
 		type: string;
 	}>;
-	contact_type: {
+	contract_type: {
 		id: number;
 		name: string;
 	};
@@ -55,6 +56,8 @@ export interface Property {
 	kids_area: 0 | 1;
 	pets_allowed: 0 | 1;
 	central_air_conditioner: 0 | 1;
+	deleted_at: string;
+	published: 0 | 1;
 	published_at: string;
 
 }

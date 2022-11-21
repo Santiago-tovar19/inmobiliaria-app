@@ -13,6 +13,10 @@ import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
 import {ManagePropertyComponent} from './manage-property.component';
 import { FileInputModule } from 'app/modules/shared/file-input/file-input.module';
 import { FuseAlertModule } from '@fuse/components/alert';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+
 
 
 
@@ -32,6 +36,8 @@ import { FuseAlertModule } from '@fuse/components/alert';
 		MatButtonModule,
 		CarouselModule,
 		HttpClientModule,
+		MatTabsModule,
+		MatSlideToggleModule,
 		MatFormFieldModule,
 		MatProgressBarModule,
 		MatInputModule,

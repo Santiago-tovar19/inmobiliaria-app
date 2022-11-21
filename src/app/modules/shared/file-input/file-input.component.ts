@@ -13,6 +13,7 @@ export class FileInputComponent implements OnInit, OnChanges {
 	@Output() fileChange = new EventEmitter<FileList>();
 	@Input() fileControl: FormControl
 	@Input() fileChangedControl: FormControl
+	@Input() multiple: boolean = true;
 	@Input() label = 'Subir archivo';
 	fileChanged: boolean = false;
 	fileName: FormControl = new FormControl({ value: '', disabled: true });
@@ -29,6 +30,7 @@ export class FileInputComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+		console.log(this.multiple)
 		this.fileControl?.valueChanges.subscribe((value) => {
 			if(value){
 				this.base64 = `${environment.assets}/files/${value}`;
@@ -42,7 +44,10 @@ export class FileInputComponent implements OnInit, OnChanges {
 
 	selectFile(event: Event): void {
 		const target = event.target as HTMLInputElement;
-		const files = target.files;
+		let files = target.files;
+		if(!this.multiple){
+			files = files[0] as any;
+		}
 		this.fileChange.emit(files);
 	}
 

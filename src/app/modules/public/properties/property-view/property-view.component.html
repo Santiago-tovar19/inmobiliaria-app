@@ -1,20 +1,20 @@
 <div class="w-full">
 	<!-- {{property.images | json}} -->
-	<div class="w-screen -my-5 -mx-10">
+	<div class="w-screen property-banner -my-5 -mx-10">
 		<owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
 			<ng-template *ngFor="let img of bannerImgs" carouselSlide id="carou1">
 				<div>
-					<div style="background-image: url({{environment.assets}}/storage/properties/{{img.name}})" class="img h-120 bg-cover bg-no-repeat bg-center"></div>
+					<div class="h-60 md:h-120 img bg-cover bg-no-repeat bg-center" (click)="openDialog(environment.assets+'/storage/properties/'+img.name, 'Banner')" style="background-image: url({{environment.assets}}/storage/properties/{{img.name}})"></div>
 				</div>
 			</ng-template>
 		</owl-carousel-o>
 	</div>
-	<div class="grid grid-cols-3 gap-5 max-w-320 mx-auto mt-5">
+		<div class="grid grid-cols-3 gap-5 mx-auto mt-5 md:max-w-320 max-w-160 ">
 		<div class="col-span-2">
 			<div class="flex flex-col gap-10">
 				<div class="bg-card shadow rounded-2xl p-6">
 					<div class="flex flex-col gap-2">
-						<span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">{{property.contact_type?.name}}</span>
+						<span class="bg-red-200 text-red-600 py-2 px-4 rounded-full text-sm w-fit">{{property.contract_type?.name}}</span>
 						<h1 class="font-bold text-3xl leading-8">{{property.name}}</h1>
 						<div class="flex gap-1 items-center">
 							<mat-icon class="font-light text-slate-600">location_on</mat-icon>
@@ -48,8 +48,8 @@
 								<span class="font-bold text-lg">Detalles y características</span>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
-						<div class="flex flex-wrap">
-							<div class="w-1/3 flex flex-col gap-5">
+						<div class="flex flex-wrap flex-col md:flex-row gap-5 md:gap-0">
+							<div class="w-full md:w-1/3 flex flex-col gap-5">
 								<div>
 									<strong class="text-base text-slate-600">Habitaciones: </strong>
 									<span class="text-slate-400">3</span>
@@ -67,7 +67,7 @@
 									<span class="text-slate-400">{{property.kitchen ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
-							<div class="w-1/3 flex flex-col gap-5">
+							<div class="w-full md:w-1/3 flex flex-col gap-5">
 								<div>
 									<strong class="text-base text-slate-600">Baños: </strong>
 									<span class="text-slate-400">{{property.bathrooms}} baños</span>
@@ -85,7 +85,7 @@
 									<span class="text-slate-400">{{property.elevator ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
-							<div class="w-1/3 flex flex-col gap-5">
+							<div class="w-full md:w-1/3 flex flex-col gap-5">
 								<div>
 									<strong class="text-base text-slate-600">Area: </strong>
 									<span class="text-slate-400">{{property.size}} m<sup>2</sup></span>
@@ -123,8 +123,8 @@
 								<span class="font-bold text-lg">Comodidades</span>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
-						<div class="flex flex-wrap">
-							<div class="w-1/3 flex flex-col gap-5">
+						<div class="flex flex-wrap flex-col md:flex-row gap-5 md:gap-0">
+							<div class="w-full md:w-1/3 flex flex-col gap-5">
 								<div class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.bedrooms" [class.text-red-500]="!property.bedrooms" >{{property.bedrooms ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Habitaciones </span>
@@ -146,7 +146,7 @@
 									<span class="text-base text-slate-600">Seguridad </span>
 								</div>
 							</div>
-							<div class="w-1/3 flex flex-col gap-5">
+							<div class="w-full md:w-1/3 flex flex-col gap-5">
 								<div class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.bathrooms" [class.text-red-500]="!property.bathrooms" >{{property.bathrooms ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Baños </span>
@@ -168,7 +168,7 @@
 									<span class="text-base text-slate-600">Terraza </span>
 								</div>
 							</div>
-							<div class="w-1/3 flex flex-col gap-5">
+							<div class="w-full md:w-1/3 flex flex-col gap-5">
 								<div class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.power_plant" [class.text-red-500]="!property.power_plant" >{{property.power_plant ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Planta de poder </span>
@@ -199,6 +199,19 @@
 								<span class="font-bold text-lg">Videos</span>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
+						<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+							<mat-tab label="Link de youtube" *ngIf="property.youtube_link">
+								<div class="flex flex-wrap">
+									<iframe width="100%" height="400" [src]="updateVideoUrl(property.youtube_link)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								</div>
+							</mat-tab>
+							<mat-tab label="Video de propiedad" *ngIf="property.video">
+									<video width="100%" height="400" controls>
+										<source [src]="getVideoUrl()" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+							</mat-tab>
+						</mat-tab-group>
 						<div class="flex flex-wrap" *ngIf="property.youtube_link">
 							<iframe width="100%" height="400" [src]="updateVideoUrl(property.youtube_link)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						</div>
@@ -235,7 +248,7 @@
 							</mat-panel-title>
 						</mat-expansion-panel-header>
 						<div class="w-full flex flex-wrap gap-3">
-							<div *ngFor="let img of galleryImgs" style="background-image: url({{environment.assets}}/storage/properties/{{img?.name}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md"></div>
+							<div (click)="openDialog(environment.assets+'/storage/properties/'+img?.name, 'Gallery')" *ngFor="let img of galleryImgs" style="background-image: url({{environment.assets}}/storage/properties/{{img?.name}}); width: 32%!important;" class="img h-30 bg-cover bg-no-repeat bg-center rounded-md cursor-pointer"></div>
 						</div>
 					</mat-expansion-panel>
 
@@ -358,7 +371,7 @@
 
 			</div>
 		</div>
-		<div class="col-span-1">
+		<div class="col-span-3 md:col-span-1">
 			<div class="flex flex-col gap-3">
 				<div class="bg-card shadow rounded-2xl p-6">
 					<div class="w-full flex gap-4">
@@ -477,9 +490,9 @@
 					<div class="font-bold text-2xl mb-2" style="color: #2D3954">Propiedades destacadas</div>
 
 
-					<div class="bg-card shadow rounded-2xl p-3" *ngFor="let featureProperty of featureProperties">
+					<div *ngFor="let featureProperty of featureProperties" class="cursor-pointer bg-card shadow rounded-2xl p-3" (click)="goToProperty(featureProperty.id)">
 						<div class="flex gap-2">
-							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url({{environment.assets}}/storage/properties/{{featureProperty.images[0].name}});"></div>
+							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url({{environment.assets}}/storage/properties/{{featureProperty?.images[0]?.name}});"></div>
 							<div class="w-3/4">
 								<div style="color: #4e5c79" class="font-bold text-lg">{{featureProperty.name}}</div>
 								<div class="flex gap-1 items-center text-sm">
@@ -487,7 +500,7 @@
 									<div class="font-light text-slate-600">{{featureProperty.address}}</div>
 								</div>
 								<div class="flex w-full justify-between items-center text-sm mt-2">
-									<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">{{featureProperty.contact_type?.name}}</span>
+									<span class="bg-red-200 text-red-600 py-1 px-2 rounded-full text-sm w-fit">{{featureProperty.contract_type?.name}}</span>
 									<div class="text-slate-600 text-lg font-extrabold">${{featureProperty.price}}</div>
 								</div>
 							</div>

@@ -29,13 +29,13 @@ export class ManageUserComponent implements OnInit {
 	brokers: Broker[];
 
   constructor(
-		public _globalService: GlobalService,
-		private _activateRoute: ActivatedRoute,
-		private _formBuilder: FormBuilder,
-		private _router: Router,
-		private _usersService: UsersService,
+		public  _globalService          : GlobalService,
+		private _activateRoute          : ActivatedRoute,
+		private _formBuilder            : FormBuilder,
+		private _router                 : Router,
+		private _usersService           : UsersService,
 		private _entityPropertiesService: EntityPropertiesService,
-		private _brokersService: BrokersService
+		private _brokersService         : BrokersService
 	) { }
 
   ngOnInit(): void {

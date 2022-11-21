@@ -1,8 +1,8 @@
-.owl-carousel-o{
+.property-banner .owl-carousel-o{
 	width: 100%;
 }
 
-::ng-deep .owl-nav{
+::ng-deep .property-banner .owl-nav{
 	display: flex !important;
 	justify-content: space-between !important;
 	margin: 0 20px !important;
@@ -11,7 +11,7 @@
 	position: relative !important;
 }
 
-::ng-deep .owl-theme .owl-nav [class*=owl-]{
+::ng-deep .property-banner .owl-theme .owl-nav [class*=owl-]{
 	background: rgb(0 0 0 / 51%) !important;
 	height: 40px !important;
 	width: 40px !important;
