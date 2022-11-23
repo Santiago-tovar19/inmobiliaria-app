@@ -376,7 +376,7 @@
 				</mat-accordion>
 
 				<div class="bg-card shadow rounded-2xl p-6">
-					<app-ol-map *ngIf="showMap" (coordinates)="setCoordinates($event)" [lat]="-33.41170161440925" [lon]="-70.62236551782559" [height]="500" [zoom]="4">
+					<app-ol-map *ngIf="showMap" (coordinates)="setCoordinates($event)" [lat]="18.477791110138053" [lon]="-69.92633752725835" [height]="500" [zoom]="12">
 						<app-ol-map-marker [lat]="propertyFG.get('lat').value" [lon]="propertyFG.get('lon').value">
 						</app-ol-map-marker>
 					</app-ol-map>
