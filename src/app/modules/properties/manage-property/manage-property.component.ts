@@ -131,6 +131,8 @@ export class ManagePropertyComponent implements OnInit {
 			if(params.id) {
 				this.propertyID = params.id;
 				this.getProperty();
+			} else{
+				this.showMap = true;
 			}
 		});
 	}
