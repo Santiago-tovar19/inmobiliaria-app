@@ -112,9 +112,17 @@
 						<div class="col-span-2">
 							<file-input
 							[label]="'Imagen de perfil'"
-							[fileControl]="userForm.get('img')"
-							[fileChangedControl]="userForm.get('img_changed')"
+							[multiple]="false"
+							(fileChange)="onFileChange($event)"
 							></file-input>
+							<div *ngIf="userImg">
+								<div class="relative w-fit m-auto mt-4">
+									<img #userImgTagRef class="h-56 w-auto m-auto" [src]="userImg" alt="">
+									<button (click)='removeImg()' mat-mini-fab class="mt-2 bg-red-500 text-white m-auto absolute top-3	 right-4">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- Divider -->

@@ -44,14 +44,14 @@
 		</div>
 		<div class="flex flex-col flex-auto mt-2 overflow-x-auto">
 				<table
-						class="min-w-240 overflow-y-visible"
+						class="md:min-w-240 overflow-y-visible"
 						mat-table
 						[dataSource]="dataSource">
 
 						<!-- id -->
 						<ng-container matColumnDef="id">
 							<th mat-header-cell *matHeaderCellDef>ID</th>
-							<td mat-cell *matCellDef="let user">
+							<td data-label="ID" mat-cell *matCellDef="let user">
 								<span class="font-medium">
 									{{user.id}}
 								</span>
@@ -61,7 +61,7 @@
 
 						<ng-container matColumnDef="nombres">
 							<th mat-header-cell *matHeaderCellDef>Nombres y apellidos</th>
-							<td mat-cell *matCellDef="let user">
+							<td data-label="Nombres" mat-cell *matCellDef="let user">
 								<span class="font-medium">
 									{{user.full_name}}
 								</span>
@@ -70,8 +70,8 @@
 
 
 						<ng-container matColumnDef="email">
-							<th mat-header-cell *matHeaderCellDef>Nombres y apellidos</th>
-							<td mat-cell *matCellDef="let user">
+							<th mat-header-cell *matHeaderCellDef>Email</th>
+							<td data-label="Email" mat-cell *matCellDef="let user">
 								<span class="font-medium">
 									{{user.email}}
 								</span>
@@ -81,7 +81,7 @@
 
 						<ng-container matColumnDef="role">
 							<th mat-header-cell *matHeaderCellDef>Rol</th>
-							<td mat-cell *matCellDef="let user">
+							<td data-label="Rol" mat-cell *matCellDef="let user">
 								<span class="font-medium">
 									{{user.role?.name || '-'}}
 								</span>
@@ -90,7 +90,7 @@
 
 						<ng-container matColumnDef="broker_phone">
 							<th mat-header-cell *matHeaderCellDef>Telefono Corredora</th>
-							<td mat-cell *matCellDef="let user">
+							<td data-label="Telefono Corredora" mat-cell *matCellDef="let user">
 								<span class="font-medium">
 									{{user.broker_phone || '-'}}
 								</span>
@@ -99,7 +99,7 @@
 
 						<ng-container matColumnDef="broker_address">
 							<th mat-header-cell *matHeaderCellDef>Direccion Corredora</th>
-							<td mat-cell *matCellDef="let user">
+							<td data-label="Direccion corredora" mat-cell *matCellDef="let user">
 								<span class="font-medium">
 									{{user.broker_address || '-'}}
 								</span>
@@ -108,7 +108,7 @@
 
 						<ng-container matColumnDef="status">
 							<th mat-header-cell *matHeaderCellDef>Status Registro</th>
-							<td mat-cell *matCellDef="let user" class="px-5">
+							<td data-label="Status" mat-cell *matCellDef="let user" class="px-5">
 								<span class="font-medium">
 									<div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
 									<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div>
@@ -120,8 +120,8 @@
 				<!-- Acciones -->
 				<ng-container matColumnDef="acciones">
 					<th mat-header-cell *matHeaderCellDef>Acciones</th>
-					<td mat-cell *matCellDef="let user">
-						<div class="flex gap-2">
+					<td data-label="Acciones" mat-cell *matCellDef="let user">
+						<div class="flex justify-end gap-2">
 							<div class="1/2">
 								<button (click)="goToUser(user.id)" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
 							</div>
@@ -132,7 +132,7 @@
 					</td>
 			</ng-container>
 
-					<tr mat-header-row *matHeaderRowDef="columns"></tr>
+					<tr class="table-header" mat-header-row *matHeaderRowDef="columns"></tr>
 					<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: columns;"></tr>
 				</table>
 				<mat-paginator [length]="usersPaginated?.total"

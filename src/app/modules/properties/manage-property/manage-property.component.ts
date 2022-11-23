@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { ReturnStatement } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
@@ -50,6 +50,7 @@ export class ManagePropertyComponent implements OnInit {
 	filesToRemove = [];
 	errors;
 	user;
+	showMap = false;
 
 	propertyFG: FormGroup;
 
@@ -79,7 +80,7 @@ export class ManagePropertyComponent implements OnInit {
 
 		this.propertyFG = this._formBuilder.group({
 			name: ['', Validators.required],
-			description: [''],
+			description: ['', [Validators.maxLength(1200)]],
 			address: ['', Validators.required],
 			currency_id: [null, Validators.required],
 			price: ['', Validators.required],
@@ -110,6 +111,13 @@ export class ManagePropertyComponent implements OnInit {
 			kids_area: [1],
 			pets_allowed: [1],
 			youtube_link: [''],
+		});
+
+		this.propertyFG.get('address').valueChanges.subscribe((value) => {
+			this.showMap = false;
+			setTimeout(() => {
+				this.showMap = true;
+			}, 100);
 		});
 
 		this._propertiesService.getFeatures().subscribe(res => {
@@ -229,6 +237,7 @@ export class ManagePropertyComponent implements OnInit {
 					return {key, errors: Object.keys(controlErrors)};
 				}
 			}).filter(x => x);
+			this._globalService.openSnackBar('Hay errores en el formulario', 5000,'error');
 			return;
 		}
 
@@ -271,6 +280,8 @@ export class ManagePropertyComponent implements OnInit {
 					return {key, errors: Object.keys(controlErrors)};
 				}
 			}).filter(x => x);
+
+			this._globalService.openSnackBar('Hay errores en el formulario', 5000,'error');
 			return;
 		}
 
@@ -319,5 +330,18 @@ export class ManagePropertyComponent implements OnInit {
 			this.propertyFG.get('deleteVideo').setValue(true);
 		}
 	}
+
+	getCharactersLeft(): number {
+		return 1200 - this.propertyFG.get('description').value?.length || 0;
+	}
+
+	getSafeUrl(url): SafeUrl {
+		// replace spaces with %20
+		url = url.replace(/ /g, '+');
+		console.log(url);
+		console.log(this.sanitizer.bypassSecurityTrustResourceUrl(url));
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+
 
 }

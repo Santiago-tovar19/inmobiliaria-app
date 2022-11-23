@@ -11,13 +11,12 @@ export class FileInputComponent implements OnInit, OnChanges {
 
 	@ViewChild('fileInput') fileInput: HTMLInputElement;
 	@Output() fileChange = new EventEmitter<FileList>();
-	@Input() fileControl: FormControl
-	@Input() fileChangedControl: FormControl
 	@Input() multiple: boolean = true;
 	@Input() label = 'Subir archivo';
 	fileChanged: boolean = false;
 	fileName: FormControl = new FormControl({ value: '', disabled: true });
 	base64: string = '';
+	isActive= false;
 
 	fileToBase64(file: File): Promise<string> {
 		return new Promise((resolve, reject) => {
@@ -30,19 +29,13 @@ export class FileInputComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-		console.log(this.multiple)
-		this.fileControl?.valueChanges.subscribe((value) => {
-			if(value){
-				this.base64 = `${environment.assets}/files/${value}`;
-				this.fileName.setValue(value);
-			}
-		});
   }
 
 	ngOnChanges(simpleChanges: SimpleChanges): void {
 	}
 
 	selectFile(event: Event): void {
+		this.isActive = false;
 		const target = event.target as HTMLInputElement;
 		let files = target.files;
 		if(!this.multiple){

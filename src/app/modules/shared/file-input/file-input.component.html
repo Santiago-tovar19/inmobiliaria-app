@@ -1,18 +1,9 @@
 <div class="cont">
-	<div class="description">{{label}}</div>
-	<div class="w-full file-input flex gap-2 items-center">
-		<div [ngClass]="{'w-10/12': base64, 'w-full': !base64}">
-			<mat-form-field class="w-full">
-				<input class="h-full p-0" [formControl]="fileName" matInput>
-				<div class="flex items-center gap-4">
-					<button *ngIf="fileName.value" mat-button (click)="removeFile()">
-						<mat-icon>delete</mat-icon>
-					</button>
-					<button (click)="multiple ? fileInputMultiple.click() : fileInput.click()" mat-button class="rounded mr-1 p-0 bg-primary-300 text-on-primary-300 w-52">Seleccionar archivo</button>
+	<div [class.active-file]="isActive" class="w-full file-input relative cursor-pointer">
+				<div class="text-center text-xl font-bold">
+					Haz click aquí para seleccionar un archivo o arrastra y suelta el archivo aquí
 				</div>
-				<input [class.input-active]="multiple" [class.hidden]="!multiple" (change)="selectFile($event)" #fileInputMultiple type="file" multiple>
-				<input [class.input-active]="!multiple" [class.hidden]="multiple" (change)="selectFile($event)" #fileInput type="file">
-			</mat-form-field>
-		</div>
+				<input (dragenter)="isActive = true" (dragleave)="isActive = false" [class.input-active]="multiple" [class.hidden]="!multiple" (change)="selectFile($event)" #fileInputMultiple type="file" multiple>
+				<input (dragenter)="isActive = true" (dragleave)="isActive = false" [class.input-active]="!multiple" [class.hidden]="multiple" (change)="selectFile($event)" #fileInput type="file">
 	</div>
 </div>

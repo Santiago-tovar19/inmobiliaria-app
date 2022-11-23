@@ -62,13 +62,13 @@
 									<strong class="text-base text-slate-600">Status: </strong>
 									<span class="text-slate-400">{{property.status?.name}}</span>
 								</div>
-								<div>
+								<div *ngIf="property.kitchen!==2">
 									<strong class="text-base text-slate-600">Cocina: </strong>
 									<span class="text-slate-400">{{property.kitchen ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
 							<div class="w-full md:w-1/3 flex flex-col gap-5">
-								<div>
+								<div *ngIf="property.bathrooms!==2">
 									<strong class="text-base text-slate-600">Baños: </strong>
 									<span class="text-slate-400">{{property.bathrooms}} baños</span>
 								</div>
@@ -76,17 +76,17 @@
 									<strong class="text-base text-slate-600">Tipo de propiedad: </strong>
 									<span class="text-slate-400">{{property.property_type?.name}}</span>
 								</div>
-								<div>
+								<div *ngIf="property.fireplace!==2">
 									<strong class="text-base text-slate-600">Chimenea: </strong>
 									<span class="text-slate-400">{{property.fireplace ? 'Si' : 'No'}}</span>
 								</div>
-								<div>
+								<div *ngIf="property.elevator!==2">
 									<strong class="text-base text-slate-600">Elevador: </strong>
 									<span class="text-slate-400">{{property.elevator ? 'Si' : 'No'}}</span>
 								</div>
 							</div>
 							<div class="w-full md:w-1/3 flex flex-col gap-5">
-								<div>
+								<div *ngIf="property.size!==2">
 									<strong class="text-base text-slate-600">Area: </strong>
 									<span class="text-slate-400">{{property.size}} m<sup>2</sup></span>
 								</div>
@@ -94,11 +94,11 @@
 									<strong class="text-base text-slate-600">Año: </strong>
 									<span class="text-slate-400">{{property.construction_year}}</span>
 								</div>
-								<div>
+								<div *ngIf="property.swimming_pool!==2">
 									<strong class="text-base text-slate-600">Piscina: </strong>
 									<span class="text-slate-400">{{property.swimming_pool}}</span>
 								</div>
-								<div>
+								<div *ngIf="property.wifi!==2">
 									<strong class="text-base text-slate-600">Wifi gratis: </strong>
 									<span class="text-slate-400">{{property.wifi ? 'Si' : 'No'}}</span>
 								</div>
@@ -112,8 +112,8 @@
 								<span class="font-bold text-lg">Descripción</span>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
-						<div class="descripcion leading-7">
-							{{property.description}}
+						<div [innerText]="property.description" class="descripcion leading-7">
+							<!-- {{property.description}} -->
 						</div>
 					</mat-expansion-panel>
 
@@ -129,19 +129,19 @@
 									<mat-icon [class.text-lime-500]="property.bedrooms" [class.text-red-500]="!property.bedrooms" >{{property.bedrooms ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Habitaciones </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.parking!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.parking" [class.text-red-500]="!property.parking" >{{property.parking ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Garaje </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.kitchen!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.kitchen" [class.text-red-500]="!property.kitchen" >{{property.kitchen ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Cocina </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.elevator!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.elevator" [class.text-red-500]="!property.elevator" >{{property.elevator ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Elevador </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.security!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.security" [class.text-red-500]="!property.security" >{{property.security ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Seguridad </span>
 								</div>
@@ -151,41 +151,41 @@
 									<mat-icon [class.text-lime-500]="property.bathrooms" [class.text-red-500]="!property.bathrooms" >{{property.bathrooms ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Baños </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.fireplace!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.fireplace" [class.text-red-500]="!property.fireplace" >{{property.fireplace ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Chimenea </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.lobby!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.lobby" [class.text-red-500]="!property.lobby" >{{property.lobby ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Vestibulo </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.balcony!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.balcony" [class.text-red-500]="!property.balcony" >{{property.balcony ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Balcon </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.terrace!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.terrace" [class.text-red-500]="!property.terrace" >{{property.terrace ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Terraza </span>
 								</div>
 							</div>
 							<div class="w-full md:w-1/3 flex flex-col gap-5">
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.power_plant!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.power_plant" [class.text-red-500]="!property.power_plant" >{{property.power_plant ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Planta de poder </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.walk_in_closet!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.walk_in_closet" [class.text-red-500]="!property.walk_in_closet" >{{property.walk_in_closet ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Vestidor </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.swimming_pool!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.swimming_pool" [class.text-red-500]="!property.swimming_pool" >{{property.swimming_pool ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Piscina </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.kids_area!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.kids_area" [class.text-red-500]="!property.kids_area" >{{property.kids_area ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Area de niños </span>
 								</div>
-								<div class="flex gap-1 items-center">
+								<div *ngIf="property.pets_allowed!==2" class="flex gap-1 items-center">
 									<mat-icon [class.text-lime-500]="property.pets_allowed" [class.text-red-500]="!property.pets_allowed" >{{property.pets_allowed ? 'check_circle_outline' : 'close'}}</mat-icon>
 									<span class="text-base text-slate-600">Mascotas permitidas </span>
 								</div>
@@ -199,7 +199,7 @@
 								<span class="font-bold text-lg">Videos</span>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
-						<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+						<!-- <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
 							<mat-tab label="Link de youtube" *ngIf="property.youtube_link">
 								<div class="flex flex-wrap">
 									<iframe width="100%" height="400" [src]="updateVideoUrl(property.youtube_link)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -211,9 +211,15 @@
 										Your browser does not support the video tag.
 									</video>
 							</mat-tab>
-						</mat-tab-group>
-						<div class="flex flex-wrap" *ngIf="property.youtube_link">
+						</mat-tab-group> -->
+						<div class="flex flex-wrap" *ngIf="property?.youtube_link">
 							<iframe width="100%" height="400" [src]="updateVideoUrl(property.youtube_link)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+						<div class="flex flex-wrap" *ngIf="property?.video">
+							<video width="100%" height="400" controls>
+								<source [src]="getVideoUrl()" type="video/mp4">
+									Your browser does not support the video tag.
+								</video>
 						</div>
 					</mat-expansion-panel>
 
@@ -255,7 +261,7 @@
 				</mat-accordion>
 
 				<!-- Otra -->
-				<div class="bg-card shadow rounded-2xl p-6">
+				<!-- <div class="bg-card shadow rounded-2xl p-6">
 					<div class="flex flex-row gap-2 items-center">
 						<div class="w-1/6">
 							<div class="text-center">
@@ -309,11 +315,11 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 
 				<!-- Otro Acordeon -->
-				<mat-accordion class="example-headers-align" multi>
+				<!-- <mat-accordion class="example-headers-align" multi>
 
 					<mat-expansion-panel [expanded]="true">
 						<mat-expansion-panel-header>
@@ -365,7 +371,7 @@
 						</div>
 					</mat-expansion-panel>
 
-				</mat-accordion>
+				</mat-accordion> -->
 
 
 

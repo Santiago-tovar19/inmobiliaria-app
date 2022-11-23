@@ -16,7 +16,10 @@
 		<div class="col-span-2">
 			<div class="bg-card shadow rounded-2xl p-6">
 				<div class="flex flex-col gap-2">
-					<div class='flex w-full'>
+					<div class='flex flex-wrap w-full'>
+						<div class="w-full mb-2">
+							ID de propiedad: {{property.id}}
+						</div>
 						<div class="w-1/2">
 							<select formControlName="contract_type_id" class="w-50 p-1 rounded-md border border-solid" placeholder="Modo">
 								<option disabled [value]="null">Venta/Alquiler</option>
@@ -62,7 +65,7 @@
 								<option [value]="0">0 Habitaciones</option>
 								<option [value]="1">1 Habitación</option>
 								<option [value]="2">2 Habitaciones</option>
-								<option [value]="3">3 Habitaciones</option>
+								<option [value]="2">3 Habitaciones</option>
 								<option [value]="4">4 Habitaciones</option>
 								<option [value]="5">5 Habitaciones</option>
 								<option [value]="6">6 Habitaciones</option>
@@ -78,7 +81,7 @@
 								<option [value]="0">0 Baños</option>
 								<option [value]="1">1 Baño</option>
 								<option [value]="2">2 Baños</option>
-								<option [value]="3">3 Baños</option>
+								<option [value]="2">3 Baños</option>
 								<option [value]="4">4 Baños</option>
 								<option [value]="5">5 Baños</option>
 								<option [value]="6">6 Baños</option>
@@ -123,8 +126,9 @@
 								<div>
 									<strong class="text-base text-slate-600">Garaje: </strong>
 									<select formControlName="parking" class="w-20 p-1 rounded-md border border-solid" placeholder="Garaje">
-										<option [value]="true">Si</option>
-										<option [value]="false">No</option>
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div>
@@ -136,8 +140,9 @@
 								<div>
 									<strong class="text-base text-slate-600">Cocina: </strong>
 									<select formControlName="kitchen" class="w-20 p-1 rounded-md border border-solid" placeholder="Cocina">
-										<option [value]="true">Si</option>
-										<option [value]="false">No</option>
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 							</div>
@@ -151,15 +156,17 @@
 								<div>
 									<strong class="text-base text-slate-600">Chimenea: </strong>
 									<select formControlName="fireplace" class="w-20 p-1 rounded-md border border-solid" placeholder="Chimenea">
-										<option [value]="true">Si</option>
-										<option [value]="false">No</option>
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Elevador: </strong>
 									<select formControlName="elevator" class="w-20 p-1 rounded-md border border-solid" placeholder="Elevador">
-										<option [value]="true">Si</option>
-										<option [value]="false">No</option>
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 							</div>
@@ -171,15 +178,17 @@
 								<div>
 									<strong class="text-base text-slate-600">Piscina: </strong>
 									<select formControlName="swimming_pool" class="w-20 p-1 rounded-md border border-solid" placeholder="Piscina">
-										<option [value]="true">Si</option>
-										<option [value]="false">No</option>
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div>
 									<strong class="text-base text-slate-600">Wifi gratis: </strong>
 									<select formControlName="wifi" class="w-20 p-1 rounded-md border border-solid" placeholder="Wifi">
-										<option [value]="true">Si</option>
-										<option [value]="false">No</option>
+										<option [value]="1">Si</option>
+										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 							</div>
@@ -193,6 +202,10 @@
 							</mat-panel-title>
 						</mat-expansion-panel-header>
 						<textarea formControlName="description" class="p-1 rounded-md border border-solid w-full" name="" id="" cols="30" rows="10"></textarea>
+						<mat-hint>Caracteres disponibles: {{getCharactersLeft()}}</mat-hint>
+						<mat-error *ngIf="propertyFG.get('description').hasError('minlength')">
+							El campo debe tener un maximo de 1200 caracteres
+						</mat-error>
 					</mat-expansion-panel>
 
 					<mat-expansion-panel [expanded]="true">
@@ -209,6 +222,7 @@
 									<select formControlName="security" class="w-20 p-1 rounded-md border border-solid" placeholder="Seguridad">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div class="flex gap-1 items-center">
@@ -217,6 +231,7 @@
 									<select formControlName="power_plant" class="w-20 p-1 rounded-md border border-solid" placeholder="Planta poder">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div class="flex gap-1 items-center">
@@ -225,6 +240,7 @@
 									<select formControlName="walk_in_closet" class="w-20 p-1 rounded-md border border-solid" placeholder="Vestidor">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 							</div>
@@ -235,6 +251,7 @@
 									<select formControlName="lobby" class="w-20 p-1 rounded-md border border-solid" placeholder="Vestibulo">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div class="flex gap-1 items-center">
@@ -243,6 +260,7 @@
 									<select formControlName="balcony" class="w-20 p-1 rounded-md border border-solid" placeholder="Balcon">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div class="flex gap-1 items-center">
@@ -251,6 +269,7 @@
 									<select formControlName="terrace" class="w-20 p-1 rounded-md border border-solid" placeholder="Terraza">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 							</div>
@@ -261,6 +280,7 @@
 									<select formControlName="gym" class="w-20 p-1 rounded-md border border-solid" placeholder="Gym">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div class="flex gap-1 items-center">
@@ -269,6 +289,7 @@
 									<select formControlName="kids_area" class="w-20 p-1 rounded-md border border-solid" placeholder="Area de niños">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 								<div class="flex gap-1 items-center">
@@ -277,6 +298,7 @@
 									<select formControlName="pets_allowed" class="w-20 p-1 rounded-md border border-solid" placeholder="Mascotas permitidas">
 										<option [value]="1">Si</option>
 										<option [value]="0">No</option>
+										<option [value]="2">N/A</option>
 									</select>
 								</div>
 							</div>
@@ -353,6 +375,18 @@
 
 				</mat-accordion>
 
+				<div *ngIf="showMap" class="bg-card shadow rounded-2xl p-6">
+					<iframe
+							width="100%"
+							height="400"
+							frameborder="0"
+							scrolling="no"
+							marginheight="0"
+							marginwidth="0"
+							[src]="getSafeUrl('https://maps.google.com/maps?q='+propertyFG.get('address').value+'&hl=en-US&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed')">
+					</iframe>
+				</div>
+
 				<!-- Otra -->
 				<div class="bg-card shadow rounded-2xl p-6">
 					<div class="flex flex-row gap-2 items-center">
@@ -409,45 +443,6 @@
 						</div>
 					</div>
 				</div>
-
-
-				<!-- Otro Acordeon -->
-				<!-- <mat-accordion class="example-headers-align" multi>
-
-					<mat-expansion-panel [expanded]="true">
-						<mat-expansion-panel-header>
-							<mat-panel-title>
-								<span class="font-bold text-lg">10 Reseñas</span>
-							</mat-panel-title>
-						</mat-expansion-panel-header>
-						<div>
-							<div class="flex gap-2">
-								<div class="w-2/12">
-									<img class="w-20 h-20 rounded-full mx-auto" src="https://themezhub.net/resido-live/resido/assets/img/user-1.jpg">
-								</div>
-								<div class="w-10/12">
-									<div style="color: #2d3954;" class="text-xl font-bold">Rosalina Kelian</div>
-									<div style="color: #00ba74" class="text-sm">19TH MAY 2018</div>
-									<div>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab. perspiciatis unde omnis iste natus error.</div>
-								</div>
-							</div>
-							<hr>
-							<div class="flex gap-2">
-								<div class="w-2/12">
-									<img class="w-20 h-20 rounded-full mx-auto" src="https://themezhub.net/resido-live/resido/assets/img/user-5.jpg">
-								</div>
-								<div class="w-10/12">
-									<div style="color: #2d3954;" class="text-xl font-bold">Rosalina Kelian</div>
-									<div style="color: #00ba74" class="text-sm">19TH MAY 2018</div>
-									<div>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim laborumab. perspiciatis unde omnis iste natus error.</div>
-								</div>
-							</div>
-							<hr class="mb-4">
-							<div style="color: #1266e3;" class="text-center font-semibold cursor-pointer">Ver mas reseñas</div>
-						</div>
-					</mat-expansion-panel>
-
-				</mat-accordion> -->
 
 
 

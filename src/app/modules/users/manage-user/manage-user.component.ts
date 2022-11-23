@@ -8,6 +8,7 @@ import { HttpValidationErrorResponse } from 'app/interfaces/http-responses/http-
 import { BrokersService } from 'app/modules/brokers/service/brokers.service';
 import { EntityPropertiesService } from 'app/services/entity-properties/entity-properties.service';
 import { GlobalService } from 'app/services/global/global.service';
+import { environment } from 'environments/environment';
 import { takeUntil } from 'rxjs';
 import { UsersService, SearchObject } from '../service/users.service';
 
@@ -27,6 +28,7 @@ export class ManageUserComponent implements OnInit {
 	userID: string = '';
 	roles: any
 	brokers: Broker[];
+	userImg: string;
 
   constructor(
 		public  _globalService          : GlobalService,
@@ -56,6 +58,18 @@ export class ManageUserComponent implements OnInit {
 
   }
 
+	onFileChange(event: File): void {
+		this.userForm.get('img').setValue(event);
+		this.userForm.get('img_changed').setValue(true);
+
+		const reader = new FileReader();
+		if (event) {
+			reader.readAsDataURL(event);
+			reader.onload = () => {
+				this.userImg = reader.result as string;
+			};
+		}
+	}
 	initForm(): void{
 		this.userForm = this._formBuilder.group({
 			first_name  : [''],
@@ -68,17 +82,19 @@ export class ManageUserComponent implements OnInit {
 			verified   : [false],
 			img_changed: [false]
 		});
+
 	}
 
 	getUser(): void{
 		this._usersService.get(this.userID).subscribe((response) => {
 			this.userForm.patchValue(response.data);
+			if(response.data.img){
+				this.userImg = environment.assets+'/files/'+ response.data.img;
+			}
 		});
 	}
 
 	createUser(): void{
-
-		console.log(this.userForm.value);
 
 	// Return if the form is invalid
 	if (this.userForm.invalid) {
@@ -164,5 +180,11 @@ export class ManageUserComponent implements OnInit {
 					}
 				},
 			);
+	}
+
+	removeImg(): void{
+		this.userForm.get('img').setValue('');
+		this.userForm.get('img_changed').setValue(true);
+		this.userImg = '';
 	}
 }
