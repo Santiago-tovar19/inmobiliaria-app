@@ -43,6 +43,7 @@ export class PropertyViewComponent implements OnInit {
 	galleryImgs = [];
 	featureProperties;
 	user;
+	mapUrl: any;
 
 	constructor(
 		private _propertiesService: PropertiesService,
@@ -90,6 +91,7 @@ export class PropertyViewComponent implements OnInit {
 			this.property = res.data;
 			this.bannerImgs = this.property.images.filter(img => img.type == 'Banner');
 			this.galleryImgs = this.property.images.filter(img => img.type == 'Gallery');
+			this.mapUrl = this.sanitizeUrl();
 		});
 	}
 
@@ -132,5 +134,10 @@ export class PropertyViewComponent implements OnInit {
 
 	getVideoUrl(){
 		return this.sanitizer.bypassSecurityTrustResourceUrl(environment.assets+'/storage/properties/'+this.property.video);
+	}
+
+	sanitizeUrl(){
+		const url = `https://maps.google.com/maps?q=${this.property.lat},${this.property.lon}&hl=es&z=14&amp&output=embed`
+		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 	}
 }

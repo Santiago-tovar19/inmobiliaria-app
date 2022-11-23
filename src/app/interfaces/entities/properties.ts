@@ -39,6 +39,8 @@ export interface Property {
 		id: number;
 		name: string;
 	};
+	lat: string,
+	lon: string,
 	created_by: User
 	parking: 0 | 1 | 2;
 	hoa: 0 | 1 | 2;

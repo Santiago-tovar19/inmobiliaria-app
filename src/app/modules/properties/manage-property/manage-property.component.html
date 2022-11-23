@@ -375,16 +375,11 @@
 
 				</mat-accordion>
 
-				<div *ngIf="showMap" class="bg-card shadow rounded-2xl p-6">
-					<iframe
-							width="100%"
-							height="400"
-							frameborder="0"
-							scrolling="no"
-							marginheight="0"
-							marginwidth="0"
-							[src]="getSafeUrl('https://maps.google.com/maps?q='+propertyFG.get('address').value+'&hl=en-US&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed')">
-					</iframe>
+				<div class="bg-card shadow rounded-2xl p-6">
+					<app-ol-map *ngIf="showMap" (coordinates)="setCoordinates($event)" [lat]="-33.41170161440925" [lon]="-70.62236551782559" [height]="500" [zoom]="4">
+						<app-ol-map-marker [lat]="propertyFG.get('lat').value" [lon]="propertyFG.get('lon').value">
+						</app-ol-map-marker>
+					</app-ol-map>
 				</div>
 
 				<!-- Otra -->

@@ -84,6 +84,8 @@ export class ManagePropertyComponent implements OnInit {
 			address: ['', Validators.required],
 			currency_id: [null, Validators.required],
 			price: ['', Validators.required],
+			lat: [''],
+			lon: [''],
 			bedrooms: [0],
 			bathrooms: [0],
 			construction_year: [null],
@@ -113,12 +115,6 @@ export class ManagePropertyComponent implements OnInit {
 			youtube_link: [''],
 		});
 
-		this.propertyFG.get('address').valueChanges.subscribe((value) => {
-			this.showMap = false;
-			setTimeout(() => {
-				this.showMap = true;
-			}, 100);
-		});
 
 		this._propertiesService.getFeatures().subscribe(res => {
 			this.currencies    = res.data.currencies;
@@ -189,6 +185,9 @@ export class ManagePropertyComponent implements OnInit {
 				if(this.property.deleted_at){
 					this.propertyFG.patchValue({trashed: true});
 				}
+				setTimeout(() => {
+					this.showMap = true;
+				}, 100);
 		});
 	}
 
@@ -341,6 +340,11 @@ export class ManagePropertyComponent implements OnInit {
 		console.log(url);
 		console.log(this.sanitizer.bypassSecurityTrustResourceUrl(url));
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+
+	setCoordinates(coordinates: [number, number]): void {
+		this.propertyFG.get('lon').setValue(coordinates[0]);
+		this.propertyFG.get('lat').setValue(coordinates[1]);
 	}
 
 

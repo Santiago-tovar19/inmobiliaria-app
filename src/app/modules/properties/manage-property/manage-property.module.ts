@@ -15,6 +15,7 @@ import { FileInputModule } from 'app/modules/shared/file-input/file-input.module
 import { FuseAlertModule } from '@fuse/components/alert';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { OlMapsModule } from 'app/modules/shared/open-layers/ol-maps.module';
 
 
 
@@ -37,6 +38,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 		CarouselModule,
 		HttpClientModule,
 		MatTabsModule,
+		OlMapsModule,
 		MatSlideToggleModule,
 		MatFormFieldModule,
 		MatProgressBarModule,
