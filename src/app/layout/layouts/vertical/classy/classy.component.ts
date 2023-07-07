@@ -51,7 +51,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 	 */
 	ngOnInit(): void {
 
-        this.breadcrumbs = this._router.url.split('/').map(path => path.replace('-', ' ') ).filter(path => path !== '');
+    this.breadcrumbs = this._router.url.split('/').map(path => path.replace('-', ' ') ).filter(path => path !== '');
 		this._router.events.subscribe((event) => {
 			if (!(event instanceof NavigationEnd)){
 				return;

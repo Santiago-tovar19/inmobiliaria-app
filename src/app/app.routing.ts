@@ -118,19 +118,22 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children   : [
-            {path: 'dashboard', loadChildren: () => import('app/modules/dashboards/adminmaster/adminmaster-dashboard.module').then(m => m.AdminMasterDashboardModule)},
-        {
-					path: 'usuarios',
-					loadChildren: () => import('app/modules/users/users.module').then(m => m.UsersModule),
-				},
-				{
-					path: 'propiedades',
-					loadChildren: () => import('app/modules/properties/properties.module').then(m => m.PropertiesModule),
-				},
-				{
-					path: 'test',
-					loadChildren: () => import('app/modules/test/test.module').then(m => m.TestModule),
-				}
+            {
+							path: 'dashboard',
+							loadChildren: () => import('app/modules/dashboards/adminmaster/adminmaster-dashboard.module').then(m => m.AdminMasterDashboardModule)
+						},
+						{
+							path: 'usuarios',
+							loadChildren: () => import('app/modules/users/users.module').then(m => m.UsersModule),
+						},
+						{
+							path: 'propiedades',
+							loadChildren: () => import('app/modules/properties/properties.module').then(m => m.PropertiesModule),
+						},
+						{
+							path: 'test',
+							loadChildren: () => import('app/modules/test/test.module').then(m => m.TestModule),
+						}
       ]
     }
 ];
