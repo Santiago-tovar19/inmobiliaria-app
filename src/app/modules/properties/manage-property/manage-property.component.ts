@@ -1,5 +1,4 @@
 import { Location } from '@angular/common';
-import { ReturnStatement } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -9,33 +8,31 @@ import { Property } from 'app/interfaces/entities/properties';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { GlobalService } from 'app/services/global/global.service';
 import { environment } from 'environments/environment';
-import { invalid } from 'moment';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
-  selector: 'app-manage-property',
-  templateUrl: './manage-property.component.html',
-  styleUrls: ['./manage-property.component.scss']
+	selector: 'app-manage-property',
+	templateUrl: './manage-property.component.html',
+	styleUrls: ['./manage-property.component.scss'],
 })
 export class ManagePropertyComponent implements OnInit {
-
 	customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 700,
+		loop: true,
+		mouseDrag: true,
+		touchDrag: true,
+		pullDrag: false,
+		dots: false,
+		navSpeed: 700,
 		margin: 5,
 		stagePadding: 50,
-    navText: ['<', '>'],
-    responsive: {
-      0: {
-        items: 2
+		navText: ['<', '>'],
+		responsive: {
+			0: {
+				items: 2,
 			},
-    },
-    nav: true
-  }
+		},
+		nav: true,
+	};
 
 	propertyID: string;
 	property: Property = {} as any;
@@ -55,25 +52,15 @@ export class ManagePropertyComponent implements OnInit {
 	propertyFG: FormGroup;
 
 	nameKeys = {
-		'name': 'nombre',
-		'address': 'direccion',
-		'currency_id': 'moneda',
-		'price': 'precio',
+		name: 'nombre',
+		address: 'direccion',
+		currency_id: 'moneda',
+		price: 'precio',
 	};
 
-	constructor(
-		private _propertiesService: PropertiesService,
-		private _activatedRouter: ActivatedRoute,
-		private sanitizer: DomSanitizer,
-		private _formBuilder: FormBuilder,
-		private _globalService: GlobalService,
-		private _userService: UserService,
-		private location: Location
-	) {
-	}
+	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _formBuilder: FormBuilder, private _globalService: GlobalService, private _userService: UserService, private location: Location) {}
 
 	ngOnInit(): void {
-
 		this._userService.user$.subscribe((user: any) => {
 			this.user = user;
 		});
@@ -115,11 +102,10 @@ export class ManagePropertyComponent implements OnInit {
 			youtube_link: [''],
 		});
 
-
-		this._propertiesService.getFeatures().subscribe(res => {
-			this.currencies    = res.data.currencies;
+		this._propertiesService.getFeatures().subscribe((res) => {
+			this.currencies = res.data.currencies;
 			this.propertyTypes = res.data.propertyTypes;
-			this.status        = res.data.status;
+			this.status = res.data.status;
 			this.contractTypes = res.data.contractTypes;
 		});
 
@@ -127,11 +113,11 @@ export class ManagePropertyComponent implements OnInit {
 	}
 
 	checkIfEdit(): void {
-		this._activatedRouter.params.subscribe(params => {
-			if(params.id) {
+		this._activatedRouter.params.subscribe((params) => {
+			if (params.id) {
 				this.propertyID = params.id;
 				this.getProperty();
-			} else{
+			} else {
 				this.showMap = true;
 			}
 		});
@@ -143,18 +129,18 @@ export class ManagePropertyComponent implements OnInit {
 				id: this.generateRandomId(),
 				name: files[i].name,
 				file: files[i],
-				base64: await this.imgToBase64(files[i])
+				base64: await this.imgToBase64(files[i]),
 			});
 		}
-		 console.log();
+		console.log();
 	}
 
 	remove(index): void {
-		const file = this.filesBanner.find(f => f.id === index);
+		const file = this.filesBanner.find((f) => f.id === index);
 		if (file.base64.startsWith('http')) {
 			this.filesToRemove.push(file.id);
 		}
-		this.filesBanner = this.filesBanner.filter(f => f.id !== index);
+		this.filesBanner = this.filesBanner.filter((f) => f.id !== index);
 	}
 
 	imgToBase64(file: File): Promise<string> {
@@ -167,29 +153,31 @@ export class ManagePropertyComponent implements OnInit {
 	}
 
 	getProperty(): void {
-		this._propertiesService.get(this.propertyID).subscribe(res => {
+		this._propertiesService.get(this.propertyID).subscribe((res) => {
 			this.property = res.data;
 			this.propertyFG.patchValue(this.property);
 			this.filesBanner = this.property.images
-				.filter(i => i.type === 'Banner').map(i => ({
+				.filter((i) => i.type === 'Banner')
+				.map((i) => ({
 					id: i.id,
-					base64:`${environment.assets}/storage/properties/${i.name}`
-				}))
-				this.files = this.property.images
-				.filter(i => i.type === 'Gallery').map(i => ({
+					base64: `${environment.assets}/storage/properties/${i.name}`,
+				}));
+			this.files = this.property.images
+				.filter((i) => i.type === 'Gallery')
+				.map((i) => ({
 					id: i.id,
-					base64:`${environment.assets}/storage/properties/${i.name}`
-				}))
-				if(this.property.video){
-					this.video    = this.property.video;
-					this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.assets+'/storage/properties/'+this.property.video);
-				}
-				if(this.property.deleted_at){
-					this.propertyFG.patchValue({trashed: true});
-				}
-				setTimeout(() => {
-					this.showMap = true;
-				}, 100);
+					base64: `${environment.assets}/storage/properties/${i.name}`,
+				}));
+			if (this.property.video) {
+				this.video = this.property.video;
+				this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.assets + '/storage/properties/' + this.property.video);
+			}
+			if (this.property.deleted_at) {
+				this.propertyFG.patchValue({ trashed: true });
+			}
+			setTimeout(() => {
+				this.showMap = true;
+			}, 100);
 		});
 	}
 
@@ -211,59 +199,62 @@ export class ManagePropertyComponent implements OnInit {
 				id: this.generateRandomId(),
 				name: files[i].name,
 				file: files[i],
-				base64: await this.imgToBase64(files[i])
+				base64: await this.imgToBase64(files[i]),
 			});
 		}
 		console.log(this.filesBanner);
 	}
 	removeBanner(index): void {
-		const file = this.filesBanner.find(f => f.id === index);
+		const file = this.filesBanner.find((f) => f.id === index);
 		if (file.base64.startsWith('http')) {
 			this.filesToRemove.push(file.id);
 		}
 		console.log(this.filesToRemove);
 
-		this.filesBanner = this.filesBanner.filter(f => f.id !== index);
+		this.filesBanner = this.filesBanner.filter((f) => f.id !== index);
 	}
 
 	actualizar(): void {
 		this.errors = [];
-		if(this.propertyFG.invalid) {
+		if (this.propertyFG.invalid) {
 			this.propertyFG.markAllAsTouched();
 
 			// Get key and errors. Example: [{key: 'name', errors: ['required']}]
-			this.errors = Object.keys(this.propertyFG.controls).map(key => {
-				const controlErrors: ValidationErrors = this.propertyFG.get(key).errors;
-				if (controlErrors != null) {
-					return {key, errors: Object.keys(controlErrors)};
-				}
-			}).filter(x => x);
-			this._globalService.openSnackBar('Hay errores en el formulario', 5000,'error');
+			this.errors = Object.keys(this.propertyFG.controls)
+				.map((key) => {
+					const controlErrors: ValidationErrors = this.propertyFG.get(key).errors;
+					if (controlErrors != null) {
+						return { key, errors: Object.keys(controlErrors) };
+					}
+				})
+				.filter((x) => x);
+			this._globalService.openSnackBar('Hay errores en el formulario', 5000, 'error');
 			return;
 		}
 
-		const imgs = this.files.filter(file => file.file).map(file => file.file);
-		const bannerImgs = this.filesBanner.filter(file => file.file).map(file => file.file);
-		const values = {...this.propertyFG.value, filesToRemove: this.filesToRemove};
+		const imgs = this.files.filter((file) => file.file).map((file) => file.file);
+		const bannerImgs = this.filesBanner.filter((file) => file.file).map((file) => file.file);
+		const values = { ...this.propertyFG.value, filesToRemove: this.filesToRemove };
 		console.log(values);
-		this._propertiesService.actualizar(this.propertyID, values, imgs, bannerImgs, this.video).subscribe(response => {
-
+		this._propertiesService.actualizar(this.propertyID, values, imgs, bannerImgs, this.video).subscribe((response) => {
 			this.propertyFG.patchValue(response.data);
 			this.propertyFG.get('deleteVideo').setValue(false);
 			this.property = response.data;
 			this.filesBanner = this.property.images
-				.filter(i => i.type === 'Banner').map(i => ({
+				.filter((i) => i.type === 'Banner')
+				.map((i) => ({
 					id: i.id,
-					base64:`${environment.assets}/storage/properties/${i.name}`
-				}))
-				this.files = this.property.images
-				.filter(i => i.type === 'Gallery').map(i => ({
+					base64: `${environment.assets}/storage/properties/${i.name}`,
+				}));
+			this.files = this.property.images
+				.filter((i) => i.type === 'Gallery')
+				.map((i) => ({
 					id: i.id,
-					base64:`${environment.assets}/storage/properties/${i.name}`
-				}))
+					base64: `${environment.assets}/storage/properties/${i.name}`,
+				}));
 
-			this._globalService.openSnackBar('Propiedad actualizada correctamente', 10000,'success', 'Ver pagina publica de propiedad').then(() => {
-				const url = new URL('/propiedad/'+response.data.id, environment.front_url);
+			this._globalService.openSnackBar('Propiedad actualizada correctamente', 10000, 'success', 'Ver pagina publica de propiedad').then(() => {
+				const url = new URL('/propiedad/' + response.data.id, environment.front_url);
 				window.open(url.toString(), '_blank');
 			});
 		});
@@ -271,45 +262,46 @@ export class ManagePropertyComponent implements OnInit {
 
 	guardar(): void {
 		this.errors = [];
-		if(this.propertyFG.invalid) {
+		if (this.propertyFG.invalid) {
 			this.propertyFG.markAllAsTouched();
 
 			// Get key and errors. Example: [{key: 'name', errors: ['required']}]
-			this.errors = Object.keys(this.propertyFG.controls).map(key => {
-				const controlErrors: ValidationErrors = this.propertyFG.get(key).errors;
-				if (controlErrors != null) {
-					return {key, errors: Object.keys(controlErrors)};
-				}
-			}).filter(x => x);
+			this.errors = Object.keys(this.propertyFG.controls)
+				.map((key) => {
+					const controlErrors: ValidationErrors = this.propertyFG.get(key).errors;
+					if (controlErrors != null) {
+						return { key, errors: Object.keys(controlErrors) };
+					}
+				})
+				.filter((x) => x);
 
-			this._globalService.openSnackBar('Hay errores en el formulario', 5000,'error');
+			this._globalService.openSnackBar('Hay errores en el formulario', 5000, 'error');
 			return;
 		}
 
-		const imgs = this.files.map(file => file.file);
-		const bannerImgs = this.filesBanner.map(file => file.file);
-		this._propertiesService.crear(this.propertyFG.value, imgs, bannerImgs, this.video).subscribe(response => {
-
-			this.location.go('/propiedades/editar/'+response.data.id);
+		const imgs = this.files.map((file) => file.file);
+		const bannerImgs = this.filesBanner.map((file) => file.file);
+		this._propertiesService.crear(this.propertyFG.value, imgs, bannerImgs, this.video).subscribe((response) => {
+			this.location.go('/propiedades/editar/' + response.data.id);
 
 			this.propertyFG.patchValue(response.data);
 			this.property = response.data;
 			this.propertyID = response.data.id;
 			this.filesBanner = this.property.images
-				.filter(i => i.type === 'Banner').map(i => ({
+				.filter((i) => i.type === 'Banner')
+				.map((i) => ({
 					id: i.id,
-					base64:`${environment.assets}/storage/properties/${i.name}`
-				}))
-				this.files = this.property.images
-				.filter(i => i.type === 'Gallery').map(i => ({
+					base64: `${environment.assets}/storage/properties/${i.name}`,
+				}));
+			this.files = this.property.images
+				.filter((i) => i.type === 'Gallery')
+				.map((i) => ({
 					id: i.id,
-					base64:`${environment.assets}/storage/properties/${i.name}`
-				}))
+					base64: `${environment.assets}/storage/properties/${i.name}`,
+				}));
 
-
-
-			this._globalService.openSnackBar('Propiedad creada correctamente', 10000,'success', 'Ver pagina publica de propiedad').then(() => {
-				const url = new URL('/propiedad/'+response.data.id, environment.front_url);
+			this._globalService.openSnackBar('Propiedad creada correctamente', 10000, 'success', 'Ver pagina publica de propiedad').then(() => {
+				const url = new URL('/propiedad/' + response.data.id, environment.front_url);
 				window.open(url.toString(), '_blank');
 			});
 		});
@@ -327,7 +319,7 @@ export class ManagePropertyComponent implements OnInit {
 	deleteVideo(): void {
 		this.video = null;
 		this.videoUrl = null;
-		if(this.propertyID) {
+		if (this.propertyID) {
 			this.propertyFG.get('deleteVideo').setValue(true);
 		}
 	}
@@ -348,6 +340,4 @@ export class ManagePropertyComponent implements OnInit {
 		this.propertyFG.get('lon').setValue(coordinates[0]);
 		this.propertyFG.get('lat').setValue(coordinates[1]);
 	}
-
-
 }

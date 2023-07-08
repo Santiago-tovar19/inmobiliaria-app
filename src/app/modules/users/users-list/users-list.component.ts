@@ -38,13 +38,12 @@ export class UsersListComponent implements OnInit {
 	) { }
 
 	paginate(event: PaginatorEvent): void {
-		this.getUsers(this.getValues(), {page: event.pageIndex + 1, perPage: event.pageSize});
+		this.getUsers(this.seachFormGroup.value, {page: event.pageIndex + 1, perPage: event.pageSize});
 	}
 
   ngOnInit(): void {
 		this.seachFormGroup = this._formBuilder.group({
-			file: [null], city: [null], company: [null], profession: [null],
-			fileSelect: ['Seleccionar'], citySelect: ['Seleccionar'], companySelect: ['Seleccionar'], professionSelect: ['Seleccionar'],
+			termino: [''],
 		});
 
 		this._activatedRoute.params.pipe(takeUntil(this._unsubscribeAll)).subscribe((params) => {
@@ -83,8 +82,7 @@ export class UsersListComponent implements OnInit {
 	}
 
 	filterUsers(): void {
-		console.log(this.getValues());
-		this.getUsers(this.getValues());
+		this.getUsers(this.seachFormGroup.value);
 		// const filterValue = value.toLowerCase();
 		// return this.files.filter(option => option.toLowerCase().includes(filterValue));
 	}
@@ -104,13 +102,6 @@ export class UsersListComponent implements OnInit {
 			values['profession'] = this.seachFormGroup.value.professionSelect;
 		}
 		return values;
-	}
-
-	export(): void{
-		this._usersService.getAll(this.getValues()).subscribe((response) => {
-			const fileName = 'useros';
-			this._globalService.saveDataAsCSV(response.data, fileName);
-		});
 	}
 
 	resendSignUpEmail(id: number): void{

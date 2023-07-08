@@ -1,95 +1,86 @@
 {
-    "root": true,
-    "env": {
-        "es6": true
+  "root": true,
+	"env": {
+		"es6": true
+},
+"parserOptions": {
+		"ecmaVersion": 2018
+},
+  "ignorePatterns": [
+    "node_modules/*",
+    ".eslintrc.js"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended"
+      ],
+      "rules": {
+        // Reglas personalizadas para TypeScript
+        // ...
+
+        // Reglas de estilo de Google para TypeScript
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": ["error", {
+          "argsIgnorePattern": "^_"
+        }],
+        "@typescript-eslint/no-use-before-define": ["error", {
+          "functions": false,
+          "classes": false
+        }],
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/quotes": ["error", "single"],
+        "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/indent": ["error", "tab"],
+        "@typescript-eslint/member-ordering": ["error", {
+          "default": [
+            "public-static-field",
+            "protected-static-field",
+            "private-static-field",
+            "public-instance-field",
+            "protected-instance-field",
+            "private-instance-field",
+            "public-constructor",
+            "protected-constructor",
+            "private-constructor",
+            "public-instance-method",
+            "protected-instance-method",
+            "private-instance-method"
+          ]
+        }]
+      }
     },
-    "parserOptions": {
-        "ecmaVersion": 2018
-    },
-    "ignorePatterns": [
-        "projects/**/*"
-    ],
-    "overrides": [
-        {
-            "files": [
-                "*.ts"
-            ],
-            "parserOptions": {
-                "project": [
-                    "tsconfig.json"
-                ],
-                "createDefaultProgram": true
-            },
-            "extends": [
-                "plugin:@angular-eslint/ng-cli-compat",
-                "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
-                "plugin:@angular-eslint/template/process-inline-templates"
-            ],
-            "rules": {
-                "@angular-eslint/component-selector": [
-                    "error",
-                    {
-                        "type": "element",
-                        "prefix": "",
-                        "style": "kebab-case"
-                    }
-                ],
-                "@angular-eslint/directive-selector": [
-                    "error",
-                    {
-                        "type": "attribute",
-                        "prefix": "",
-                        "style": "camelCase"
-                    }
-                ],
-                "@typescript-eslint/dot-notation": "off",
-                "@typescript-eslint/explicit-function-return-type": "error",
-                "@typescript-eslint/explicit-member-accessibility": [
-                    "off",
-                    {
-                        "accessibility": "explicit"
-                    }
-                ],
-                "@typescript-eslint/no-inferrable-types": "off",
-                "arrow-parens": [
-                    "error",
-                    "as-needed",
-                    {
-                        "requireForBlockBody": true
-                    }
-                ],
-                "brace-style": [
-                    "off",
-                    "off"
-                ],
-                "import/order": "off",
-                "max-len": [
-                    "error",
-                    {
-                        "ignorePattern": "^import |^export | implements",
-                        "code": 180
-                    }
-                ],
-                "no-underscore-dangle": "off",
-                "object-shorthand": "off",
-                "quote-props": [
-                    "error",
-                    "consistent"
-                ],
-                "quotes": [
-                    "error",
-                    "single"
-                ]
-            }
-        },
-        {
-            "files": [
-                "*.html"
-            ],
-            "extends": [
-                "plugin:@angular-eslint/template/recommended"
-            ],
-            "rules": {}
-        }
-    ]
+    {
+      "files": ["*.html"],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        // Reglas personalizadas para HTML
+        // ...
+
+
+        // Reglas de estilo de Google para HTML
+        "indent": ["error", "tab"],
+        "max-len": ["error", {
+          "code": 400
+        }],
+        "no-trailing-spaces": "error",
+        "no-multiple-empty-lines": ["error", {
+          "max": 1,
+          "maxEOF": 0
+        }],
+        "quotes": ["error", "single"],
+        "semi": ["error", "always"]
+      }
+    }
+  ]
 }
