@@ -12,13 +12,13 @@ const testRoutes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [
-    TestComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		TestComponent
+	],
+	imports: [
+		CommonModule,
 		RouterModule.forChild(testRoutes),
 		FileInputModule
-  ]
+	]
 })
 export class TestModule { }

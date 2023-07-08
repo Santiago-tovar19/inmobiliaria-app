@@ -15,38 +15,38 @@ import { appRoutes } from 'app/app.routing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routerConfig: ExtraOptions = {
-    preloadingStrategy       : PreloadAllModules,
-    scrollPositionRestoration: 'enabled'
+	preloadingStrategy       : PreloadAllModules,
+	scrollPositionRestoration: 'enabled'
 };
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports     : [
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes, routerConfig),
+	declarations: [
+		AppComponent
+	],
+	imports     : [
+		BrowserModule,
+		BrowserAnimationsModule,
+		RouterModule.forRoot(appRoutes, routerConfig),
 
-        // Fuse, FuseConfig & FuseMockAPI
-        FuseModule,
-        FuseConfigModule.forRoot(appConfig),
-        FuseMockApiModule.forRoot(mockApiServices),
+		// Fuse, FuseConfig & FuseMockAPI
+		FuseModule,
+		FuseConfigModule.forRoot(appConfig),
+		FuseMockApiModule.forRoot(mockApiServices),
 
-        // Core module of your application
-        CoreModule,
+		// Core module of your application
+		CoreModule,
 
-        // Layout module of your application
-        LayoutModule,
+		// Layout module of your application
+		LayoutModule,
 
-        MatSnackBarModule,
+		MatSnackBarModule,
 
-        // 3rd party modules that require global configuration via forRoot
-        MarkdownModule.forRoot({})
-    ],
-    bootstrap   : [
-        AppComponent
-    ]
+		// 3rd party modules that require global configuration via forRoot
+		MarkdownModule.forRoot({})
+	],
+	bootstrap   : [
+		AppComponent
+	]
 })
 export class AppModule
 {

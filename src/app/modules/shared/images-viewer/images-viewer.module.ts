@@ -6,13 +6,13 @@ import {CarouselModule} from 'ngx-owl-carousel-o';
 
 
 @NgModule({
-  declarations: [
-    ImagesViewerComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		ImagesViewerComponent
+	],
+	imports: [
+		CommonModule,
 		CarouselModule
-  ],
+	],
 	exports: [
 		ImagesViewerComponent
 	]

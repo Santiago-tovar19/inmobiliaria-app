@@ -4,15 +4,15 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class EntityPropertiesService {
 
-  constructor(
+	constructor(
 		private _http: HttpClient
 	) { }
 
-  getAllRoles(): Observable<any> {
-    return this._http.get(`${environment.api}/get-all-roles`);
-  }
+	getAllRoles(): Observable<any> {
+		return this._http.get(`${environment.api}/get-all-roles`);
+	}
 }

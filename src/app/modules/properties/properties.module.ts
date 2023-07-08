@@ -8,12 +8,12 @@ import { ManagePropertyModule } from './manage-property/manage-property.module';
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
+	declarations: [],
+	imports: [
+		CommonModule,
 		RouterModule.forChild(propertiesRoutes),
 		PropertiesListModule,
 		ManagePropertyModule
-  ]
+	]
 })
 export class PropertiesModule { }

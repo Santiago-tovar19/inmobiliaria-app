@@ -6,22 +6,22 @@ import { Route, RouterModule } from '@angular/router';
 import { AdminMasterDashboardComponent } from './adminmaster-dashboard.component';
 
 const exampleRoutes: Route[] = [
-    {
-        path     : '',
-        component: AdminMasterDashboardComponent
-    }
+	{
+		path     : '',
+		component: AdminMasterDashboardComponent
+	}
 ];
 
 @NgModule({
-    declarations: [
-        AdminMasterDashboardComponent
-    ],
-    imports     : [
-				CommonModule,
-        RouterModule.forChild(exampleRoutes),
-				MatButtonModule,
-				MatIconModule
-    ]
+	declarations: [
+		AdminMasterDashboardComponent
+	],
+	imports     : [
+		CommonModule,
+		RouterModule.forChild(exampleRoutes),
+		MatButtonModule,
+		MatIconModule
+	]
 })
 export class AdminMasterDashboardModule
 {

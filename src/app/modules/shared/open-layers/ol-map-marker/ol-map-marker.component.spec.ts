@@ -5,33 +5,33 @@ import { OlMapComponent } from '../ol-map/ol-map.component';
 import { OlMapMarkerComponent } from './ol-map-marker.component';
 
 describe('OlMapMarkerComponent', () => {
-  let component: OlMapMarkerComponent;
-  let fixture: ComponentFixture<OlMapMarkerComponent>;
+	let component: OlMapMarkerComponent;
+	let fixture: ComponentFixture<OlMapMarkerComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ 
-        OlMapMarkerComponent,
-        OlMapComponent,
-        OlMapMarkerComponent,
-       ],
-       imports: [
-         RouterTestingModule
-       ],
-       providers: [
-        { provide: OlMapComponent, useClass: OlMapComponent }
-       ]
-    })
-    .compileComponents();
-  });
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [ 
+				OlMapMarkerComponent,
+				OlMapComponent,
+				OlMapMarkerComponent,
+			],
+			imports: [
+				RouterTestingModule
+			],
+			providers: [
+				{ provide: OlMapComponent, useClass: OlMapComponent }
+			]
+		})
+			.compileComponents();
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OlMapMarkerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(OlMapMarkerComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

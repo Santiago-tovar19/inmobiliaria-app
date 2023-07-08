@@ -19,11 +19,11 @@ import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
 
 
 @NgModule({
-  declarations: [
-    PropertiesListComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		PropertiesListComponent
+	],
+	imports: [
+		CommonModule,
 		MatButtonModule,
 		MatFormFieldModule,
 		MatSelectModule,
@@ -44,6 +44,6 @@ import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
 		MatSelectModule,
 		MatInputModule,
 
-  ]
+	]
 })
 export class PropertiesListModule { }

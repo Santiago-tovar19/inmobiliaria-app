@@ -14,7 +14,7 @@ const routes: Route[] = [
 		path: '',
 		component: PropertyViewComponent,
 	}
-]
+];
 
 @NgModule({
 	declarations: [],

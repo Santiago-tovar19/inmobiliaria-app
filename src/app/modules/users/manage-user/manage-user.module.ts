@@ -13,11 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
-  declarations: [
-    ManageUserComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		ManageUserComponent
+	],
+	imports: [
+		CommonModule,
 		MatFormFieldModule,
 		MatInputModule,
 		MatSelectModule,
@@ -27,6 +27,6 @@ import { MatIconModule } from '@angular/material/icon';
 		MatCheckboxModule,
 		MatButtonModule,
 		FileInputModule
-  ]
+	]
 })
 export class ManageUserModule { }

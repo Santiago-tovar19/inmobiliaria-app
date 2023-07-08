@@ -15,10 +15,10 @@ export const propertiesRoutes: Route[] = [
 		path: 'editar/:id',
 		component: ManagePropertyComponent,
 	},
-    {
+	{
 		path: '',
 		// redirectTo: 'lista',
-        pathMatch: 'full', // <-- this is the important part
-        redirectTo: 'lista',
+		pathMatch: 'full', // <-- this is the important part
+		redirectTo: 'lista',
 	},
 ];

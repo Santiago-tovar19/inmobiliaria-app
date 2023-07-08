@@ -12,29 +12,29 @@ import { environment } from 'environments/environment';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
-  selector: 'app-property-view',
-  templateUrl: './property-view.component.html',
-  styleUrls: ['./property-view.component.scss']
+	selector: 'app-property-view',
+	templateUrl: './property-view.component.html',
+	styleUrls: ['./property-view.component.scss']
 })
 export class PropertyViewComponent implements OnInit {
 
 	customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 700,
+		loop: true,
+		mouseDrag: true,
+		touchDrag: true,
+		pullDrag: false,
+		dots: false,
+		navSpeed: 700,
 		margin: 5,
 		stagePadding: 50,
-    navText: ['<', '>'],
-    responsive: {
-      0: {
-        items: 2
+		navText: ['<', '>'],
+		responsive: {
+			0: {
+				items: 2
 			},
-    },
-    nav: true
-  }
+		},
+		nav: true
+	};
 
 	propertyID: string;
 	property: Property = {} as any;
@@ -122,9 +122,9 @@ export class PropertyViewComponent implements OnInit {
 			height: '90vh',
 		});
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
 	}
 
 	goToProperty(id: string): void {
@@ -137,7 +137,7 @@ export class PropertyViewComponent implements OnInit {
 	}
 
 	sanitizeUrl(){
-		const url = `https://maps.google.com/maps?q=${this.property.lat},${this.property.lon}&hl=es&z=14&amp&output=embed`
+		const url = `https://maps.google.com/maps?q=${this.property.lat},${this.property.lon}&hl=es&z=14&amp&output=embed`;
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 	}
 }

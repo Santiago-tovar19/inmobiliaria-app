@@ -4,11 +4,11 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class CountriesServiceService {
 
-  constructor(
+	constructor(
 		private _httpClient: HttpClient,
 	) { }
 

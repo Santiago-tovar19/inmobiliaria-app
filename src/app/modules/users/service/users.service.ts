@@ -7,11 +7,11 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class UsersService {
 
-  constructor(
+	constructor(
 		private _httpClient: HttpClient
 	) { }
 
@@ -63,12 +63,12 @@ export class UsersService {
 		}
 
 		if(data.img_changed && data.img)
-			formData.append('img', data.img, data.img?.name)
+			formData.append('img', data.img, data.img?.name);
 		else
-		formData.append('img', '')
+			formData.append('img', '');
 
 		if(data.broker_logo_changed && data.broker_logo)
-			formData.append('broker_logo', data.broker_logo, data.broker_logo?.name)
+			formData.append('broker_logo', data.broker_logo, data.broker_logo?.name);
 		else
 			formData.append('broker_logo', '');
 
@@ -90,12 +90,12 @@ export class UsersService {
 		}
 
 		if(data.img_changed && data.img)
-			formData.append('img', data.img, data.img?.name)
+			formData.append('img', data.img, data.img?.name);
 		else
-		formData.append('img', '')
+			formData.append('img', '');
 
 		if(data.broker_logo_changed && data.broker_logo)
-			formData.append('broker_logo', data.broker_logo, data.broker_logo?.name)
+			formData.append('broker_logo', data.broker_logo, data.broker_logo?.name);
 		else
 			formData.append('broker_logo', '');
 

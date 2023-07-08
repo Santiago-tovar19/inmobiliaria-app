@@ -25,13 +25,13 @@ import { OlMapsModule } from 'app/modules/shared/open-layers/ol-maps.module';
 
 
 @NgModule({
-  declarations: [
-    ManagePropertyComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		ManagePropertyComponent
+	],
+	imports: [
+		CommonModule,
 		MatIconModule,
-    CarouselModule,
+		CarouselModule,
 		FormsModule,
 		MatExpansionModule,
 		MatButtonModule,
@@ -46,6 +46,6 @@ import { OlMapsModule } from 'app/modules/shared/open-layers/ol-maps.module';
 		FileInputModule,
 		FuseAlertModule,
 		ReactiveFormsModule
-  ]
+	]
 })
 export class ManagePropertyModule { }

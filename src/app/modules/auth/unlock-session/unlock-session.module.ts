@@ -12,20 +12,20 @@ import { AuthUnlockSessionComponent } from 'app/modules/auth/unlock-session/unlo
 import { authUnlockSessionRoutes } from 'app/modules/auth/unlock-session/unlock-session.routing';
 
 @NgModule({
-    declarations: [
-        AuthUnlockSessionComponent
-    ],
-    imports     : [
-        RouterModule.forChild(authUnlockSessionRoutes),
-        MatButtonModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        FuseCardModule,
-        FuseAlertModule,
-        SharedModule
-    ]
+	declarations: [
+		AuthUnlockSessionComponent
+	],
+	imports     : [
+		RouterModule.forChild(authUnlockSessionRoutes),
+		MatButtonModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatInputModule,
+		MatProgressSpinnerModule,
+		FuseCardModule,
+		FuseAlertModule,
+		SharedModule
+	]
 })
 export class AuthUnlockSessionModule
 {

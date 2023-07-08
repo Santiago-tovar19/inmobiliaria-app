@@ -19,31 +19,31 @@ import { SharedModule } from 'app/shared/shared.module';
 import { DenseLayoutComponent } from 'app/layout/layouts/vertical/dense/dense.component';
 
 @NgModule({
-    declarations: [
-        DenseLayoutComponent
-    ],
-    imports     : [
-        HttpClientModule,
-        RouterModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatIconModule,
-        MatMenuModule,
-        FuseFullscreenModule,
-        FuseLoadingBarModule,
-        FuseNavigationModule,
-        LanguagesModule,
-        MessagesModule,
-        NotificationsModule,
-        QuickChatModule,
-        SearchModule,
-        ShortcutsModule,
-        UserModule,
-        SharedModule
-    ],
-    exports     : [
-        DenseLayoutComponent
-    ]
+	declarations: [
+		DenseLayoutComponent
+	],
+	imports     : [
+		HttpClientModule,
+		RouterModule,
+		MatButtonModule,
+		MatDividerModule,
+		MatIconModule,
+		MatMenuModule,
+		FuseFullscreenModule,
+		FuseLoadingBarModule,
+		FuseNavigationModule,
+		LanguagesModule,
+		MessagesModule,
+		NotificationsModule,
+		QuickChatModule,
+		SearchModule,
+		ShortcutsModule,
+		UserModule,
+		SharedModule
+	],
+	exports     : [
+		DenseLayoutComponent
+	]
 })
 export class DenseLayoutModule
 {

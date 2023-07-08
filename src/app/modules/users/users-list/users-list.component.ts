@@ -9,9 +9,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { UsersService, SearchObject } from '../service/users.service';
 
 @Component({
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+	selector: 'app-users-list',
+	templateUrl: './users-list.component.html',
+	styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
 
@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
 	professions: any; 	professionsFiltered: any;;
 
 	seachFormGroup: FormGroup;
-  constructor(
+	constructor(
 		private _usersService: UsersService,
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
@@ -41,7 +41,7 @@ export class UsersListComponent implements OnInit {
 		this.getUsers(this.seachFormGroup.value, {page: event.pageIndex + 1, perPage: event.pageSize});
 	}
 
-  ngOnInit(): void {
+	ngOnInit(): void {
 		this.seachFormGroup = this._formBuilder.group({
 			termino: [''],
 		});
@@ -52,7 +52,7 @@ export class UsersListComponent implements OnInit {
 			}
 		});
 		this.getUsers({});
-  }
+	}
 
 	getUsers(search: SearchObject, paginatorParams: PaginatorParams = {page: 1, perPage: 10}): void {
 		this._usersService.getList(search, paginatorParams).subscribe((response: any) => {

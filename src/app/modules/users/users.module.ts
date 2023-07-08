@@ -20,21 +20,21 @@ export const usersRoutes: Route[] = [
 		path: 'editar/:id',
 		component: ManageUserComponent,
 	},
-    {
+	{
 		path: '',
 		// redirectTo: 'lista',
-        pathMatch: 'full', // <-- this is the important part
-        redirectTo: 'lista',
+		pathMatch: 'full', // <-- this is the important part
+		redirectTo: 'lista',
 	},
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
+	declarations: [],
+	imports: [
+		CommonModule,
 		RouterModule.forChild(usersRoutes),
 		ManageUserModule,
 		UsersListModule
-  ]
+	]
 })
 export class UsersModule { }

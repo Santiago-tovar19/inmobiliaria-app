@@ -16,11 +16,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
-  declarations: [
-    UsersListComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		UsersListComponent
+	],
+	imports: [
+		CommonModule,
 		MatButtonModule,
 		MatFormFieldModule,
 		MatSelectModule,
@@ -35,6 +35,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 		FuseAlertModule,
 		MatPaginatorModule,
 		FileInputModule,
-  ]
+	]
 })
 export class UsersListModule { }

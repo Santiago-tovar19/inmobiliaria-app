@@ -3,21 +3,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PropertyViewComponent } from './property-view.component';
 
 describe('PropertyViewComponent', () => {
-  let component: PropertyViewComponent;
-  let fixture: ComponentFixture<PropertyViewComponent>;
+	let component: PropertyViewComponent;
+	let fixture: ComponentFixture<PropertyViewComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PropertyViewComponent ]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [ PropertyViewComponent ]
+		})
+			.compileComponents();
 
-    fixture = TestBed.createComponent(PropertyViewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(PropertyViewComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -6,18 +6,18 @@ import { LanguagesComponent } from 'app/layout/common/languages/languages.compon
 import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
-    declarations: [
-        LanguagesComponent
-    ],
-    imports     : [
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        SharedModule
-    ],
-    exports     : [
-        LanguagesComponent
-    ]
+	declarations: [
+		LanguagesComponent
+	],
+	imports     : [
+		MatButtonModule,
+		MatIconModule,
+		MatMenuModule,
+		SharedModule
+	],
+	exports     : [
+		LanguagesComponent
+	]
 })
 export class LanguagesModule
 {

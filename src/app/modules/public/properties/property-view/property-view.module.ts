@@ -22,14 +22,14 @@ import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [
-    PropertyViewComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		PropertyViewComponent
+	],
+	imports: [
+		CommonModule,
 		MatIconModule,
 		RouterModule,
-    CarouselModule,
+		CarouselModule,
 		FormsModule,
 		MatExpansionModule,
 		MatButtonModule,
@@ -42,6 +42,6 @@ import { RouterModule } from '@angular/router';
 		MatInputModule,
 		ImagesViewerModule,
 		ReactiveFormsModule
-  ]
+	]
 })
 export class PropertyViewModule { }

@@ -1,21 +1,21 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
-import Map from 'ol/Map'
-import View from 'ol/View'
-import TileLayer from 'ol/layer/Tile'
-import {OSM} from 'ol/source'
-import * as Proj from 'ol/proj'
-import Control from 'ol/control/Control'
-import {defaults as defaultControls} from 'ol/control'
-import VectorLayer from 'ol/layer/Vector'
-import VectorSource from 'ol/source/Vector'
-import { Feature } from 'ol'
-import { Point } from 'ol/geom'
-import { Style, Icon } from 'ol/style'
-export const DEFAULT_HEIGHT = '300px'
-export const DEFAULT_WIDTH = '100%'
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import {OSM} from 'ol/source';
+import * as Proj from 'ol/proj';
+import Control from 'ol/control/Control';
+import {defaults as defaultControls} from 'ol/control';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import { Feature } from 'ol';
+import { Point } from 'ol/geom';
+import { Style, Icon } from 'ol/style';
+export const DEFAULT_HEIGHT = '300px';
+export const DEFAULT_WIDTH = '100%';
 
-export const DEFAULT_LAT = -34.603490361131385
-export const DEFAULT_LON = -58.382037891217465
+export const DEFAULT_LAT = -34.603490361131385;
+export const DEFAULT_LON = -58.382037891217465;
 
 @Component({
 	selector: 'app-ol-map',
@@ -23,19 +23,19 @@ export const DEFAULT_LON = -58.382037891217465
 	styleUrls: ['./ol-map.component.scss'],
 })
 export class OlMapComponent implements OnInit, OnChanges, AfterViewInit {
-	@Input() lat: number = DEFAULT_LAT
-	@Input() lon: number = DEFAULT_LON
-	@Input() zoom!: number
-	@Input() width: string | number = DEFAULT_WIDTH
-	@Input() height: string | number = DEFAULT_HEIGHT
-	@Input() title: string = 'Monitoreo'
-	@Input() coordinatesToCenter: any
+	@Input() lat: number = DEFAULT_LAT;
+	@Input() lon: number = DEFAULT_LON;
+	@Input() zoom!: number;
+	@Input() width: string | number = DEFAULT_WIDTH;
+	@Input() height: string | number = DEFAULT_HEIGHT;
+	@Input() title: string = 'Monitoreo';
+	@Input() coordinatesToCenter: any;
 	@Output() coordinates = new EventEmitter<[number, number]>();
 
-	target: string = 'map-' + Math.random().toString(36).substring(2)
-	map!: Map
+	target: string = 'map-' + Math.random().toString(36).substring(2);
+	map!: Map;
 
-	private mapEl!: HTMLElement
+	private mapEl!: HTMLElement;
 
 	constructor(private elementRef: ElementRef) {}
 
@@ -43,14 +43,14 @@ export class OlMapComponent implements OnInit, OnChanges, AfterViewInit {
 
 	ngOnChanges(): void {
 		if (this.map) {
-			this.map.getView().setCenter(Proj.transform(this.coordinatesToCenter, 'EPSG:4326', 'EPSG:3857'))
-			this.map.getView().setZoom(15)
+			this.map.getView().setCenter(Proj.transform(this.coordinatesToCenter, 'EPSG:4326', 'EPSG:3857'));
+			this.map.getView().setZoom(15);
 		}
 	}
 
 	ngAfterViewInit(): void {
-		this.mapEl = this.elementRef.nativeElement.querySelector('#' + this.target)
-		this.setSize()
+		this.mapEl = this.elementRef.nativeElement.querySelector('#' + this.target);
+		this.setSize();
 
 		this.map = new Map({
 			target: this.target,
@@ -70,9 +70,9 @@ export class OlMapComponent implements OnInit, OnChanges, AfterViewInit {
 			// Remove all markers
 			this.map.getLayers().forEach((layer: any) => {
 				if (layer instanceof VectorLayer) {
-					layer.getSource().clear()
+					layer.getSource().clear();
 				}
-			})
+			});
 
 			// Set marker
 			this.setMarker(new VectorLayer({
@@ -89,36 +89,36 @@ export class OlMapComponent implements OnInit, OnChanges, AfterViewInit {
 						// size: [30, 30],
 					}),
 				}),
-			}))
+			}));
 
 			// this.coordinates.emit(evt.coordinate);
-			const coords = Proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326')
+			const coords = Proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
 			this.coordinates.emit(coords as any);
 		});
 	}
 
 	public setMarker(vector: any): void {
-		this.map.addLayer(vector)
+		this.map.addLayer(vector);
 	}
 
 	public setControl(control: Control): void {
-		this.map.addControl(control)
+		this.map.addControl(control);
 	}
 
 	private setSize(): void {
 		if (this.mapEl) {
-			const styles = this.mapEl.style
-			styles.height = coerceCssPixelValue(this.height) || DEFAULT_HEIGHT
-			styles.width = coerceCssPixelValue(this.width) || DEFAULT_WIDTH
+			const styles = this.mapEl.style;
+			styles.height = coerceCssPixelValue(this.height) || DEFAULT_HEIGHT;
+			styles.width = coerceCssPixelValue(this.width) || DEFAULT_WIDTH;
 		}
 	}
 }
 
-const cssUnitsPattern = /([A-Za-z%]+)$/
+const cssUnitsPattern = /([A-Za-z%]+)$/;
 
 const coerceCssPixelValue = (value: any): string => {
 	if (value == null) {
-		return ''
+		return '';
 	}
-	return cssUnitsPattern.test(value) ? value : `${value}px`
-}
+	return cssUnitsPattern.test(value) ? value : `${value}px`;
+};

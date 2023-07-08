@@ -11,13 +11,13 @@ import { Subject } from 'rxjs';
 import { PropertiesService } from '../service/properties.service';
 
 @Component({
-  selector: 'app-properties-list',
-  templateUrl: './properties-list.component.html',
-  styleUrls: ['./properties-list.component.scss']
+	selector: 'app-properties-list',
+	templateUrl: './properties-list.component.html',
+	styleUrls: ['./properties-list.component.scss']
 })
 export class PropertiesListComponent implements OnInit {
 
-  columns: Array<string> = ['id', 'description', 'address', 'location_type', 'price', 'published_at', 'acciones'];
+	columns: Array<string> = ['id', 'description', 'address', 'location_type', 'price', 'published_at', 'acciones'];
 	newColumns: Array<string> = ['id', 'name', 'address', 'price', 'rooms', 'bathrooms', 'actions'];
 	dataSource: MatTableDataSource<any>;
 	propertiesPaginated: any;
@@ -25,13 +25,13 @@ export class PropertiesListComponent implements OnInit {
 	user: User;
 	_unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(
+	constructor(
 		private _propertiesService: PropertiesService,
 		private _globalService: GlobalService,
 		private _userService: UserService
 	) { }
 
-  ngOnInit(): void {
+	ngOnInit(): void {
 		this.getProperties();
 		this._userService.user$.subscribe((user: any) => {
 			this.user = user;
@@ -42,7 +42,7 @@ export class PropertiesListComponent implements OnInit {
 				this.newColumns.splice(6, 0, 'state');
 			}
 		});
-  }
+	}
 
 	getProperties(search: SearchObject = {}, paginatorParams: PaginatorParams = {page: 1, perPage: 10}): void {
 		this._propertiesService.getList(search, paginatorParams).subscribe((response: any) => {
@@ -58,7 +58,7 @@ export class PropertiesListComponent implements OnInit {
 	}
 
 	getValues(): null {
-		return null
+		return null;
 	}
 
 	newTab(path: string): void {

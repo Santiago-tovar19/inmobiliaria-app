@@ -107,7 +107,7 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 			},
 			(response: HttpValidationErrorResponse) => {
 
-                console.log(response);
+				console.log(response);
 				// Re-enable the form
 				this.signInForm.enable();
 

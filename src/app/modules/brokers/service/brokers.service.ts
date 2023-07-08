@@ -5,11 +5,11 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class BrokersService {
 
-  constructor(
+	constructor(
 		private _http: HttpClient,
 	) { }
 

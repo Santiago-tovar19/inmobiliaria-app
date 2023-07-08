@@ -10,18 +10,18 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
-  declarations: [
-    FileInputComponent
-  ],
-  imports: [
-    CommonModule,
+	declarations: [
+		FileInputComponent
+	],
+	imports: [
+		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
 		MatInputModule,
 		MatFormFieldModule,
 		MatIconModule,
 		MatButtonModule
-  ],
+	],
 	exports: [
 		FileInputComponent
 	]
