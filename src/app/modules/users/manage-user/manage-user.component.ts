@@ -71,7 +71,6 @@ export class ManageUserComponent implements OnInit {
 			verified: [false],
 			img_changed: [false],
 		});
-		console.log('Holis');
 	}
 
 	getUser(): void {
