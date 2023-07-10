@@ -3,13 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-		app: 'directory',
-		front_url: 'http://localhost:4200',
-    api: 'http://localhost:8000/api',
-		assets: 'http://localhost:8000',
+	production: false,
+	app: 'directory',
+	front_url: 'https://projects.andresjosehr.com/inmobiliaria',
+	api: 'https://projects.andresjosehr.com/api-inmobiliaria/api',
+	assets: 'https://projects.andresjosehr.com/api-inmobiliaria/',
 };
-
 
 /*
  * For easier debugging in development mode, you can import the following file
