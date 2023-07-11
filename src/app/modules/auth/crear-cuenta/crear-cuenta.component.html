@@ -34,7 +34,7 @@
 									<mat-error id='required-full_name-error'>Este campo es obligatorio</mat-error>
 									<mat-error *ngFor="let i of _globalService.errorsLength(registroForm.get('full_name'))">
 										<ng-container *ngIf="registroForm.get('full_name').hasError(i)">
-											{{resetNombreForm.get('full_name').errors[i]}}
+											{{registroForm.get('full_name').errors[i]}}
 										</ng-container>
 									</mat-error>
 							</mat-form-field>

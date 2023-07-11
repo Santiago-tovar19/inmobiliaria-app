@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/interfaces/entities/user';
-import { PaginatorEvent } from 'app/interfaces/general/paginator-event';
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 import { SearchObject } from 'app/modules/users/service/users.service';
 import { GlobalService } from 'app/services/global/global.service';
 import { environment } from 'environments/environment';
 import { Subject } from 'rxjs';
 import { PropertiesService } from '../service/properties.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
 	selector: 'app-properties-list',
@@ -53,7 +53,7 @@ export class PropertiesListComponent implements OnInit {
 		});
 	}
 
-	paginate(event: PaginatorEvent): void {
+	paginate(event: PageEvent): void { // PaginatorEvent
 		this.getProperties(this.getValues(), {page: event.pageIndex + 1, perPage: event.pageSize});
 	}
 
@@ -68,7 +68,7 @@ export class PropertiesListComponent implements OnInit {
 	}
 
 	deleteProperty(id: number): void {
-		this._propertiesService.delete(id+'').subscribe((response: any) => {
+		this._propertiesService.delete(id+'').subscribe(() => {
 			this.getProperties();
 			this._globalService.openSnackBar('Propiedad eliminada correctamente', 5000, 'success');
 		});

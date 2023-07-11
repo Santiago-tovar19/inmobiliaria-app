@@ -14,11 +14,12 @@ export class TestComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		console.log('test');
 	}
 
-	fileChange(file: File): void{
+	fileChange(file: File | FileList): void{
 		console.log(file);
-		this.file = file;
+		this.file = file as File;
 	}
 
 	uploadFile(): void{

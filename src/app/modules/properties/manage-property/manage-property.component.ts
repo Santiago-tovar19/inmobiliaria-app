@@ -123,7 +123,8 @@ export class ManagePropertyComponent implements OnInit {
 		});
 	}
 
-	async fileChanges(files: FileList): Promise<void> {
+	async fileChanges(files: FileList | File): Promise<void> {
+		files = files as FileList;
 		for (let i = 0; i < files.length; i++) {
 			this.files.push({
 				id: this.generateRandomId(),
@@ -193,7 +194,8 @@ export class ManagePropertyComponent implements OnInit {
 		return this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
 	}
 
-	async fileChangesBanner(files: FileList): Promise<void> {
+	async fileChangesBanner(files: FileList | File): Promise<void> {
+		files = files as FileList;
 		for (let i = 0; i < files.length; i++) {
 			this.filesBanner.push({
 				id: this.generateRandomId(),
@@ -307,12 +309,12 @@ export class ManagePropertyComponent implements OnInit {
 		});
 	}
 
-	selectVideo(file: File): void {
-		this.video = file;
+	selectVideo(file: File | FileList): void {
+		this.video = file as File;
 		console.log(this.video);
 
 		// Make an object URL that points to the File object
-		const url = URL.createObjectURL(file);
+		const url = URL.createObjectURL(file as any);
 		this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 	}
 

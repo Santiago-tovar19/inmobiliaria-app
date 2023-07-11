@@ -7,6 +7,7 @@ import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 import { GlobalService } from 'app/services/global/global.service';
 import { Subject, takeUntil } from 'rxjs';
 import { UsersService, SearchObject } from '../service/users.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
 	selector: 'app-users-list',
@@ -37,7 +38,7 @@ export class UsersListComponent implements OnInit {
 		private _globalService: GlobalService
 	) { }
 
-	paginate(event: PaginatorEvent): void {
+	paginate(event: PageEvent): void {
 		this.getUsers(this.seachFormGroup.value, {page: event.pageIndex + 1, perPage: event.pageSize});
 	}
 

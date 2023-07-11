@@ -12,7 +12,7 @@ import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/co
 })
 export class LanguagesComponent implements OnInit, OnDestroy
 {
-	availableLangs: AvailableLangs;
+	availableLangs: any; //AvailableLangs;
 	activeLang: string;
 	flagCodes: any;
 

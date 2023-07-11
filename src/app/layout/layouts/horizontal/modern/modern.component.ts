@@ -24,7 +24,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy
 	constructor(
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
-		private _navigationService: NavigationService,
+		public _navigationService: NavigationService,
 		private _fuseMediaWatcherService: FuseMediaWatcherService,
 		private _fuseNavigationService: FuseNavigationService,
 		private _userService: UserService

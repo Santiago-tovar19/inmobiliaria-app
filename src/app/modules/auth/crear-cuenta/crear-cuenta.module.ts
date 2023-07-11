@@ -9,7 +9,9 @@ import {MatInputModule} from '@angular/material/input';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {FuseAlertModule} from '@fuse/components/alert';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
 	declarations: [CrearCuentaComponent],
@@ -23,7 +25,8 @@ import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 		MatInputModule,
 		MatIconModule,
 		MatCheckboxModule,
-		FuseAlertModule
+		FuseAlertModule,
+		MatProgressSpinnerModule
 	],
 })
 export class CrearCuentaModule {}
