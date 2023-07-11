@@ -5,7 +5,7 @@
 			<div class="text-secondary">Una lista de usuarios registradas en el sistema</div>
 		</div>
 		<div class="w-full col-span-1">
-			<div class='sm:text-right'>
+			<div class="sm:text-right">
 				<button [routerLink]="'/usuarios/crear'" class="w-full sm:w-fit rounded mr-1 px-3 bg-primary-300 text-on-primary-300" mat-stroked-button>Crear Usuario</button>
 			</div>
 		</div>
@@ -14,8 +14,8 @@
 			<fuse-alert *ngIf="m" [type]="'success'">
 				<span fuseAlertTitle>Exito</span>
 				El usuario ha sido
-				<span *ngIf="m==='1'">creado</span>
-				<span *ngIf="m==='2'">actualizado</span>
+				<span *ngIf="m === '1'">creado</span>
+				<span *ngIf="m === '2'">actualizado</span>
 				exitosamente
 			</fuse-alert>
 		</div>
@@ -31,7 +31,7 @@
 					<div class="w-full sm:w-2/5">
 						<mat-form-field class="w-full">
 							<mat-label>Buscar Usuario</mat-label>
-							<input type="text" matInput formControlName="termino">
+							<input type="text" matInput formControlName="termino" />
 						</mat-form-field>
 					</div>
 					<div class="w-1/5">
@@ -43,79 +43,71 @@
 			</div>
 		</div>
 		<div class="flex flex-col flex-auto mt-2 overflow-x-auto">
-				<table
-						class="md:min-w-240 overflow-y-visible"
-						mat-table
-						[dataSource]="dataSource">
+			<table class="md:min-w-240 overflow-y-visible" mat-table [dataSource]="dataSource">
+				<!-- id -->
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef>ID</th>
+					<td data-label="ID" mat-cell *matCellDef="let user">
+						<span class="font-medium">
+							{{ user.id }}
+						</span>
+					</td>
+				</ng-container>
 
-						<!-- id -->
-						<ng-container matColumnDef="id">
-							<th mat-header-cell *matHeaderCellDef>ID</th>
-							<td data-label="ID" mat-cell *matCellDef="let user">
-								<span class="font-medium">
-									{{user.id}}
-								</span>
-							</td>
-						</ng-container>
+				<ng-container matColumnDef="nombres">
+					<th mat-header-cell *matHeaderCellDef>Nombres y apellidos</th>
+					<td data-label="Nombres" mat-cell *matCellDef="let user">
+						<span class="font-medium">
+							{{ user.full_name }}
+						</span>
+					</td>
+				</ng-container>
 
+				<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef>Email</th>
+					<td data-label="Email" mat-cell *matCellDef="let user">
+						<span class="font-medium">
+							{{ user.email }}
+						</span>
+					</td>
+				</ng-container>
 
-						<ng-container matColumnDef="nombres">
-							<th mat-header-cell *matHeaderCellDef>Nombres y apellidos</th>
-							<td data-label="Nombres" mat-cell *matCellDef="let user">
-								<span class="font-medium">
-									{{user.full_name}}
-								</span>
-							</td>
-						</ng-container>
+				<ng-container matColumnDef="role">
+					<th mat-header-cell *matHeaderCellDef>Rol</th>
+					<td data-label="Rol" mat-cell *matCellDef="let user">
+						<span class="font-medium">
+							{{ user.role?.name || '-' }}
+						</span>
+					</td>
+				</ng-container>
 
+				<ng-container matColumnDef="broker_phone">
+					<th mat-header-cell *matHeaderCellDef>Telefono Corredora</th>
+					<td data-label="Telefono Corredora" mat-cell *matCellDef="let user">
+						<span class="font-medium">
+							{{ user.broker_phone || '-' }}
+						</span>
+					</td>
+				</ng-container>
 
-						<ng-container matColumnDef="email">
-							<th mat-header-cell *matHeaderCellDef>Email</th>
-							<td data-label="Email" mat-cell *matCellDef="let user">
-								<span class="font-medium">
-									{{user.email}}
-								</span>
-							</td>
-						</ng-container>
+				<ng-container matColumnDef="broker_address">
+					<th mat-header-cell *matHeaderCellDef>Direccion Corredora</th>
+					<td data-label="Direccion corredora" mat-cell *matCellDef="let user">
+						<span class="font-medium">
+							{{ user.broker_address || '-' }}
+						</span>
+					</td>
+				</ng-container>
 
-
-						<ng-container matColumnDef="role">
-							<th mat-header-cell *matHeaderCellDef>Rol</th>
-							<td data-label="Rol" mat-cell *matCellDef="let user">
-								<span class="font-medium">
-									{{user.role?.name || '-'}}
-								</span>
-							</td>
-						</ng-container>
-
-						<ng-container matColumnDef="broker_phone">
-							<th mat-header-cell *matHeaderCellDef>Telefono Corredora</th>
-							<td data-label="Telefono Corredora" mat-cell *matCellDef="let user">
-								<span class="font-medium">
-									{{user.broker_phone || '-'}}
-								</span>
-							</td>
-						</ng-container>
-
-						<ng-container matColumnDef="broker_address">
-							<th mat-header-cell *matHeaderCellDef>Direccion Corredora</th>
-							<td data-label="Direccion corredora" mat-cell *matCellDef="let user">
-								<span class="font-medium">
-									{{user.broker_address || '-'}}
-								</span>
-							</td>
-						</ng-container>
-
-						<ng-container matColumnDef="status">
-							<th mat-header-cell *matHeaderCellDef>Status Registro</th>
-							<td data-label="Status" mat-cell *matCellDef="let user" class="px-5">
-								<span class="font-medium">
-									<div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
-									<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div>
-								</span>
-							</td>
-						</ng-container>
-
+				<ng-container matColumnDef="status">
+					<th mat-header-cell *matHeaderCellDef>Status Registro</th>
+					<td data-label="Status" mat-cell *matCellDef="let user" class="px-5">
+						<span class="font-medium">
+							<div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
+							<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div>
+						</span>
+					</td>
+				</ng-container>
 
 				<!-- Acciones -->
 				<ng-container matColumnDef="acciones">
@@ -125,22 +117,17 @@
 							<div class="1/2">
 								<button (click)="goToUser(user.id)" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
 							</div>
-							<div *ngIf='!user.email_verified_at' class="1/2">
+							<div *ngIf="!user.email_verified_at" class="1/2">
 								<button (click)="resendSignUpEmail(user.id)" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Reenviar Correo</button>
 							</div>
 						</div>
 					</td>
-			</ng-container>
+				</ng-container>
 
-					<tr class="table-header" mat-header-row *matHeaderRowDef="columns"></tr>
-					<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: columns;"></tr>
-				</table>
-				<mat-paginator [length]="usersPaginated?.total"
-						[pageSize]="usersPaginated?.per_page"
-						[pageSizeOptions]="[10, 25, 100]"
-						(page)="paginate($event)"
-						aria-label="Select page">
-				</mat-paginator>
+				<tr class="table-header header" mat-header-row *matHeaderRowDef="columns"></tr>
+				<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: columns"></tr>
+			</table>
+			<mat-paginator [length]="usersPaginated?.total" [pageSize]="usersPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
 		</div>
 	</div>
 </div>
