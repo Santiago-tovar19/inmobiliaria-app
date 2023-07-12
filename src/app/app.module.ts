@@ -15,15 +15,13 @@ import { appRoutes } from 'app/app.routing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routerConfig: ExtraOptions = {
-	preloadingStrategy       : PreloadAllModules,
-	scrollPositionRestoration: 'enabled'
+	preloadingStrategy: PreloadAllModules,
+	scrollPositionRestoration: 'enabled',
 };
 
 @NgModule({
-	declarations: [
-		AppComponent
-	],
-	imports     : [
+	declarations: [AppComponent],
+	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
 		RouterModule.forRoot(appRoutes, routerConfig),
@@ -42,12 +40,8 @@ const routerConfig: ExtraOptions = {
 		MatSnackBarModule,
 
 		// 3rd party modules that require global configuration via forRoot
-		MarkdownModule.forRoot({})
+		MarkdownModule.forRoot({}),
 	],
-	bootstrap   : [
-		AppComponent
-	]
+	bootstrap: [AppComponent],
 })
-export class AppModule
-{
-}
+export class AppModule {}
