@@ -1,20 +1,41 @@
 import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {finalize, Subject, takeUntil} from 'rxjs';
 import {fuseAnimations} from '@fuse/animations';
 import {FuseValidators} from '@fuse/validators';
 import {FuseAlertType} from '@fuse/components/alert';
 import {AuthService} from 'app/core/auth/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {GlobalService} from 'app/services/global/global.service';
 import {HttpSimpleResponse} from 'app/interfaces/http-responses/http-simple-response';
 import {HttpValidationErrorResponse} from 'app/interfaces/http-responses/http-validation-error-response';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FuseAlertComponent } from '../../../../@fuse/components/alert/alert.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-	selector: 'auth-reset-password',
-	templateUrl: './reset-password.component.html',
-	encapsulation: ViewEncapsulation.None,
-	animations: fuseAnimations,
+    selector: 'auth-reset-password',
+    templateUrl: './reset-password.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: fuseAnimations,
+    standalone: true,
+    imports: [
+        NgIf,
+        FuseAlertComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        NgFor,
+        MatProgressSpinnerModule,
+        RouterLink,
+    ],
 })
 export class AuthResetPasswordComponent implements OnInit, OnDestroy {
 	@ViewChild('resetPasswordNgForm') resetPasswordNgForm: NgForm;
@@ -88,43 +109,43 @@ export class AuthResetPasswordComponent implements OnInit, OnDestroy {
 		this.showAlert = false;
 
 		// Send the request to the server
-		this._authService
-			.resetPassword(
-				this.resetPasswordForm.get('password').value,
-				this.resetPasswordForm.get('password_confirmation').value,
-				this.token,
-				this.email,
-			)
-			.pipe(
-				finalize(() => {
-					// Show the alert
-					this.showAlert = true;
-				}),
-				takeUntil(this._unsubscribeAll)
-			)
-			.subscribe(
-				(response: HttpSimpleResponse) => {
-					// Redirect to the login page with query params
-					this._router.navigate(['/ingresar'], {
-						queryParams: {
-							message: response.message,
-							messageType: 'success',
-						},
-					});
-				},
-				(response: HttpValidationErrorResponse) => {
-					// Set the alert
+		// this._authService
+		// 	.resetPassword(
+		// 		this.resetPasswordForm.get('password').value,
+		// 		this.resetPasswordForm.get('password_confirmation').value,
+		// 		this.token,
+		// 		this.email,
+		// 	)
+		// 	.pipe(
+		// 		finalize(() => {
+		// 			// Show the alert
+		// 			this.showAlert = true;
+		// 		}),
+		// 		takeUntil(this._unsubscribeAll)
+		// 	)
+		// 	.subscribe(
+		// 		(response: HttpSimpleResponse) => {
+		// 			// Redirect to the login page with query params
+		// 			this._router.navigate(['/ingresar'], {
+		// 				queryParams: {
+		// 					message: response.message,
+		// 					messageType: 'success',
+		// 				},
+		// 			});
+		// 		},
+		// 		(response: HttpValidationErrorResponse) => {
+		// 			// Set the alert
 
-					// Re-enable the form
-					this.resetPasswordForm.enable();
+		// 			// Re-enable the form
+		// 			this.resetPasswordForm.enable();
 
-					this.resetPasswordForm = this._globalService.getValidationErrors(this.resetPasswordForm, response);
-					this.alert = {
-						type: 'error',
-						message: response.message,
-					};
-				},
-			);
+		// 			this.resetPasswordForm = this._globalService.getValidationErrors(this.resetPasswordForm, response);
+		// 			this.alert = {
+		// 				type: 'error',
+		// 				message: response.message,
+		// 			};
+		// 		},
+		// 	);
 	}
 
 	ngOnDestroy(): void {

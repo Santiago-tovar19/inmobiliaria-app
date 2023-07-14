@@ -10,18 +10,16 @@ describe('OlMapMarkerComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [ 
-				OlMapMarkerComponent,
-				OlMapComponent,
-				OlMapMarkerComponent,
-			],
-			imports: [
-				RouterTestingModule
-			],
-			providers: [
-				{ provide: OlMapComponent, useClass: OlMapComponent }
-			]
-		})
+    imports: [
+        RouterTestingModule,
+        OlMapMarkerComponent,
+        OlMapComponent,
+        OlMapMarkerComponent
+    ],
+    providers: [
+        { provide: OlMapComponent, useClass: OlMapComponent }
+    ]
+})
 			.compileComponents();
 	});
 

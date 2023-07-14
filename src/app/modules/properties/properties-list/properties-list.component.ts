@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/interfaces/entities/user';
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
@@ -8,12 +8,49 @@ import { GlobalService } from 'app/services/global/global.service';
 import { environment } from 'environments/environment';
 import { Subject } from 'rxjs';
 import { PropertiesService } from '../service/properties.service';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
+import { FileInputModule } from 'app/modules/shared/file-input/file-input.module';
+import { ExcerptPipesModule } from 'app/pipes/excerpt/excerpt.pipe';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @Component({
 	selector: 'app-properties-list',
 	templateUrl: './properties-list.component.html',
-	styleUrls: ['./properties-list.component.scss']
+	styleUrls: ['./properties-list.component.scss'],
+	standalone: true,
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		ReactiveFormsModule,
+		RouterModule,
+		FormsModule,
+		MatInputModule,
+		MatTooltipModule,
+		MatInputModule,
+		MatTableModule,
+		MatIconModule,
+		NgxMatSelectSearchModule,
+		// FuseAlertModule,
+		ExcerptPipesModule,
+		MatPaginatorModule,
+		FileInputModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		MatSnackBarModule,
+		MatInputModule,
+	]
 })
 export class PropertiesListComponent implements OnInit {
 
@@ -28,7 +65,8 @@ export class PropertiesListComponent implements OnInit {
 	constructor(
 		private _propertiesService: PropertiesService,
 		private _globalService: GlobalService,
-		private _userService: UserService
+		private _userService: UserService,
+		private _matSnachBar: MatSnackBar
 	) { }
 
 	ngOnInit(): void {
@@ -70,7 +108,7 @@ export class PropertiesListComponent implements OnInit {
 	deleteProperty(id: number): void {
 		this._propertiesService.delete(id+'').subscribe(() => {
 			this.getProperties();
-			this._globalService.openSnackBar('Propiedad eliminada correctamente', 5000, 'success');
+			this._globalService.openSnackBar(this._matSnachBar, 'Propiedad eliminada correctamente', 5000, 'success');
 		});
 	}
 

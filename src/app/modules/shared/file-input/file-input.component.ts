@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { FormControl } from '@angular/forms';
 
 @Component({
-	selector: 'file-input',
-	templateUrl: './file-input.component.html',
-	styleUrls: ['./file-input.component.scss']
+    selector: 'file-input',
+    templateUrl: './file-input.component.html',
+    styleUrls: ['./file-input.component.scss'],
+    standalone: true
 })
 export class FileInputComponent {
 

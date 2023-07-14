@@ -17,7 +17,7 @@ import {of, throwError} from 'rxjs';
 import {AuthSignInComponent} from '../sign-in/sign-in.component';
 
 import {AuthResetPasswordComponent} from './reset-password.component';
-import {authResetPasswordRoutes} from './reset-password.routing';
+import {authResetPasswordRoutes} from './reset-password.routes';
 
 const authServiceSpy = jasmine.createSpyObj('AuthService', ['resetPassword']);
 const activateRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['snapshot']);
@@ -28,34 +28,35 @@ describe('AuthResetPasswordComponent Isolated Test', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AuthResetPasswordComponent, MatIcon],
-			imports: [
-				BrowserAnimationsModule,
-				MatIconTestingModule,
-				RouterTestingModule.withRoutes([{path: 'ingresar', component: AuthSignInComponent}]),
-				MatButtonModule,
-				MatFormFieldModule,
-				MatIconModule,
-				MatInputModule,
-				MatProgressSpinnerModule,
-				FuseCardModule,
-				FuseAlertModule,
-				SharedModule,
-			],
-			providers: [
-				FormBuilder,
-				{provide: AuthService, useValue: authServiceSpy},
-				// {provide: ActivatedRoute, useValue: activateRouteSpy},
-				{
-					provide: ActivatedRoute,
-					useValue: {
-						snapshot: {
-							queryParams: {token: '1234567890', email: 'andresjosehr@gmail.com'},
-						},
-					},
-				},
-			],
-		}).compileComponents();
+    declarations: [MatIcon],
+    imports: [
+        BrowserAnimationsModule,
+        MatIconTestingModule,
+        RouterTestingModule.withRoutes([{ path: 'ingresar', component: AuthSignInComponent }]),
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        FuseCardModule,
+        FuseAlertModule,
+        SharedModule,
+        AuthResetPasswordComponent,
+    ],
+    providers: [
+        FormBuilder,
+        { provide: AuthService, useValue: authServiceSpy },
+        // {provide: ActivatedRoute, useValue: activateRouteSpy},
+        {
+            provide: ActivatedRoute,
+            useValue: {
+                snapshot: {
+                    queryParams: { token: '1234567890', email: 'andresjosehr@gmail.com' },
+                },
+            },
+        },
+    ],
+}).compileComponents();
 	});
 
 	beforeEach(() => {
@@ -115,34 +116,35 @@ describe('AuthResetPasswordComponent Shallow Test', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AuthResetPasswordComponent, MatIcon],
-			imports: [
-				BrowserAnimationsModule,
-				RouterTestingModule.withRoutes([{path: 'ingresar', component: AuthSignInComponent}]),
-				MatButtonModule,
-				MatIconTestingModule,
-				MatFormFieldModule,
-				MatIconModule,
-				MatInputModule,
-				MatProgressSpinnerModule,
-				FuseCardModule,
-				FuseAlertModule,
-				SharedModule,
-			],
-			providers: [
-				FormBuilder,
-				{provide: AuthService, useValue: authServiceSpy},
-				// {provide: ActivatedRoute, useValue: activateRouteSpy},
-				{
-					provide: ActivatedRoute,
-					useValue: {
-						snapshot: {
-							queryParams: {token: '1234567890', email: 'andresjosehr@gmail.com'},
-						},
-					},
-				},
-			],
-		}).compileComponents();
+    declarations: [MatIcon],
+    imports: [
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([{ path: 'ingresar', component: AuthSignInComponent }]),
+        MatButtonModule,
+        MatIconTestingModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        FuseCardModule,
+        FuseAlertModule,
+        SharedModule,
+        AuthResetPasswordComponent,
+    ],
+    providers: [
+        FormBuilder,
+        { provide: AuthService, useValue: authServiceSpy },
+        // {provide: ActivatedRoute, useValue: activateRouteSpy},
+        {
+            provide: ActivatedRoute,
+            useValue: {
+                snapshot: {
+                    queryParams: { token: '1234567890', email: 'andresjosehr@gmail.com' },
+                },
+            },
+        },
+    ],
+}).compileComponents();
 	});
 
 	beforeEach(() => {
@@ -244,34 +246,35 @@ describe('AuthResetPasswordComponent Integrated Test', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [AuthResetPasswordComponent, MatIcon],
-			imports: [
-				BrowserAnimationsModule,
-				RouterTestingModule.withRoutes([{path: 'ingresar', component: AuthSignInComponent}]),
-				MatIconTestingModule,
-				MatButtonModule,
-				MatFormFieldModule,
-				MatIconModule,
-				MatInputModule,
-				MatProgressSpinnerModule,
-				FuseCardModule,
-				FuseAlertModule,
-				SharedModule,
-			],
-			providers: [
-				FormBuilder,
-				{provide: AuthService, useValue: authServiceSpy},
-				// {provide: ActivatedRoute, useValue: activateRouteSpy},
-				{
-					provide: ActivatedRoute,
-					useValue: {
-						snapshot: {
-							queryParams: {token: '1234567890', email: 'andresjosehr@gmail.com'},
-						},
-					},
-				},
-			],
-		}).compileComponents();
+    declarations: [MatIcon],
+    imports: [
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([{ path: 'ingresar', component: AuthSignInComponent }]),
+        MatIconTestingModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        FuseCardModule,
+        FuseAlertModule,
+        SharedModule,
+        AuthResetPasswordComponent,
+    ],
+    providers: [
+        FormBuilder,
+        { provide: AuthService, useValue: authServiceSpy },
+        // {provide: ActivatedRoute, useValue: activateRouteSpy},
+        {
+            provide: ActivatedRoute,
+            useValue: {
+                snapshot: {
+                    queryParams: { token: '1234567890', email: 'andresjosehr@gmail.com' },
+                },
+            },
+        },
+    ],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

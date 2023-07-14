@@ -1,15 +1,24 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { RouterLink } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FuseAlertComponent } from '../../../../@fuse/components/alert/alert.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-	selector     : 'auth-forgot-password',
-	templateUrl  : './forgot-password.component.html',
-	encapsulation: ViewEncapsulation.None,
-	animations   : fuseAnimations
+    selector: 'auth-forgot-password',
+    templateUrl: './forgot-password.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: fuseAnimations,
+    standalone: true,
+    imports: [NgIf, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, RouterLink]
 })
 export class AuthForgotPasswordComponent implements OnInit
 {

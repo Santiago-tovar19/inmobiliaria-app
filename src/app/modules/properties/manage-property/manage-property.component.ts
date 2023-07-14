@@ -1,38 +1,71 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
+import { FileInputModule } from 'app/modules/shared/file-input/file-input.module';
+import { OlMapsModule } from 'app/modules/shared/open-layers/ol-maps.module';
 import { GlobalService } from 'app/services/global/global.service';
 import { environment } from 'environments/environment';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+// import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
 	selector: 'app-manage-property',
 	templateUrl: './manage-property.component.html',
 	styleUrls: ['./manage-property.component.scss'],
+	standalone: true,
+	imports: [
+		CommonModule,
+		MatIconModule,
+		// CarouselModule,
+		FormsModule,
+		MatExpansionModule,
+		RouterModule,
+		MatButtonModule,
+		HttpClientModule,
+		MatTabsModule,
+		OlMapsModule,
+		MatSlideToggleModule,
+		MatFormFieldModule,
+		MatProgressBarModule,
+		MatInputModule,
+		FileInputModule,
+		// FuseAlertModule,
+		ReactiveFormsModule,
+		MatSnackBarModule,
+	],
 })
 export class ManagePropertyComponent implements OnInit {
-	customOptions: OwlOptions = {
-		loop: true,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: false,
-		dots: false,
-		navSpeed: 700,
-		margin: 5,
-		stagePadding: 50,
-		navText: ['<', '>'],
-		responsive: {
-			0: {
-				items: 2,
-			},
-		},
-		nav: true,
-	};
+	// customOptions: OwlOptions = {
+	// 	loop: true,
+	// 	mouseDrag: true,
+	// 	touchDrag: true,
+	// 	pullDrag: false,
+	// 	dots: false,
+	// 	navSpeed: 700,
+	// 	margin: 5,
+	// 	stagePadding: 50,
+	// 	navText: ['<', '>'],
+	// 	responsive: {
+	// 		0: {
+	// 			items: 2,
+	// 		},
+	// 	},
+	// 	nav: true,
+	// };
 
 	propertyID: string;
 	property: Property = {} as any;
@@ -58,7 +91,16 @@ export class ManagePropertyComponent implements OnInit {
 		price: 'precio',
 	};
 
-	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _formBuilder: FormBuilder, private _globalService: GlobalService, private _userService: UserService, private location: Location) {}
+	constructor(
+		private _propertiesService: PropertiesService,
+		private _activatedRouter: ActivatedRoute,
+		private sanitizer: DomSanitizer,
+		private _formBuilder: FormBuilder,
+		private _globalService: GlobalService,
+		private _userService: UserService,
+		private location: Location,
+		private _matSnachBar: MatSnackBar
+	) {}
 
 	ngOnInit(): void {
 		this._userService.user$.subscribe((user: any) => {
@@ -230,7 +272,7 @@ export class ManagePropertyComponent implements OnInit {
 					}
 				})
 				.filter((x) => x);
-			this._globalService.openSnackBar('Hay errores en el formulario', 5000, 'error');
+			this._globalService.openSnackBar(this._matSnachBar, 'Hay errores en el formulario', 5000, 'error');
 			return;
 		}
 
@@ -255,10 +297,7 @@ export class ManagePropertyComponent implements OnInit {
 					base64: `${environment.assets}/storage/properties/${i.name}`,
 				}));
 
-			this._globalService.openSnackBar('Propiedad actualizada correctamente', 10000, 'success', 'Ver pagina publica de propiedad').then(() => {
-				const url = new URL('/propiedad/' + response.data.id, environment.front_url);
-				window.open(url.toString(), '_blank');
-			});
+			this._globalService.openSnackBar(this._matSnachBar, 'Propiedad actualizada correctamente', 10000, 'success')
 		});
 	}
 
@@ -277,7 +316,7 @@ export class ManagePropertyComponent implements OnInit {
 				})
 				.filter((x) => x);
 
-			this._globalService.openSnackBar('Hay errores en el formulario', 5000, 'error');
+			this._globalService.openSnackBar(this._matSnachBar, 'Hay errores en el formulario', 5000, 'error');
 			return;
 		}
 
@@ -302,10 +341,7 @@ export class ManagePropertyComponent implements OnInit {
 					base64: `${environment.assets}/storage/properties/${i.name}`,
 				}));
 
-			this._globalService.openSnackBar('Propiedad creada correctamente', 10000, 'success', 'Ver pagina publica de propiedad').then(() => {
-				const url = new URL('/propiedad/' + response.data.id, environment.front_url);
-				window.open(url.toString(), '_blank');
-			});
+			this._globalService.openSnackBar(this._matSnachBar, 'Propiedad creada correctamente', 10000, 'success')
 		});
 	}
 

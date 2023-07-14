@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import { FormBuilder, FormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {fuseAnimations} from '@fuse/animations';
 import {FuseAlertType} from '@fuse/components/alert';
 import {AuthService} from 'app/core/auth/auth.service';
@@ -8,12 +8,37 @@ import {User} from 'app/interfaces/entities/user';
 import {HttpValidationErrorResponse} from 'app/interfaces/http-responses/http-validation-error-response';
 import {GlobalService} from 'app/services/global/global.service';
 import {Subject, takeUntil} from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FuseAlertComponent } from '../../../../@fuse/components/alert/alert.component';
+import { NgIf, NgFor } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
-	selector: 'auth-sign-in',
-	templateUrl: './sign-in.component.html',
-	encapsulation: ViewEncapsulation.None,
-	animations: fuseAnimations,
+    selector: 'auth-sign-in',
+    templateUrl: './sign-in.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: fuseAnimations,
+    standalone: true,
+    imports: [
+        NgIf,
+        FuseAlertComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgFor,
+        MatButtonModule,
+        MatIconModule,
+        MatCheckboxModule,
+        RouterLink,
+				MatSnackBarModule,
+        MatProgressSpinnerModule,
+    ],
 })
 export class AuthSignInComponent implements OnInit, OnDestroy {
 	@ViewChild('signInNgForm') signInNgForm: NgForm;
@@ -35,7 +60,8 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 		private _authService: AuthService,
 		private _formBuilder: FormBuilder,
 		private _router: Router,
-		public _globalService: GlobalService
+		public _globalService: GlobalService,
+		public _matSnackBar: MatSnackBar,
 	) {}
 
 	// -----------------------------------------------------------------------------------------------------
@@ -107,7 +133,6 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 			},
 			(response: HttpValidationErrorResponse) => {
 
-				console.log(response);
 				// Re-enable the form
 				this.signInForm.enable();
 

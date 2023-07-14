@@ -1,12 +1,18 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { environment } from 'environments/environment';
 import { DashboardsService } from '../service/dashboards.service';
+import { NgFor, NgStyle } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-	selector     : 'adminmaster-dashboard',
-	templateUrl  : './adminmaster-dashboard.component.html',
-	styleUrls    : ['./adminmaster-dashboard.component.scss'],
-	encapsulation: ViewEncapsulation.None
+    selector: 'adminmaster-dashboard',
+    templateUrl: './adminmaster-dashboard.component.html',
+    styleUrls: ['./adminmaster-dashboard.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [MatIconModule, MatButtonModule, RouterLink, NgFor, NgStyle]
 })
 export class AdminMasterDashboardComponent
 {

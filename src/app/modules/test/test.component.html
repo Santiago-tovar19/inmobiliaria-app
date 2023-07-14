@@ -1,10 +1,11 @@
 
-
-<div>
-	<div class="w-140">
-		<file-input (fileChange)="fileChange($event)"></file-input>
-	</div>
-	<div>
-		<button (click)="uploadFile()">Cargar</button>
-	</div>
+<div class="w-full">
+	<ngx-slick-carousel class="carousel"
+		#slickModal="slick-carousel"
+		[config]="slideConfig"
+		(init)="slickInit($event)">
+			<div ngxSlickItem *ngFor="let slide of slides" class="slide w-80">
+				<img src="{{ slide.img }}" alt="">
+			</div>
+	</ngx-slick-carousel>
 </div>

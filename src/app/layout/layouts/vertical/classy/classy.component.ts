@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import {Subject, takeUntil} from 'rxjs';
 import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
 import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/components/navigation';
@@ -7,11 +7,25 @@ import {Navigation} from 'app/core/navigation/navigation.types';
 import {NavigationService} from 'app/core/navigation/navigation.service';
 import {UserService} from 'app/core/user/user.service';
 import {User} from 'app/interfaces/entities/user';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { UserComponent } from '../../../common/user/user.component';
+import { FuseVerticalNavigationComponent as FuseVerticalNavigationComponent_1 } from '../../../../../@fuse/components/navigation/vertical/vertical.component';
+import { FuseLoadingBarComponent } from '../../../../../@fuse/components/loading-bar/loading-bar.component';
 
 @Component({
-	selector: 'classy-layout',
-	templateUrl: './classy.component.html',
-	encapsulation: ViewEncapsulation.None,
+    selector: 'classy-layout',
+    templateUrl: './classy.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        FuseLoadingBarComponent,
+        FuseVerticalNavigationComponent_1,
+        UserComponent,
+        NgFor,
+        NgIf,
+        RouterOutlet,
+        TitleCasePipe,
+    ],
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
 	isScreenSmall: boolean;
@@ -70,11 +84,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 			});
 
 		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user) => {
-			this._navigationService.navi.default = this._navigationService.formatMenu(user);
+			console.log(user);
+			this._navigationService.navi.default = this._navigationService.formatMenu(user as any);
 		});
 
 		// Subscribe to the user service
-		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user: User) => {
+		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user: any) => {
 			this.user = user;
 		});
 

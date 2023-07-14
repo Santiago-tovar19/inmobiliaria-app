@@ -1,18 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PaginatorEvent } from 'app/interfaces/general/paginator-event';
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 import { GlobalService } from 'app/services/global/global.service';
 import { Subject, takeUntil } from 'rxjs';
 import { UsersService, SearchObject } from '../service/users.service';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FileInputModule } from 'app/modules/shared/file-input/file-input.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @Component({
 	selector: 'app-users-list',
 	templateUrl: './users-list.component.html',
-	styleUrls: ['./users-list.component.scss']
+	styleUrls: ['./users-list.component.scss'],
+	standalone: true,
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		ReactiveFormsModule,
+		RouterModule,
+		FormsModule,
+		MatInputModule,
+		MatTooltipModule,
+		MatInputModule,
+		MatTableModule,
+		NgxMatSelectSearchModule,
+		// FuseAlertModule,
+		MatPaginatorModule,
+		MatSnackBarModule,
+		FileInputModule
+	]
 })
 export class UsersListComponent implements OnInit {
 
@@ -35,7 +63,8 @@ export class UsersListComponent implements OnInit {
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
 		private _formBuilder: FormBuilder,
-		private _globalService: GlobalService
+		private _globalService: GlobalService,
+		private _matSnachBar: MatSnackBar
 	) { }
 
 	paginate(event: PageEvent): void {
@@ -107,7 +136,7 @@ export class UsersListComponent implements OnInit {
 
 	resendSignUpEmail(id: number): void{
 		this._usersService.resendSignUpEmail(id).subscribe((response) => {
-			this._globalService.openSnackBar('Correo enviado', 5000, 'success');
+			this._globalService.openSnackBar(this._matSnachBar, 'Correo enviado', 5000, 'success');
 			console.log(response);
 		});
 	}

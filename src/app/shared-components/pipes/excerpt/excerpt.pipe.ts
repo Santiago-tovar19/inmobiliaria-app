@@ -1,8 +1,9 @@
 import {NgModule, Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-	name: 'excerpt',
-	pure: false,
+    name: 'excerpt',
+    pure: false,
+    standalone: true,
 })
 export class ExcerptPipe implements PipeTransform {
 	transform(text: string, length: number): unknown {
@@ -18,10 +19,9 @@ export class ExcerptPipe implements PipeTransform {
 }
 
 @NgModule({
-	imports: [
-		// dep modules
-	],
-	declarations: [ExcerptPipe],
-	exports: [ExcerptPipe],
+    imports: [
+        ExcerptPipe
+    ],
+    exports: [ExcerptPipe],
 })
 export class ExcerptPipesModule {}

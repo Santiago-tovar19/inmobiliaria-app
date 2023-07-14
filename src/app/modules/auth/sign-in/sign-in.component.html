@@ -41,11 +41,11 @@
                     matInput
                     [formControlName]="'email'">
                 <mat-error *ngIf="signInForm.get('email').hasError('required')" id='email-error-required-msg'>Este campo es obligatorio</mat-error>
-                <mat-error *ngFor="let i of _globalService.errorsLength(this.signInForm.get('email'))">
+                <!-- <mat-error *ngFor="let i of _globalService.errorsLength(this.signInForm.get('email'))">
                   <ng-container *ngIf="this.signInForm.get('email').hasError(i)">
                     {{this.signInForm.get('email').errors[i]}}
                   </ng-container>
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
 
 							<!-- Password field -->
@@ -72,11 +72,11 @@
                         [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                 </button>
                 <mat-error *ngIf="signInForm.get('password').hasError('required')" id='password-error-required-msg'>La contraseña es obligatoria</mat-error>
-                <mat-error *ngFor="let i of _globalService.errorsLength(this.signInForm.get('password'))">
+                <!-- <mat-error *ngFor="let i of _globalService.errorsLength(this.signInForm.get('password'))">
                   <ng-container *ngIf="this.signInForm.get('password').hasError(i)">
                     {{this.signInForm.get('password').errors[i]}}
                   </ng-container>
-                </mat-error>
+                </mat-error> -->
             </mat-form-field>
 
 							<!-- Actions -->

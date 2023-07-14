@@ -1,26 +1,28 @@
+
+
 <main class="w-full h-screen">
 	<div class="w-full h-screen text-white bg-wave-pattern bg-cover bg-center">
-		<div class="bg-black/60 h-full w-full z-[2]">
-			<div class="max-w-[1180px] h-full mx-auto my-auto flex flex-col justify-center gap-5">
+		<div class="h-full w-full z-[2]">
+			<div class="w-full h-full absolute">
+				<div
+				[class.opacity-0]="currentImageIndex !== i"
+				class="w-full h-full zoom transition-all duration-1000 ease-in-out absolute" style='background-image: url({{im}}); opacity: 1; background-size: 100% 100%;' *ngFor="let im of images; let i = index">
+					<div class="w-full h-full" style="background-color: #0000007d;"></div>
+				</div>
+			</div>
+			<div class="max-w-[1180px] h-full mx-auto my-auto flex flex-col justify-center gap-5 relative">
 				<h1 class="text-white text-[70px] font-bold">
 					Find Your Future <br />
 					Dream Home
 				</h1>
 				<div class="relative">
-					<div class="bg-white z-2 w-11/12 md:w-full h-auto md:h-22 rounded-sm flex flex-col md:flex-row items-center relative">
+					<div class="bg-white justify-center rounded z-2 w-11/12 md:w-full h-auto md:h-22 flex flex-col md:flex-row items-center relative">
             <!-- start main seeker -->
-              <ul class="h-full flex gap-3 items-center ml-4 text-lg font-bold text-gray-700">
-                <li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Buy</a></li>
-                <li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Rent</a></li>
-                <li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Sold</a></li>
-              </ul>
-              <!-- end main seeker -->
 						<mat-chip-listbox aria-label="Fish selection">
-							<mat-chip-option>One fish</mat-chip-option>
-							<mat-chip-option>Two fish</mat-chip-option>
-							<mat-chip-option color="accent" selected>Accent fish</mat-chip-option>
-							<mat-chip-option color="warn">Warn fish</mat-chip-option>
+							<mat-chip-option class="rounded">Comprar</mat-chip-option>
+							<mat-chip-option class="rounded">Rentar</mat-chip-option>
 						</mat-chip-listbox>
+              <!-- end main seeker -->
 						<div class="ml-7 h-full flex items-center">
 							<div class="flex flex-col md:flex-row items-center gap-4">
 								<input type="text" placeholder="Enter keyword" class="text-base text-gray-500 w-full md:w-[300px] h-full" />

@@ -2,7 +2,7 @@
 <div class="w-full" [formGroup]="propertyFG">
 	<!-- {{property.images | json}} -->
 	<div class="w-full property-banner -my-5">
-		<owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
+		<!-- <owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
 			<ng-template *ngFor="let imgs of filesBanner" carouselSlide id="carou1">
 				<div>
 					<div style="background-image: url({{imgs.base64}})" class="img h-120 bg-cover bg-no-repeat bg-center">
@@ -10,7 +10,7 @@
 					</div>
 				</div>
 			</ng-template>
-		</owl-carousel-o>
+		</owl-carousel-o> -->
 	</div>
 	<div class="grid grid-cols-3 gap-5 max-w-320 mx-auto">
 		<div class="col-span-2">
@@ -444,10 +444,10 @@
 			</div>
 		</div>
 		<div class="col-span-1">
-			<fuse-alert *ngFor="let error of errors" [type]="'warn'" class="mb-4">
+			<!-- <fuse-alert *ngFor="let error of errors" [type]="'warn'" class="mb-4">
 				<span fuseAlertTitle>Campo: {{nameKeys[error.key]}}</span>
 				El campo es obligatorio
-			</fuse-alert>
+			</fuse-alert> -->
 		</div>
 		<!-- <div class="col-span-1">
 			<div class="flex flex-col gap-3">

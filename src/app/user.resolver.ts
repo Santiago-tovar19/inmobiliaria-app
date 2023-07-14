@@ -18,7 +18,7 @@ export class UserResolver implements Resolve<boolean> {
 	constructor(
 		private _authService: AuthService,
 		private _httpClient: HttpClient,
-		private _userService: UserService,
+		public _userService: UserService,
 	) { }
 	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 		// Fork jin multiple API endpoint calls to wait all of them to finish

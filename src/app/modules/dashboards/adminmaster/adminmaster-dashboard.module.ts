@@ -5,23 +5,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { Route, RouterModule } from '@angular/router';
 import { AdminMasterDashboardComponent } from './adminmaster-dashboard.component';
 
-const exampleRoutes: Route[] = [
-	{
-		path     : '',
-		component: AdminMasterDashboardComponent
-	}
-];
-
 @NgModule({
-	declarations: [
-		AdminMasterDashboardComponent
-	],
-	imports     : [
-		CommonModule,
-		RouterModule.forChild(exampleRoutes),
-		MatButtonModule,
-		MatIconModule
-	]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        AdminMasterDashboardComponent
+    ]
 })
 export class AdminMasterDashboardModule
 {

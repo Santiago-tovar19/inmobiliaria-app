@@ -12,10 +12,10 @@ export class ResetPasswordResolver implements Resolve<boolean> {
 		// Get token from query params
 		const token = route.queryParams.token;
 		const email = route.queryParams.email;
-		this._authService.checkPasswordResetToken(token, email).subscribe(
-			() => of(true),
-			() => this._router.navigate(['/ingresar']),
-		);
+		// this._authService.checkPasswordResetToken(token, email).subscribe(
+		// 	() => of(true),
+		// 	() => this._router.navigate(['/ingresar']),
+		// );
 		return of(true);
 	}
 }

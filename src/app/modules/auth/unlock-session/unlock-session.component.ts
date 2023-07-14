@@ -1,16 +1,25 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from 'app/core/auth/auth.service';
 import { UserService } from 'app/core/user/user.service';
 import { FuseAlertType } from '@fuse/components/alert';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FuseAlertComponent } from '../../../../@fuse/components/alert/alert.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-	selector     : 'auth-unlock-session',
-	templateUrl  : './unlock-session.component.html',
-	encapsulation: ViewEncapsulation.None,
-	animations   : fuseAnimations
+    selector: 'auth-unlock-session',
+    templateUrl: './unlock-session.component.html',
+    encapsulation: ViewEncapsulation.None,
+    animations: fuseAnimations,
+    standalone: true,
+    imports: [NgIf, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, RouterLink]
 })
 export class AuthUnlockSessionComponent implements OnInit
 {
@@ -48,7 +57,7 @@ export class AuthUnlockSessionComponent implements OnInit
 	ngOnInit(): void
 	{
 		// Get the user's name
-		this._userService.user$.subscribe((user) => {
+		this._userService.user$.subscribe((user: any) => {
 			this.name = user.first_name;
 			this._email = user.email;
 		});

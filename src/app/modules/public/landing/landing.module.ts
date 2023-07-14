@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgStyle } from '@angular/common';
 import { LandingComponent } from './landing.component';
 import { RouterModule } from '@angular/router';
 import { landingRoutes } from './home.routing';
@@ -8,7 +8,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
-	declarations: [LandingComponent],
-	imports: [CommonModule, RouterModule.forChild(landingRoutes), FormsModule, ReactiveFormsModule, MatIconModule, MatChipsModule],
+    imports: [
+			CommonModule,
+			RouterModule.forChild(landingRoutes),
+			NgStyle,
+			FormsModule,
+			ReactiveFormsModule,
+			MatIconModule,
+			MatChipsModule,
+			LandingComponent
+		],
 })
 export class LandingModule {}

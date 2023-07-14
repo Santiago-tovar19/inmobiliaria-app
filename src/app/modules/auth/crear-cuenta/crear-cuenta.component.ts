@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { FuseValidators } from '@fuse/validators';
 import { HttpSimpleResponse } from 'app/interfaces/http-responses/http-simple-response';
@@ -8,11 +8,32 @@ import { HttpValidationErrorResponse } from 'app/interfaces/http-responses/http-
 import { UsersService } from 'app/modules/users/service/users.service';
 import { GlobalService } from 'app/services/global/global.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FuseAlertComponent } from '../../../../@fuse/components/alert/alert.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-	selector: 'app-crear-cuenta',
-	templateUrl: './crear-cuenta.component.html',
-	styleUrls: ['./crear-cuenta.component.scss'],
+    selector: 'app-crear-cuenta',
+    templateUrl: './crear-cuenta.component.html',
+    styleUrls: ['./crear-cuenta.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        FuseAlertComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgFor,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        RouterLink,
+    ],
 })
 export class CrearCuentaComponent implements OnInit, OnDestroy {
 	@ViewChild('resetPasswordNgForm') resetPasswordNgForm: NgForm;

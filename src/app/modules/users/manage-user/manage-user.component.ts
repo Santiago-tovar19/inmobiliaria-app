@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { Broker } from 'app/interfaces/entities/brokers';
@@ -9,11 +9,36 @@ import { EntityPropertiesService } from 'app/services/entity-properties/entity-p
 import { GlobalService } from 'app/services/global/global.service';
 import { environment } from 'environments/environment';
 import { UsersService } from '../service/users.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FileInputComponent } from '../../shared/file-input/file-input.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { NgIf, NgFor } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
-	selector: 'app-manage-user',
-	templateUrl: './manage-user.component.html',
-	styleUrls: ['./manage-user.component.scss'],
+    selector: 'app-manage-user',
+    templateUrl: './manage-user.component.html',
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgIf,
+        NgFor,
+        MatSelectModule,
+        MatOptionModule,
+        FileInputComponent,
+        MatButtonModule,
+        MatIconModule,
+				MatSnackBarModule,
+    ],
 })
 export class ManageUserComponent implements OnInit {
 	alert: { type: FuseAlertType; message: string } = {

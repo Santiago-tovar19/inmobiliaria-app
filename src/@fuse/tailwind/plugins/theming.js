@@ -1,10 +1,12 @@
 const chroma = require('chroma-js');
 const _ = require('lodash');
+const fs = require('fs');
 const path = require('path');
 const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default;
 const generateContrasts = require(path.resolve(__dirname, ('../utils/generate-contrasts')));
+const jsonToSassMap = require(path.resolve(__dirname, ('../utils/json-to-sass-map')));
 
 // -----------------------------------------------------------------------------------------------------
 // @ Utilities
@@ -24,9 +26,9 @@ const normalizeTheme = (theme) =>
             paletteName,
             {
                 ...palette,
-                DEFAULT: palette['DEFAULT'] || palette[500]
-            }
-        ]
+                DEFAULT: palette['DEFAULT'] || palette[500],
+            },
+        ],
     ));
 };
 
@@ -36,9 +38,91 @@ const normalizeTheme = (theme) =>
 const theming = plugin.withOptions((options) => ({
         addComponents,
         e,
-        theme
+        theme,
     }) =>
     {
+        /**
+         * Create user themes object by going through the provided themes and
+         * merging them with the provided "default" so, we can have a complete
+         * set of color palettes for each user theme.
+         */
+        const userThemes = _.fromPairs(_.map(options.themes, (theme, themeName) => [
+            themeName,
+            _.defaults({}, theme, options.themes['default']),
+        ]));
+
+        /**
+         * Normalize the themes and assign it to the themes object. This will
+         * be the final object that we create a SASS map from
+         */
+        let themes = _.fromPairs(_.map(userThemes, (theme, themeName) => [
+            themeName,
+            normalizeTheme(theme),
+        ]));
+
+        /**
+         * Go through the themes to generate the contrasts and filter the
+         * palettes to only have "primary", "accent" and "warn" objects.
+         */
+        themes = _.fromPairs(_.map(themes, (theme, themeName) => [
+            themeName,
+            _.pick(
+                _.fromPairs(_.map(theme, (palette, paletteName) => [
+                    paletteName,
+                    {
+                        ...palette,
+                        contrast: _.fromPairs(_.map(generateContrasts(palette), (color, hue) => [
+                            hue,
+                            _.get(userThemes[themeName], [`on-${paletteName}`, hue]) || color,
+                        ])),
+                    },
+                ])),
+                ['primary', 'accent', 'warn'],
+            ),
+        ]));
+
+        /**
+         * Go through the themes and attach appropriate class selectors so,
+         * we can use them to encapsulate each theme.
+         */
+        themes = _.fromPairs(_.map(themes, (theme, themeName) => [
+            themeName,
+            {
+                selector: `".theme-${themeName}"`,
+                ...theme,
+            },
+        ]));
+
+        /* Generate the SASS map using the themes object */
+        const sassMap = jsonToSassMap(JSON.stringify({'user-themes': themes}));
+
+        /* Get the file path */
+        const filename = path.resolve(__dirname, ('../../styles/user-themes.scss'));
+
+        /* Read the file and get its data */
+        let data;
+        try
+        {
+            data = fs.readFileSync(filename, {encoding: 'utf8'});
+        }
+        catch ( err )
+        {
+            console.error(err);
+        }
+
+        /* Write the file if the map has been changed */
+        if ( data !== sassMap )
+        {
+            try
+            {
+                fs.writeFileSync(filename, sassMap, {encoding: 'utf8'});
+            }
+            catch ( err )
+            {
+                console.error(err);
+            }
+        }
+
         /**
          * Iterate through the user's themes and build Tailwind components containing
          * CSS Custom Properties using the colors from them. This allows switching
@@ -50,20 +134,20 @@ const theming = plugin.withOptions((options) => ({
                 _.fromPairs(_.flatten(_.map(flattenColorPalette(_.fromPairs(_.flatten(_.map(normalizeTheme(theme), (palette, paletteName) => [
                         [
                             e(paletteName),
-                            palette
+                            palette,
                         ],
                         [
                             `on-${e(paletteName)}`,
-                            _.fromPairs(_.map(generateContrasts(palette), (color, hue) => [hue, _.get(theme, [`on-${paletteName}`, hue]) || color]))
-                        ]
-                    ])
-                ))), (value, key) => [[`--fuse-${e(key)}`, value], [`--fuse-${e(key)}-rgb`, chroma(value).rgb().join(',')]])))
-            ]))
+                            _.fromPairs(_.map(generateContrasts(palette), (color, hue) => [hue, _.get(theme, [`on-${paletteName}`, hue]) || color])),
+                        ],
+                    ]),
+                ))), (value, key) => [[`--fuse-${e(key)}`, value], [`--fuse-${e(key)}-rgb`, chroma(value).rgb().join(',')]]))),
+            ])),
         );
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Generate scheme based css custom properties and utility classes
-        // -----------------------------------------------------------------------------------------------------
+        /**
+         * Generate scheme based css custom properties and utility classes
+         */
         const schemeCustomProps = _.map(['light', 'dark'], (colorScheme) =>
         {
             const isDark = colorScheme === 'dark';
@@ -78,7 +162,7 @@ const theming = plugin.withOptions((options) => ({
                     /**
                      * If a custom property is not available, browsers will use
                      * the fallback value. In this case, we want to use '--is-dark'
-                     * as the indicator of a dark theme so we can use it like this:
+                     * as the indicator of a dark theme so, we can use it like this:
                      * background-color: var(--is-dark, red);
                      *
                      * If we set '--is-dark' as "true" on dark themes, the above rule
@@ -99,16 +183,16 @@ const theming = plugin.withOptions((options) => ({
                      */
                     ...(!isDark ? {'--is-dark': 'false'} : {}),
 
-                    // Generate custom properties from customProps
+                    /* Generate custom properties from customProps */
                     ..._.fromPairs(_.flatten(_.map(background, (value, key) => [[`--fuse-${e(key)}`, value], [`--fuse-${e(key)}-rgb`, chroma(value).rgb().join(',')]]))),
-                    ..._.fromPairs(_.flatten(_.map(foreground, (value, key) => [[`--fuse-${e(key)}`, value], [`--fuse-${e(key)}-rgb`, chroma(value).rgb().join(',')]])))
-                }
+                    ..._.fromPairs(_.flatten(_.map(foreground, (value, key) => [[`--fuse-${e(key)}`, value], [`--fuse-${e(key)}-rgb`, chroma(value).rgb().join(',')]]))),
+                },
             };
         });
 
         const schemeUtilities = (() =>
         {
-            // Generate general styles & utilities
+            /* Generate general styles & utilities */
             return {};
         })();
 
@@ -127,8 +211,8 @@ const theming = plugin.withOptions((options) => ({
                      */
                     colors: _.fromPairs(_.flatten(_.map(_.keys(flattenColorPalette(normalizeTheme(options.themes.default))), (name) => [
                         [name, `rgba(var(--fuse-${name}-rgb), <alpha-value>)`],
-                        [`on-${name}`, `rgba(var(--fuse-on-${name}-rgb), <alpha-value>)`]
-                    ])))
+                        [`on-${name}`, `rgba(var(--fuse-on-${name}-rgb), <alpha-value>)`],
+                    ]))),
                 },
                 fuse  : {
                     customProps: {
@@ -139,7 +223,7 @@ const theming = plugin.withOptions((options) => ({
                                 'bg-default'   : colors.slate[100],
                                 'bg-dialog'    : '#FFFFFF',
                                 'bg-hover'     : chroma(colors.slate[400]).alpha(0.12).css(),
-                                'bg-status-bar': colors.slate[300]
+                                'bg-status-bar': colors.slate[300],
                             },
                             dark : {
                                 'bg-app-bar'   : colors.slate[900],
@@ -147,8 +231,8 @@ const theming = plugin.withOptions((options) => ({
                                 'bg-default'   : colors.slate[900],
                                 'bg-dialog'    : colors.slate[800],
                                 'bg-hover'     : 'rgba(255, 255, 255, 0.05)',
-                                'bg-status-bar': colors.slate[900]
-                            }
+                                'bg-status-bar': colors.slate[900],
+                            },
                         },
                         foreground: {
                             light: {
@@ -159,7 +243,7 @@ const theming = plugin.withOptions((options) => ({
                                 'border'        : colors.slate[200],
                                 'divider'       : colors.slate[200],
                                 'icon'          : colors.slate[500],
-                                'mat-icon'      : colors.slate[500]
+                                'mat-icon'      : colors.slate[500],
                             },
                             dark : {
                                 'text-default'  : '#FFFFFF',
@@ -169,14 +253,14 @@ const theming = plugin.withOptions((options) => ({
                                 'border'        : chroma(colors.slate[100]).alpha(0.12).css(),
                                 'divider'       : chroma(colors.slate[100]).alpha(0.12).css(),
                                 'icon'          : colors.slate[400],
-                                'mat-icon'      : colors.slate[400]
-                            }
-                        }
-                    }
-                }
-            }
+                                'mat-icon'      : colors.slate[400],
+                            },
+                        },
+                    },
+                },
+            },
         };
-    }
+    },
 );
 
 module.exports = theming;

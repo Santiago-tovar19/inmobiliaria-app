@@ -18,9 +18,10 @@ export const DEFAULT_LAT = -34.603490361131385;
 export const DEFAULT_LON = -58.382037891217465;
 
 @Component({
-	selector: 'app-ol-map',
-	templateUrl: './ol-map.component.html',
-	styleUrls: ['./ol-map.component.scss'],
+    selector: 'app-ol-map',
+    templateUrl: './ol-map.component.html',
+    styleUrls: ['./ol-map.component.scss'],
+    standalone: true,
 })
 export class OlMapComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() lat: number = DEFAULT_LAT;

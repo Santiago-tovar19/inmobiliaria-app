@@ -6,19 +6,17 @@ import {MatCardModule} from '@angular/material/card';
 import {OlMapRouteComponent} from './ol-map-route/ol-map-route.component';
 
 @NgModule({
-	declarations: [
-		OlMapComponent,
-		OlMapMarkerComponent,
-		OlMapRouteComponent
-	],
-	imports: [
-		CommonModule,
-		MatCardModule
-	],
-	exports: [
-		OlMapComponent,
-		OlMapMarkerComponent,
-		OlMapRouteComponent
-	],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        OlMapComponent,
+        OlMapMarkerComponent,
+        OlMapRouteComponent
+    ],
+    exports: [
+        OlMapComponent,
+        OlMapMarkerComponent,
+        OlMapRouteComponent
+    ],
 })
 export class OlMapsModule {}

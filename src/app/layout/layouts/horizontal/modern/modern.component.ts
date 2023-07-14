@@ -1,16 +1,25 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { UserService } from 'app/core/user/user.service';
+import { UserComponent } from '../../../common/user/user.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FuseHorizontalNavigationComponent } from '../../../../../@fuse/components/navigation/horizontal/horizontal.component';
+import { FuseVerticalNavigationComponent as FuseVerticalNavigationComponent_1 } from '../../../../../@fuse/components/navigation/vertical/vertical.component';
+import { NgIf } from '@angular/common';
+import { FuseLoadingBarComponent } from '../../../../../@fuse/components/loading-bar/loading-bar.component';
 
 @Component({
-	selector     : 'modern-layout',
-	templateUrl  : './modern.component.html',
-	encapsulation: ViewEncapsulation.None
+    selector: 'modern-layout',
+    templateUrl: './modern.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [FuseLoadingBarComponent, NgIf, FuseVerticalNavigationComponent_1, FuseHorizontalNavigationComponent, MatButtonModule, MatIconModule, UserComponent, RouterOutlet]
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy
 {
@@ -69,8 +78,8 @@ export class ModernLayoutComponent implements OnInit, OnDestroy
 				this.isScreenSmall = !matchingAliases.includes('md');
 			});
 
-		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user) => {
-			this._navigationService.navi.default = this._navigationService.formatMenu(user);
+		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((u) => {
+			this._navigationService.navi.default = this._navigationService.formatMenu(u as any);
 		});
 	}
 

@@ -8,8 +8,8 @@ describe('CrearCuentaComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [CrearCuentaComponent],
-		}).compileComponents();
+    imports: [CrearCuentaComponent],
+}).compileComponents();
 	});
 
 	beforeEach(() => {

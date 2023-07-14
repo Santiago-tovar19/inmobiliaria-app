@@ -14,9 +14,10 @@ export const DEFAULT_ANCHOR = [0.5, 1];
 export const DEFAULT_ICON = 'https://proyexiot.com/v2/app/assets/images/spotlight-poi2.png';
 
 @Component({
-	selector: 'app-ol-map-route',
-	templateUrl: './ol-map-route.component.html',
-	styleUrls: ['./ol-map-route.component.scss'],
+    selector: 'app-ol-map-route',
+    templateUrl: './ol-map-route.component.html',
+    styleUrls: ['./ol-map-route.component.scss'],
+    standalone: true,
 })
 export class OlMapRouteComponent implements OnInit, OnDestroy {
 	@Input() lat: number = DEFAULT_LAT;
