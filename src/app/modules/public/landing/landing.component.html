@@ -6,138 +6,138 @@
 					Find Your Future <br />
 					Dream Home
 				</h1>
-				<div class="bg-white w-11/12 md:w-full h-auto md:h-22 rounded-sm flex flex-col md:flex-row items-center relative">
-					<ul class="h-full flex gap-3 items-center ml-4 text-lg font-bold text-gray-700">
-						<li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Buy</a></li>
-						<li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Rent</a></li>
-						<li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Sold</a></li>
-					</ul>
-					<div class="ml-7 h-full flex items-center" >
-						<form action="">
-							<div class="flex flex-col md:flex-row items-center">
-								<input type="text" placeholder="Enter keyword" class="text-base text-gray-500 w-full md:w-[300px] h-full my-auto mb-3 md:mb-0" />
-								<span class="h-[1.5px] bg-gray-300 md:w-[35px] md:h-full"></span>
-								<select name="select" id="" class="ml-4 text-lg text-gray-500 w-full md:w-50">
-									<option value="" class="bg-gray-200">House & villa</option>
-									<option value="" class="bg-gray-200">Apartment</option>
-									<option value="" class="bg-gray-200">Townhouse</option>
-								</select>
-								<span class="ml-4 h-[1.5px] bg-gray-300 md:w-[35px] md:h-full"></span>
-								<button (click)="toggleAdvanced()" type="button" class="text-gray-500 ml-10">Advanced</button>
-								<button class="ml-4 md:ml-11 text-white bg-blue-500 px-8 py-4 rounded-md">Search</button>
+					<div class="relative">
+						<div class="bg-white z-2 w-11/12 md:w-full h-auto md:h-22 rounded-sm flex flex-col md:flex-row items-center relative">
+							<ul class="h-full flex gap-3 items-center ml-4 text-lg font-bold text-gray-700">
+								<li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Buy</a></li>
+								<li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Rent</a></li>
+								<li class="bg-gray-200 px-5 py-2 rounded-[4px]"><a href="#">Sold</a></li>
+							</ul>
+							<div class="ml-7 h-full flex items-center" >
+									<div class="flex flex-col md:flex-row items-center">
+										<input type="text" placeholder="Enter keyword" class="text-base text-gray-500 w-full md:w-[300px] h-full my-auto mb-3 md:mb-0" />
+										<span class="h-[1.5px] bg-gray-300 md:w-[35px] md:h-full"></span>
+										<select name="select" id="" class="ml-4 text-lg text-gray-500 w-full md:w-50">
+											<option value="" class="bg-gray-200">House & villa</option>
+											<option value="" class="bg-gray-200">Apartment</option>
+											<option value="" class="bg-gray-200">Townhouse</option>
+										</select>
+										<span class="ml-4 h-[1.5px] bg-gray-300 md:w-[35px] md:h-full"></span>
+										<button (click)="toggleAdvanced()" type="button" class="text-gray-500 ml-10">Advanced</button>
+										<button class="ml-4 md:ml-11 text-white bg-blue-500 px-8 py-4 rounded-md">Search</button>
+									</div>
 							</div>
-							<div
-								[class.opacity-0]="!mainSeeker.get('advanced').value"
-								[class.opacity-1]="mainSeeker.get('advanced').value"
+							<!-- end advances -->
+						</div>
+						<div
+										[class.opacity-0]="!mainSeeker.get('advanced').value"
+										[class.opacity-1]="mainSeeker.get('advanced').value"
 
-								[class.top-10]="!mainSeeker.get('advanced').value"
-								[class.top-24]="mainSeeker.get('advanced').value"
-								class=" absolute w-full bg-white h-auto md:h-90 left-0 shadow-2xl rounded transition-all" style="height: 0px">
-								<!-- start advances search -->
-								<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3">
-									<div>
-										<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-										<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-											<option>Ciudad 1</option>
-											<option>Ciudad 2</option>
-										</select>
-									</div>
-									<div>
-										<h2 class="text-lg font-semibold text-gray-600">Baños</h2>
-										<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-											<option>2</option>
-											<option>3</option>
-										</select>
-									</div>
-									<div>
-										<h2 class="text-lg font-semibold text-gray-600">Garajes</h2>
-										<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-											<option>1</option>
-											<option>2</option>
-										</select>
-									</div>
-									<div>
-										<h2 class="text-lg font-semibold text-gray-600">Cuartos</h2>
-										<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-											<option>2</option>
-											<option>3</option>
-											<option>+4</option>
-										</select>
-									</div>
-									<div>
-										<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-										<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-											<option>Ciudad 1</option>
-											<option>Ciudad 2</option>
-										</select>
-									</div>
-									<div>
-										<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-										<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-											<option>Ciudad 1</option>
-											<option>Ciudad 2</option>
-										</select>
-									</div>
-								</div>
+										[class.top-10]="!mainSeeker.get('advanced').value"
+										[class.top-24]="mainSeeker.get('advanced').value"
+										class=" absolute w-full bg-white h-auto md:h-90 left-0 shadow-2xl rounded transition-all" style="height: 0px">
+										<!-- start advances search -->
+										<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3">
+											<div>
+												<h2 class="text-lg font-semibold text-gray-600">Region</h2>
+												<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
+													<option>Ciudad 1</option>
+													<option>Ciudad 2</option>
+												</select>
+											</div>
+											<div>
+												<h2 class="text-lg font-semibold text-gray-600">Baños</h2>
+												<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
+													<option>2</option>
+													<option>3</option>
+												</select>
+											</div>
+											<div>
+												<h2 class="text-lg font-semibold text-gray-600">Garajes</h2>
+												<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
+													<option>1</option>
+													<option>2</option>
+												</select>
+											</div>
+											<div>
+												<h2 class="text-lg font-semibold text-gray-600">Cuartos</h2>
+												<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
+													<option>2</option>
+													<option>3</option>
+													<option>+4</option>
+												</select>
+											</div>
+											<div>
+												<h2 class="text-lg font-semibold text-gray-600">Region</h2>
+												<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
+													<option>Ciudad 1</option>
+													<option>Ciudad 2</option>
+												</select>
+											</div>
+											<div>
+												<h2 class="text-lg font-semibold text-gray-600">Region</h2>
+												<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
+													<option>Ciudad 1</option>
+													<option>Ciudad 2</option>
+												</select>
+											</div>
+										</div>
 
-								<div>
-									<h3 class="pl-7 text-md text-gray-600 font-semibold mt-4">Preferencias</h3>
-									<div class="grid grid-cols-2 md:grid-cols-4 px-7 pt-3 gap-x-7 gap-y-2">
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
+										<div>
+											<h3 class="pl-7 text-md text-gray-600 font-semibold mt-4">Preferencias</h3>
+											<div class="grid grid-cols-2 md:grid-cols-4 px-7 pt-3 gap-x-7 gap-y-2">
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+												<div class="flex flex-row gap-4">
+													<input type="checkbox" name="" id="" />
+													<label for="" class="text-gray-500">Action</label>
+												</div>
+											</div>
 										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-										<div class="flex flex-row gap-4">
-											<input type="checkbox" name="" id="" />
-											<label for="" class="text-gray-500">Action</label>
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
-					<!-- end advances -->
-				</div>
 
 
 				<p class="text-[16px] font-bold"><span class="text-4xl"></span> Smart Real Estate Services All our the World</p>
