@@ -31,11 +31,15 @@
 						</div>
 						<div
 										[class.opacity-0]="!mainSeeker.get('advanced').value"
-										[class.opacity-1]="mainSeeker.get('advanced').value"
-
 										[class.top-10]="!mainSeeker.get('advanced').value"
+										[class.pointer-events-none]="!mainSeeker.get('advanced').value"
+
+
+										[class.opacity-1]="mainSeeker.get('advanced').value"
 										[class.top-24]="mainSeeker.get('advanced').value"
-										class=" absolute w-full bg-white h-auto md:h-90 left-0 shadow-2xl rounded transition-all" style="height: 0px">
+										[class.pointer-events-auto]="mainSeeker.get('advanced').value"
+
+										class="vis absolute w-full bg-white h-auto md:h-90 left-0 shadow-2xl rounded transition-all" style="height: 0px">
 										<!-- start advances search -->
 										<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3">
 											<div>
