@@ -19,6 +19,7 @@ export class LayoutComponent implements OnInit, OnDestroy
 {
 	config: AppConfig;
 	layout: Layout;
+	spacing: boolean = true;
 	scheme: 'dark' | 'light';
 	theme: string;
 	private _unsubscribeAll: Subject<any> = new Subject<any>();

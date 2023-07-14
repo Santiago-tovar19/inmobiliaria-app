@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Subject, takeUntil} from 'rxjs';
 import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
@@ -17,6 +17,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 	isScreenSmall: boolean;
 	user: User;
 	breadcrumbs: string[] = [];
+	@Input() spacing: boolean = false;
 	private _unsubscribeAll: Subject<any> = new Subject<any>();
 
 	/**

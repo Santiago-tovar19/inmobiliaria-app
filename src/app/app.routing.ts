@@ -27,7 +27,7 @@ export const appRoutes: Route[] = [
 		canActivateChild: [],
 		component: LayoutComponent,
 		data: {
-			layout: 'modern',
+			layout: 'modern'
 		},
 		resolve: {
 			initialData: UserResolver,
@@ -35,7 +35,7 @@ export const appRoutes: Route[] = [
 		children: [
 			{
 				path: '',
-				loadChildren: () => import('app/modules/public/properties/properties.module').then((m) => m.PropertyModule),
+				loadChildren: () => import('app/modules/public/landing/landing.module').then((m) => m.LandingModule),
 			},
 		],
 	},
@@ -94,7 +94,7 @@ export const appRoutes: Route[] = [
 		data: {
 			layout: 'empty',
 		},
-		children: [{ path: 'home', loadChildren: () => import('app/modules/public/landing/landing.module').then((m) => m.LandingModule) }],
+		children: [{ path: '', loadChildren: () => import('app/modules/public/landing/landing.module').then((m) => m.LandingModule) }],
 	},
 
 	// Admin routes
@@ -129,4 +129,7 @@ export const appRoutes: Route[] = [
 			// },
 		],
 	},
+
+	// Redirect any unmatched routes to the 'example'
+	{ path: '**', redirectTo: '' },
 ];
