@@ -61,12 +61,9 @@
                             "src/styles/vendors.scss",
                             "src/@fuse/styles/main.scss",
                             "src/styles/styles.scss",
-                            "src/styles/tailwind.scss",
-    												"node_modules/slick-carousel/slick/slick.css"
+                            "src/styles/tailwind.scss"
                         ],
                         "scripts": [
-													"node_modules/jquery/dist/jquery.min.js",
-    											"node_modules/slick-carousel/slick/slick.min.js"
 												]
                     },
                     "configurations": {

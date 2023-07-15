@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgFor, NgStyle } from '@angular/common';
+import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 
 @Component({
     selector: 'app-landing',
@@ -12,6 +13,7 @@ import { NgFor, NgStyle } from '@angular/common';
     imports: [
         MatChipsModule,
         FormsModule,
+				CarouselModule,
         MatIconModule,
 				NgStyle,
 				NgFor,
@@ -47,4 +49,9 @@ export class LandingComponent implements OnInit {
 		const bool = !this.mainSeeker.get('advanced').value;
 		this.mainSeeker.get('advanced').setValue(bool);
 	}
+
+	alert(): void {
+		alert('Hola');
+	}
+
 }
