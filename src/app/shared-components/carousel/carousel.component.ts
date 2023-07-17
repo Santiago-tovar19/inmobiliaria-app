@@ -30,6 +30,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
 					'(min-width: 500px)': {
 						slides: {
 							perView: 1,
+							spacing: 6,
 						},
 					},
 					'(min-width: 700px)': {
