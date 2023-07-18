@@ -11,26 +11,26 @@
 					Find Your Future <br />
 					Dream Home
 				</h1>
-				<div class="relative flex justify-center items-center">
+				<div [formGroup]="formLanding" class="relative flex justify-center items-center">
 					<div class="bg-white justify-center rounded z-2 w-4/5 lg:w-full h-auto md:h-22 flex flex-col md:flex-row items-center relative">
 						<!-- start main seeker -->
-						<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0">
-							<mat-chip-option class="rounded">Comprar</mat-chip-option>
-							<mat-chip-option class="rounded">Rentar</mat-chip-option>
+						<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0" formControlName="buyOrRent">
+							<mat-chip-option class="rounded" value="buy">Comprar</mat-chip-option>
+							<mat-chip-option class="rounded" value="rent">Rentar</mat-chip-option>
 						</mat-chip-listbox>
 						<!-- end main seeker -->
 						<div class="lg:ml-7 h-full flex items-center">
 							<div class="flex flex-col lg:flex-row items-center gap-4">
-								<input type="text" placeholder="Enter keyword" class="text-base text-gray-500 w-full md:w-[300px] h-full mt-3 lg:mt-0 text-center lg:text-left" />
+								<input type="text" placeholder="Enter keyword" class="text-base text-gray-500 w-full md:w-[300px] h-full mt-3 lg:mt-0 text-center lg:text-left" formControlName="keywords" />
 								<span class="bg-gray-300 lg:h-12 lg:w-[1px] h-[1px] w-28"></span>
-								<select name="select" id="" class="ml-4 text-lg text-gray-500 w-[70%] lg:w-full md:w-50">
-									<option value="" class="bg-gray-200">House & villa</option>
-									<option value="" class="bg-gray-200">Apartment</option>
-									<option value="" class="bg-gray-200">Townhouse</option>
+								<select name="select" id="" class="ml-4 text-lg text-gray-500 w-[70%] lg:w-full md:w-50" formControlName="selec1">
+									<option value="house y villa" class="bg-gray-200">House & villa</option>
+									<option value="apartament" class="bg-gray-200">Apartment</option>
+									<option value="townhouse" class="bg-gray-200">Townhouse</option>
 								</select>
 								<span class="bg-gray-300 lg:h-12 lg:w-[1px] lg:ml-4 h-[1px] w-28"></span>
-								<button (click)="toggleAdvanced()" type="button" class="text-gray-500 ml-2 flex justify-center gap-2"><mat-icon svgIcon="mat_outline:settings" class="text-blue-500"></mat-icon> Advanced</button>
-								<button class="ml-4 md:ml-11 text-white bg-blue-500 lg:px-8 lg:py-4 px-4 py-2 rounded-md mb-6 lg:mb-0">Search</button>
+								<button (click)="toggleAdvanced()" type="submit" class="text-gray-500 ml-2 flex justify-center gap-2"><mat-icon svgIcon="mat_outline:settings" class="text-blue-500"></mat-icon> Advanced</button>
+								<button class="ml-4 md:ml-11 text-white bg-blue-500 lg:px-8 lg:py-4 px-4 py-2 rounded-md mb-6 lg:mb-0" type="submit" (click)="onSubmit()">Search</button>
 							</div>
 						</div>
 						<!-- end advances -->
@@ -49,38 +49,40 @@
 						<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3">
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-									<option>Ciudad 1</option>
-									<option>Ciudad 2</option>
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="region" value="seleccionar">
+									<option value="ciudad1">Ciudad 1</option>
+									<option value="ciudad2">Ciudad 2</option>
 								</select>
 							</div>
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Baños</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-									<option>2</option>
-									<option>3</option>
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bathrooms">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="+4">+4</option>
 								</select>
 							</div>
 							<div>
-								<h2 class="text-lg font-semibold text-gray-600">Garajes</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-									<option>1</option>
-									<option>2</option>
+								<h2 class="text-lg font-semibold text-gray-600">Garages</h2>
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="garages">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="+3">+3</option>
 								</select>
 							</div>
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Cuartos</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-									<option>2</option>
-									<option>3</option>
-									<option>+4</option>
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bedrooms">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="+4">+4</option>
 								</select>
 							</div>
 							<div>
-								<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-									<option>Ciudad 1</option>
-									<option>Ciudad 2</option>
+								<h2 class="text-lg font-semibold text-gray-600">Niveles</h2>
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="levels">
+									<option>1</option>
+									<option>+2</option>
 								</select>
 							</div>
 							<div>
@@ -96,12 +98,12 @@
 							<h3 class="pl-7 text-md text-gray-600 font-semibold mt-4">Preferencias</h3>
 							<div class="grid grid-cols-2 md:grid-cols-4 px-7 pt-3 gap-x-7 gap-y-2">
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="piscina" />
+									<label for="" class="text-gray-500">Piscina</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="parrillera" />
+									<label for="" class="text-gray-500">parrillera</label>
 								</div>
 								<div class="flex flex-row gap-4">
 									<input type="checkbox" name="" id="" />

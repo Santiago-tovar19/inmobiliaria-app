@@ -34,8 +34,12 @@ export const appRoutes: Route[] = [
 		},
 		children: [
 			{
-				path: '',
+				path: 'home',
 				loadChildren: () => import('app/modules/public/landing/landing.module').then((m) => m.LandingModule),
+			},
+			{
+				path: 'advanced-search',
+				loadChildren: () => import('app/modules/public/advanced-search/advanced-search.module').then((m) => m.AdvancedSearchModule),
 			},
 		],
 	},
