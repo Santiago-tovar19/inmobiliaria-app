@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
 import { UserService } from 'app/core/user/user.service';
 import { FuseAlertService } from '../../../../@fuse/components/alert/alert.service';
+import { ModalUserComponent } from 'app/shared-components/modal-user/modal-user.component';
 
 @Component({
 	selector: 'app-advanced-search',
@@ -19,9 +20,20 @@ export class AdvancedSearchComponent implements OnInit {
 	ngOnInit(): void {
 		if (2 > 1) {
 			// !this._userService.user
+			this.abrirModal();
 		}
 		// if (this._authService._authenticated) {
 		// 	//
 		// }
+	}
+
+	abrirModal(): void {
+		const dialogRef = this._dialog.open(ModalUserComponent, {
+			width: '400px',
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('El modal se cerró');
+		});
 	}
 }
