@@ -8,7 +8,6 @@ import { UserResolver } from './user.resolver';
 
 // @formatter:off
 /* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
 	// Redirect empty path to '/example'
 	// {path: '', pathMatch : 'full', redirectTo: 'dashboard'},
@@ -34,11 +33,11 @@ export const appRoutes: Route[] = [
 		},
 		children: [
 			{
-				path: 'home',
+				path: '',
 				loadChildren: () => import('app/modules/public/landing/landing.module').then((m) => m.LandingModule),
 			},
 			{
-				path: 'advanced-search',
+				path: 'buscador-avanzado',
 				loadChildren: () => import('app/modules/public/advanced-search/advanced-search.module').then((m) => m.AdvancedSearchModule),
 			},
 		],
@@ -86,7 +85,7 @@ export const appRoutes: Route[] = [
 			layout: 'empty',
 		},
 		children: [
-			{ path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then((m) => m.AuthSignOutModule) },
+			{ path: 'cerrar-sesion', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes') },
 			{ path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then((m) => m.AuthUnlockSessionModule) },
 		],
 	},
@@ -107,8 +106,8 @@ export const appRoutes: Route[] = [
 		canActivate: [AuthGuard],
 		canActivateChild: [AuthGuard],
 		component: LayoutComponent,
-		resolve: {
-			initialData: InitialDataResolver,
+		data: {
+			layout: 'classy',
 		},
 		children: [
 			{

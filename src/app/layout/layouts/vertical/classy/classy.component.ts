@@ -66,6 +66,9 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 	 */
 	ngOnInit(): void {
 
+		// Get layaout
+
+
 		this.breadcrumbs = this._router.url.split('/').map(path => path.replace('-', ' ') ).filter(path => path !== '');
 		this._router.events.subscribe((event) => {
 			if (!(event instanceof NavigationEnd)){
@@ -73,19 +76,6 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
 			}
 			// Breadcrumb
 			this.breadcrumbs = event.url.split('/').map(path => path.replace('-', ' ') ).filter(path => path !== '');
-		});
-
-		// Subscribe to navigation data
-		this._navigationService.navigation$
-			.pipe(takeUntil(this._unsubscribeAll))
-			.subscribe((navigation: Navigation) => {
-				// console.log(navigation);
-				this._navigationService.navi = navigation;
-			});
-
-		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((user) => {
-			console.log(user);
-			this._navigationService.navi.default = this._navigationService.formatMenu(user as any);
 		});
 
 		// Subscribe to the user service

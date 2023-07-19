@@ -12,7 +12,13 @@ import { MatIconModule } from '@angular/material/icon';
     styleUrls: ['./adminmaster-dashboard.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [MatIconModule, MatButtonModule, RouterLink, NgFor, NgStyle]
+    imports: [
+			MatIconModule,
+			MatButtonModule,
+			RouterLink,
+			NgFor,
+			NgStyle
+		]
 })
 export class AdminMasterDashboardComponent
 {

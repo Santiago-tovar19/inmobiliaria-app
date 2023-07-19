@@ -119,14 +119,17 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 		this._authService.signIn(this.signInForm.value).pipe(takeUntil(this._unsubscribeAll)).subscribe(
 			(response) => {
 				const user: User = response.data.user;
-				const path = '/dashboard';
+				const path = 'dashboard';
 
 				// Set the redirect url.
 				// The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
 				// to the correct page after a successful sign in. This way, that url can be set via
 				// routing file and we don't have to touch here.
-				const redirectURL =
-					path || this._activatedRoute.snapshot.queryParamMap?.get('redirectURL');
+				let redirectURL = path || this._activatedRoute.snapshot.queryParamMap?.get('redirectURL');
+
+					if(user.role_id===4){
+						redirectURL = '/';
+					}
 
 				// Navigate to the redirect url
 				this._router.navigateByUrl(redirectURL);

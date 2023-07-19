@@ -18,6 +18,10 @@ import { CompactLayoutComponent } from './layouts/vertical/compact/compact.compo
 import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
 import { FuturisticLayoutComponent } from './layouts/vertical/futuristic/futuristic.component';
 import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
+import { Navigation } from 'app/core/navigation/navigation.types';
+import { FuseNavigationItem } from '@fuse/components/navigation';
+import { UserService } from 'app/core/user/user.service';
+import { NavigationService } from 'app/core/navigation/navigation.service';
 
 @Component({
     selector     : 'layout',
@@ -46,6 +50,8 @@ export class LayoutComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fusePlatformService: FusePlatformService,
+				private _userService: UserService,
+				private _navigationService: NavigationService,
     )
     {
     }
@@ -59,6 +65,7 @@ export class LayoutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+
         // Set the theme and scheme based on the configuration
         combineLatest([
             this._fuseConfigService.config$,
@@ -83,6 +90,14 @@ export class LayoutComponent implements OnInit, OnDestroy
             }),
         ).subscribe((options) =>
         {
+
+					// console.log(options.theme);
+
+					this._navigationService.buildMenu(null, options.theme);
+					this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((u) => {
+						this._navigationService.buildMenu(u as any, options.theme);
+					});
+
             // Store the options
             this.scheme = options.scheme;
             this.theme = options.theme;

@@ -62,13 +62,6 @@ export class ModernLayoutComponent implements OnInit, OnDestroy
      */
 	ngOnInit(): void
 	{
-		// Subscribe to navigation data
-		this._navigationService.navigation$
-			.pipe(takeUntil(this._unsubscribeAll))
-			.subscribe((navigation: Navigation) => {
-				this._navigationService.navi = navigation;
-			});
-
 		// Subscribe to media changes
 		this._fuseMediaWatcherService.onMediaChange$
 			.pipe(takeUntil(this._unsubscribeAll))
@@ -78,9 +71,6 @@ export class ModernLayoutComponent implements OnInit, OnDestroy
 				this.isScreenSmall = !matchingAliases.includes('md');
 			});
 
-		this._userService.user$.pipe(takeUntil(this._unsubscribeAll)).subscribe((u) => {
-			this._navigationService.navi.default = this._navigationService.formatMenu(u as any);
-		});
 	}
 
 	/**
