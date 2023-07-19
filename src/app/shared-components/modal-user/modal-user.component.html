@@ -1,5 +1,6 @@
-<h2>Modal</h2>
-<p>Bienvenido al modal. Elige una opción:</p>
-
-<button mat-raised-button color="primary" (click)="cerrarModal()">Iniciar</button>
-<button mat-raised-button color="accent" (click)="cerrarModal()">Registrarse</button>
+<h2 class="text-4xl text-blue-500 text-center">No estas autenticado</h2>
+<p class="text-lg text-center px-3 mt-4">necesias estar autenticado para acceder a esta pagina</p>
+<div class="flex flex-row gap-6 justify-center items-center mt-6">
+	<button (click)="cerrarModal()" class="text-white bg-blue-500 rounded-md px-4 py-2">Iniciar</button>
+	<button class="text-white bg-blue-500 rounded-md px-4 py-2" (click)="cerrarModal()">Registrarse</button>
+</div>
