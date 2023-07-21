@@ -86,7 +86,7 @@ export class LandingComponent implements OnInit {
 
 	onSubmit(): void {
 		console.log(this.formLanding.value);
-		this._router.navigate(['/advanced-search']);
+		this._router.navigate(['/buscador-avanzado']);
 	}
 
 	toggleAdvanced(): void {

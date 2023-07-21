@@ -18,7 +18,10 @@ export class AdvancedSearchComponent implements OnInit {
 	constructor(private _router: Router, private _dialog: MatDialog, private _authService: AuthService, private _userService: UserService, private _fuseAlertService: FuseAlertService) {}
 
 	ngOnInit(): void {
-		if (this._authService._authenticated === false) {
+		if (
+			this._authService._authenticated === false
+			// && !this._userService.user
+		) {
 			this.abrirModal();
 		}
 	}
