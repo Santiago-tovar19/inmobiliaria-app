@@ -18,6 +18,7 @@ import { DashboardsService } from 'app/modules/dashboards/service/dashboards.ser
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { ImagesViewerComponent } from 'app/modules/shared/images-viewer/images-viewer.component';
 import { ImagesViewerModule } from 'app/modules/shared/images-viewer/images-viewer.module';
+import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -41,7 +42,8 @@ import { environment } from 'environments/environment';
 		MatProgressBarModule,
 		MatInputModule,
 		ImagesViewerModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		CarouselModule
 	]
 })
 export class PropertyViewComponent implements OnInit {

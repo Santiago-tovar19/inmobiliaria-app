@@ -1,6 +1,11 @@
 <div class="w-full">
 	<!-- {{property.images | json}} -->
 	<div class="w-screen property-banner -mx-10">
+		<app-carousel class="w-[90%] px-10 lg:p-0">
+			<div *ngFor="let img of bannerImgs" class="keen-slider__slide h-120">
+				<div class="h-full w-full img bg-cover bg-no-repeat bg-center" (click)="openDialog(environment.assets+'/storage/properties/'+img.name, 'Banner')" style="background-image: url({{environment.assets}}/storage/properties/{{img.name}})"></div>
+			</div>
+		</app-carousel>
 		<!-- <owl-carousel-o  class='owl-carousel-o' [options]="customOptions">
 			<ng-template *ngFor="let img of bannerImgs" carouselSlide id="carou1">
 				<div>
@@ -514,7 +519,7 @@
 					<div class="font-bold text-2xl mb-2" style="color: #2D3954">Propiedades destacadas</div>
 
 
-					<div *ngFor="let featureProperty of featureProperties" class="cursor-pointer bg-card shadow rounded-2xl p-3" (click)="goToProperty(featureProperty.id)">
+					<div *ngFor="let featureProperty of featureProperties" class="cursor-pointer bg-card shadow rounded-2xl p-3 mt-5" (click)="goToProperty(featureProperty.id)">
 						<div class="flex gap-2">
 							<div class="w-1/4 img h-20 bg-cover bg-no-repeat bg-center rounded-md" style="background-image: url({{environment.assets}}/storage/properties/{{featureProperty?.images[0]?.name}});"></div>
 							<div class="w-3/4">

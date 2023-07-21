@@ -33,6 +33,10 @@ export class PropertiesService {
 		return this._httpClient.get<any>(`${environment.api}/properties/get-features`);
 	}
 
+	getPropertyTypes(): Observable<any> {
+		return this._httpClient.get<any>(`${environment.api}/properties/get-property-types`);
+	}
+
 	crear(data: any, images: File[], bannerImgs: File[], video: File): Observable<any> {
 		const formData = new FormData();
 		Object.keys(data).forEach(key => {

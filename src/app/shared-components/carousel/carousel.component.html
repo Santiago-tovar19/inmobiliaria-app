@@ -7,7 +7,7 @@
 		<mat-icon *ngIf="slider" class="cursor-pointer translate-x-10" (click)="slider.next()" >keyboard_arrow_right</mat-icon>
 	</div>
 </div>
-<div class="dots">
+<div class="dots mt-5">
   <button
     (click)="slider.moveToIdx(i)"
     *ngFor="let slide of dotHelper; let i = index"

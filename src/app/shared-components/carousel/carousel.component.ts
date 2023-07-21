@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, OnInit, ViewChild, NgModule, Input } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, NgModule, Input } from '@angular/core';
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,41 +12,50 @@ import { MatIconModule } from '@angular/material/icon';
 export class CarouselComponent implements AfterViewInit {
 	@ViewChild('sliderRef') sliderRef: ElementRef<HTMLElement>;
 	@Input() width: string = '100%';
+	@Input() breakpoints: any = {
+		'(min-width: 500px)': {
+			slides: {
+				perView: 1,
+				spacing: 6,
+			},
+		},
+		'(min-width: 700px)': {
+			slides: {
+				perView: 2,
+				spacing: 12,
+			},
+		},
+		'(min-width: 1000px)': {
+			slides: {
+				perView: 3,
+				spacing: 15,
+			},
+		},
+		'(min-width: 1800px)': {
+			slides: {
+				perView: 4,
+				spacing: 15,
+			},
+		},
+	};
+
 
 	slider: KeenSliderInstance = null;
 	currentSlide: number = 1;
 	dotHelper: Array<Number> = [];
+	carouselInit;
+
 	constructor() {}
 
 
 	ngAfterViewInit() {
-		setTimeout(() => {
+		this.carouselInit = setInterval(() => {
 		this.slider = new KeenSlider(
 			this.sliderRef.nativeElement,
 			{
 				initial: this.currentSlide,
 				loop: true,
-				breakpoints: {
-					'(min-width: 500px)': {
-						slides: {
-							perView: 1,
-							spacing: 6,
-						},
-					},
-					'(min-width: 700px)': {
-						slides: {
-							perView: 2,
-							spacing: 12,
-						},
-					},
-					'(min-width: 1000px)': {
-						slides: {
-							perView: 3,
-							spacing: 15,
-						},
-					},
-				},
-
+				breakpoints: this.breakpoints,
 				slideChanged: (s) => {
 					this.currentSlide = s.track.details.rel;
 				},
@@ -82,9 +91,13 @@ export class CarouselComponent implements AfterViewInit {
 				},
 			],
 		);
-		console.log(this.slider);
-		this.dotHelper = [...Array(this.slider.track.details.slides.length).keys()];
-		}, 500);
+		try{
+			this.dotHelper = [...Array(this.slider.track.details.slides.length).keys()];
+			clearInterval(this.carouselInit);
+		}catch(e){}
+		console.log("Tratando de inicializar")
+
+		}, 100);
 	}
 }
 
