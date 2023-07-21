@@ -6,8 +6,8 @@ export const environment = {
 	production: false,
 	app: 'directory',
 	front_url: 'https://projects.andresjosehr.com/inmobiliaria',
-	api: 'http://localhost:8000/api',
-	assets: 'http://localhost:8000',
+	api: 'https://projects.andresjosehr.com/api-inmobiliaria/api',
+	assets: 'https://projects.andresjosehr.com/api-inmobiliaria/',
 };
 
 /*

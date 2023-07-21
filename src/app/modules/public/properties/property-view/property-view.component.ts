@@ -25,29 +25,9 @@ import { environment } from 'environments/environment';
 	templateUrl: './property-view.component.html',
 	styleUrls: ['./property-view.component.scss'],
 	standalone: true,
-	imports: [
-		NgIf,
-		NgFor,
-
-		MatIconModule,
-		RouterModule,
-		FormsModule,
-		MatExpansionModule,
-		MatButtonModule,
-		HttpClientModule,
-		MatFormFieldModule,
-		MatTabsModule,
-		MatDialogModule,
-		MatProgressBarModule,
-		MatInputModule,
-		ImagesViewerModule,
-		ReactiveFormsModule
-	]
+	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule],
 })
 export class PropertyViewComponent implements OnInit {
-
-
-
 	propertyID: string;
 	property: Property = {} as any;
 	environment = environment;
@@ -56,23 +36,16 @@ export class PropertyViewComponent implements OnInit {
 	featureProperties;
 	user;
 	mapUrl: any;
+	favorite = 1;
 
-	constructor(
-		private _propertiesService: PropertiesService,
-		private _activatedRouter: ActivatedRoute,
-		private sanitizer: DomSanitizer,
-		private _userService: UserService,
-		private _dashboardsService: DashboardsService,
-		public dialog: MatDialog,
-		private router: Router
-	) { }
+	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _userService: UserService, private _dashboardsService: DashboardsService, public dialog: MatDialog, private router: Router) {}
 
 	ngOnInit(): void {
-		this._activatedRouter.params.subscribe(params => {
-			if(params.id) {
+		this._activatedRouter.params.subscribe((params) => {
+			if (params.id) {
 				this.propertyID = params.id;
 				this.getProperty();
-			}else{
+			} else {
 				this.propertyID = '1';
 				this.getProperty();
 			}
@@ -82,8 +55,8 @@ export class PropertyViewComponent implements OnInit {
 		this.getFeatureProperties();
 
 		setTimeout(() => {
-			if(!this.user || this.user?.role_id===4){
-				this._propertiesService.registerView(this.user?.id, this.propertyID).subscribe(res => {
+			if (!this.user || this.user?.role_id === 4) {
+				this._propertiesService.registerView(this.user?.id, this.propertyID).subscribe((res) => {
 					console.log(res);
 				});
 			}
@@ -91,18 +64,16 @@ export class PropertyViewComponent implements OnInit {
 	}
 
 	getUser(): void {
-		this._userService._user.subscribe(res => {
+		this._userService._user.subscribe((res) => {
 			this.user = res;
-
 		});
 	}
 
-
 	getProperty(): void {
-		this._propertiesService.get(this.propertyID).subscribe(res => {
+		this._propertiesService.get(this.propertyID).subscribe((res) => {
 			this.property = res.data;
-			this.bannerImgs = this.property.images.filter(img => img.type == 'Banner');
-			this.galleryImgs = this.property.images.filter(img => img.type == 'Gallery');
+			this.bannerImgs = this.property.images.filter((img) => img.type == 'Banner');
+			this.galleryImgs = this.property.images.filter((img) => img.type == 'Gallery');
 			this.mapUrl = this.sanitizeUrl();
 		});
 	}
@@ -115,26 +86,26 @@ export class PropertyViewComponent implements OnInit {
 		return this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
 	}
 
-
 	getFeatureProperties(): void {
-		this._propertiesService.getFeatureProperties(this.propertyID).subscribe(res => {
+		this._propertiesService.getFeatureProperties(this.propertyID).subscribe((res) => {
 			this.featureProperties = res.data;
 		});
 	}
 
-	openDialog(mainImage, imagesType: 'Banner' | 'Gallery'): void{
-
-		const images = this.property.images.filter(img => img.type == imagesType).map(img => {
-			return environment.assets + '/storage/properties/' + img.name;
-		});
+	openDialog(mainImage, imagesType: 'Banner' | 'Gallery'): void {
+		const images = this.property.images
+			.filter((img) => img.type == imagesType)
+			.map((img) => {
+				return environment.assets + '/storage/properties/' + img.name;
+			});
 
 		const dialogRef = this.dialog.open(ImagesViewerComponent, {
-			data: {images: images, mainImage: mainImage},
+			data: { images: images, mainImage: mainImage },
 			width: '60vw',
 			height: '90vh',
 		});
 
-		dialogRef.afterClosed().subscribe(result => {
+		dialogRef.afterClosed().subscribe((result) => {
 			console.log(`Dialog result: ${result}`);
 		});
 	}
@@ -144,12 +115,19 @@ export class PropertyViewComponent implements OnInit {
 		this.router.navigate(['/propiedad/', id]);
 	}
 
-	getVideoUrl(){
-		return this.sanitizer.bypassSecurityTrustResourceUrl(environment.assets+'/storage/properties/'+this.property.video);
+	getVideoUrl() {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(environment.assets + '/storage/properties/' + this.property.video);
 	}
 
-	sanitizeUrl(){
+	sanitizeUrl() {
 		const url = `https://maps.google.com/maps?q=${this.property.lat},${this.property.lon}&hl=es&z=14&amp&output=embed`;
 		return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+	}
+
+	addFavoriteProperty(propertyID: any, fav: any): void {
+		console.log(propertyID, fav);
+		this._userService.getPropertyFavorites(propertyID, fav).subscribe((response): any => {
+			console.log(response);
+		});
 	}
 }
