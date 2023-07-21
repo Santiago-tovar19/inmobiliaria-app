@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImagesViewerComponent } from './images-viewer.component';
-import {CarouselModule} from 'ngx-owl-carousel-o';
+// import {CarouselModule} from 'ngx-owl-carousel-o';
 
 
 
@@ -10,8 +10,7 @@ import {CarouselModule} from 'ngx-owl-carousel-o';
 		ImagesViewerComponent
 	],
 	imports: [
-		CommonModule,
-		CarouselModule
+		CommonModule
 	],
 	exports: [
 		ImagesViewerComponent

@@ -1,40 +1,52 @@
+import { NgFor, NgIf } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
 import { DashboardsService } from 'app/modules/dashboards/service/dashboards.service';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { ImagesViewerComponent } from 'app/modules/shared/images-viewer/images-viewer.component';
-import { UsersService } from 'app/modules/users/service/users.service';
+import { ImagesViewerModule } from 'app/modules/shared/images-viewer/images-viewer.module';
 import { environment } from 'environments/environment';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
 	selector: 'app-property-view',
 	templateUrl: './property-view.component.html',
-	styleUrls: ['./property-view.component.scss']
+	styleUrls: ['./property-view.component.scss'],
+	standalone: true,
+	imports: [
+		NgIf,
+		NgFor,
+
+		MatIconModule,
+		RouterModule,
+		FormsModule,
+		MatExpansionModule,
+		MatButtonModule,
+		HttpClientModule,
+		MatFormFieldModule,
+		MatTabsModule,
+		MatDialogModule,
+		MatProgressBarModule,
+		MatInputModule,
+		ImagesViewerModule,
+		ReactiveFormsModule
+	]
 })
 export class PropertyViewComponent implements OnInit {
 
-	customOptions: OwlOptions = {
-		loop: true,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: false,
-		dots: false,
-		navSpeed: 700,
-		margin: 5,
-		stagePadding: 50,
-		navText: ['<', '>'],
-		responsive: {
-			0: {
-				items: 2
-			},
-		},
-		nav: true
-	};
+
 
 	propertyID: string;
 	property: Property = {} as any;

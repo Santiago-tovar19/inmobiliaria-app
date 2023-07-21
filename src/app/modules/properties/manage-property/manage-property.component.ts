@@ -317,6 +317,7 @@ export class ManagePropertyComponent implements OnInit {
 				.filter((x) => x);
 
 			this._globalService.openSnackBar(this._matSnachBar, 'Hay errores en el formulario', 5000, 'error');
+			console.log(this.errors)
 			return;
 		}
 

@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 	styleUrls: ['./carousel.component.scss'],
 	standalone: false,
 })
-export class CarouselComponent implements OnInit, AfterViewInit {
+export class CarouselComponent implements AfterViewInit {
 	@ViewChild('sliderRef') sliderRef: ElementRef<HTMLElement>;
 	@Input() width: string = '100%';
 
@@ -18,9 +18,9 @@ export class CarouselComponent implements OnInit, AfterViewInit {
 	dotHelper: Array<Number> = [];
 	constructor() {}
 
-	ngOnInit(): void {}
 
 	ngAfterViewInit() {
+		setTimeout(() => {
 		this.slider = new KeenSlider(
 			this.sliderRef.nativeElement,
 			{
@@ -82,7 +82,9 @@ export class CarouselComponent implements OnInit, AfterViewInit {
 				},
 			],
 		);
+		console.log(this.slider);
 		this.dotHelper = [...Array(this.slider.track.details.slides.length).keys()];
+		}, 500);
 	}
 }
 

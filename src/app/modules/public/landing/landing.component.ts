@@ -7,13 +7,24 @@ import { CarouselModule } from 'app/shared-components/carousel/carousel.componen
 import { Router } from '@angular/router';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
+import { PropertyCardModule } from 'app/modules/shared/property-card/property-card.module';
 
 @Component({
 	selector: 'app-landing',
 	templateUrl: './landing.component.html',
 	styleUrls: ['./landing.component.scss'],
 	standalone: true,
-	imports: [MatChipsModule, FormsModule, CarouselModule, MatIconModule, NgStyle, NgFor, NgClass, ReactiveFormsModule],
+	imports: [
+		MatChipsModule,
+		FormsModule,
+		CarouselModule,
+		MatIconModule,
+		NgStyle,
+		NgFor,
+		NgClass,
+		ReactiveFormsModule,
+		PropertyCardModule
+	],
 })
 export class LandingComponent implements OnInit {
 	formLanding: FormGroup;
