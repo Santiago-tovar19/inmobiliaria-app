@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { NgFor, NgStyle, NgClass } from '@angular/common';
+import { NgFor, NgStyle, NgClass, JsonPipe } from '@angular/common';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { Router } from '@angular/router';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
@@ -24,7 +24,8 @@ import { environment } from 'environments/environment';
 		NgFor,
 		NgClass,
 		ReactiveFormsModule,
-		PropertyCardModule
+		PropertyCardModule,
+		JsonPipe
 	],
 })
 export class LandingComponent implements OnInit {
@@ -121,7 +122,7 @@ export class LandingComponent implements OnInit {
 
 	setLatestPropertiesBreakPoints() {
 		this.lattestPropertiesBreakPoints = {
-			'(min-width: 500px)': {
+			'(min-width: 200px)': {
 				slides: {
 					perView: 1,
 					spacing: 6,
@@ -133,7 +134,7 @@ export class LandingComponent implements OnInit {
 					spacing: 12,
 				},
 			},
-			'(min-width: 1000px)': {
+			'(min-width: 1300px)': {
 				slides: {
 					perView: 3,
 					spacing: 15,
