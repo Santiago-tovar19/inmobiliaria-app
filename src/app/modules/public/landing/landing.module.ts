@@ -8,8 +8,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { PropertyCardModule } from 'app/modules/shared/property-card/property-card.module';
 
 @NgModule({
-	imports: [RouterModule.forChild(landingRoutes), NgStyle, FormsModule, CarouselModule, ReactiveFormsModule, MatIconModule, MatChipsModule, LandingComponent, MatFormFieldModule, FormsModule, CommonModule],
+	imports: [
+		RouterModule.forChild(landingRoutes),
+		NgStyle,
+		FormsModule,
+		CarouselModule,
+		ReactiveFormsModule,
+		MatIconModule,
+		MatChipsModule,
+		LandingComponent,
+		MatFormFieldModule,
+		FormsModule,
+		CommonModule,
+		PropertyCardModule
+	],
 })
 export class LandingModule {}

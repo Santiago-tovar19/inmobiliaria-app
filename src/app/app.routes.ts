@@ -5,6 +5,8 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
 import { ResetPasswordResolver } from './modules/auth/reset-password/resolver/reset-password.resolver';
 import { UserResolver } from './user.resolver';
+import { ManagePropertyComponent } from './modules/properties/manage-property/manage-property.component';
+import { PropertyViewComponent } from './modules/public/properties/property-view/property-view.component';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -39,6 +41,10 @@ export const appRoutes: Route[] = [
 			{
 				path: 'buscador-avanzado',
 				loadChildren: () => import('app/modules/public/advanced-search/advanced-search.module').then((m) => m.AdvancedSearchModule),
+			},
+			{
+				path: 'propiedades/:id',
+				loadChildren: () => import('app/modules/public/properties/property-view/property-view.routes') ,
 			},
 		],
 	},
