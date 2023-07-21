@@ -1,10 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgFor, NgStyle, NgClass } from '@angular/common';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { Router } from '@angular/router';
+import { PropertiesService } from 'app/modules/properties/service/properties.service';
+import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 
 @Component({
 	selector: 'app-landing',
@@ -18,14 +20,29 @@ export class LandingComponent implements OnInit {
 	mainSeeker: FormGroup;
 	comprarSelected = false;
 	alquilarSelected = false;
+	dataProperties = [];
 	images: string[] = [
 		'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?cs=srgb&dl=pexels-binyamin-mellish-106399.jpg&fm=jpg',
 		'https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187_640.jpg',
 		// Agrega más imágenes aquí
+		//imagenes (slider 2)
 	];
+	imagesSliders: string[] = [
+		'https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187_640.jpg',
+		'https://images.freeimages.com/images/large-previews/e85/house-1224030.jpg',
+		'https://images.freeimages.com/images/large-previews/d5b/home-1224274.jpg',
+		'https://www.gavias-theme.com/wp/tolips/wp-content/uploads/2020/12/post-2.jpg',
+		'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+		'https://images.unsplash.com/photo-1600585153490-76fb20a32601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://images.unsplash.com/photo-1559329145-afaf18e3f349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+	];
+	indexs: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	currentImageIndex = 0;
 
-	constructor(private _formBuilder: FormBuilder, private _router: Router) {}
+	constructor(private _formBuilder: FormBuilder, private _router: Router, private _propertiesService: PropertiesService) {}
 
 	ngOnInit(): void {
 		this.initForm();
@@ -36,6 +53,20 @@ export class LandingComponent implements OnInit {
 			this.currentImageIndex = ++this.currentImageIndex % this.images.length;
 			// console.log(this.currentImageIndex);
 		}, 7000);
+
+		this.getPropertysList({}, { page: 1, perPage: 10 });
+	}
+
+	getPropertysList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
+		this._propertiesService.getList({}).subscribe(
+			(response: any) => {
+				this.dataProperties = response.data.data;
+				console.log(this.dataProperties);
+			},
+			(error) => {
+				console.log(error);
+			},
+		);
 	}
 
 	initForm(): void {
@@ -58,24 +89,12 @@ export class LandingComponent implements OnInit {
 		this._router.navigate(['/advanced-search']);
 	}
 
-	onClickChip(chip: string): void {
-		if (chip === 'buy') {
-			this.comprarSelected = true;
-			this.alquilarSelected = false;
-			this.formLanding.get('buy').setValue('buy');
-		} else if (chip === 'rent') {
-			this.alquilarSelected = true;
-			this.comprarSelected = false;
-			this.formLanding.get('rent').setValue('rent');
-		}
-	}
-
 	toggleAdvanced(): void {
 		const bool = !this.mainSeeker.get('advanced').value;
 		this.mainSeeker.get('advanced').setValue(bool);
 	}
 
-	alert(): void {
-		alert('Hola');
+	alert() {
+		alert('hola');
 	}
 }
