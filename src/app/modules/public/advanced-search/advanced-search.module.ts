@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { advancedRoutes } from './advanced-search.routing';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { PropertyCardModule } from 'app/modules/shared/property-card/property-card.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, RouterModule.forChild(advancedRoutes), CarouselModule, PropertyCardModule, NgStyle],
+	imports: [CommonModule, RouterModule.forChild(advancedRoutes), CarouselModule, PropertyCardModule, NgStyle, MatPaginatorModule],
 })
 export class AdvancedSearchModule {}

@@ -9,26 +9,34 @@ import { UserService } from 'app/core/user/user.service';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { PropertyCardModule } from 'app/modules/shared/property-card/property-card.module';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
+import { PaginatorParams } from 'app/interfaces/general/paginator-params';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
 	selector: 'app-advanced-search',
 	templateUrl: './advanced-search.component.html',
 	styleUrls: ['./advanced-search.component.scss'],
 	standalone: true,
-	imports: [CarouselModule, PropertyCardModule, NgFor, NgClass],
+	imports: [CarouselModule, PropertyCardModule, NgFor, NgClass, MatPaginatorModule],
 })
 export class AdvancedSearchComponent implements OnInit {
 	dataProperties: any = [];
+	propertiesPaginated: any;
 	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService) {}
 
 	ngOnInit(): void {
 		this.getPropertiesList({});
 	}
 
+	paginate(event: any): void {
+		this.getPropertiesList({}, { page: event.pageIndex + 1, perPage: event.pageSize });
+	}
+
 	getPropertiesList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
-		this._propertiesServices.getList({}).subscribe((response: any) => {
+		this._propertiesServices.getList(search, PaginatorParams).subscribe((response: any) => {
 			console.log(response);
 			this.dataProperties = response.data.data;
+			this.propertiesPaginated = response.data;
 		});
 	}
 }
