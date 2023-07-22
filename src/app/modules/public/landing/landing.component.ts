@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { NgFor, NgStyle, NgClass, JsonPipe } from '@angular/common';
+import { NgFor, NgStyle, NgClass, JsonPipe, DatePipe } from '@angular/common';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { Router } from '@angular/router';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
@@ -15,7 +15,7 @@ import { environment } from 'environments/environment';
 	templateUrl: './landing.component.html',
 	styleUrls: ['./landing.component.scss'],
 	standalone: true,
-	imports: [MatChipsModule, FormsModule, CarouselModule, MatIconModule, NgStyle, NgFor, NgClass, ReactiveFormsModule, PropertyCardModule, JsonPipe],
+	imports: [DatePipe, MatChipsModule, FormsModule, CarouselModule, MatIconModule, NgStyle, NgFor, NgClass, ReactiveFormsModule, PropertyCardModule, JsonPipe],
 })
 export class LandingComponent implements OnInit {
 	formLanding: FormGroup;
@@ -96,7 +96,10 @@ export class LandingComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		console.log(this.formLanding.value);
+		this._router.navigate(['/buscador-avanzado']);
+	}
+
+	goToAdvancedSearch(): void {
 		this._router.navigate(['/buscador-avanzado']);
 	}
 
@@ -212,4 +215,9 @@ export class LandingComponent implements OnInit {
 			},
 		};
 	}
+
+	goToPropertyView(id): void {
+		this._router.navigate(['/propiedades', id]);
+	}
+
 }
