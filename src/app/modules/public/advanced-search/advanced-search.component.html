@@ -1,5 +1,5 @@
-<main class="w-full h-screen mx-auto bg-gray-200">
-	<section class="flex w-full h-screen bg-gray-200 max-w-[1500px] justify-center mx-auto">
+<main class="w-full mx-auto bg-gray-200">
+	<section class="flex w-full bg-gray-200 max-w-[1500px] justify-center mx-auto">
 		<div class="w-[30%] bg-gray-200 flex flex-col items-center">
 			<div class="bg-white w-3/4 h-48 flex items-center rounded-lg mt-6 shadow-lg"></div>
 			<div class="bg-white w-3/4 h-32 flex items-center rounded-lg mt-6 shadow-lg"></div>
@@ -22,10 +22,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="te w-[95%] h-20 mt-10 grid grid-cols-3">
-				<div class="col-span-1 w-[95%] h-80 bg-white rounded-md shadow-xl border border-gray-300"></div>
-				<div class="col-span-1 w-[95%] h-80 bg-white rounded-md shadow-xl border border-gray-300"></div>
-				<div class="col-span-1 w-[95%] h-80 bg-white rounded-md shadow-xl border border-gray-300"></div>
+			<div class="te w-[97%] mt-10 grid grid-cols-3 gap-y-5 gap-x-3 z-60">
+				<!-- <div class="col-span-1 w-[95%] h-80 bg-white rounded-md shadow-xl border border-gray-300"></div> -->
+				<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
+					<div class="w-full m-auto">
+						<app-property-card [property]="property"></app-property-card>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

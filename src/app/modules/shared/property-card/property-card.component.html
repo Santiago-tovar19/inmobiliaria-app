@@ -1,22 +1,23 @@
-<div class=" card h-128 w-full mx-auto rounded-lg shadow-lg bg-white">
-	<div class="h-[55%] relative">
-
-		<!-- <img [src]="environment.assets+'/storage/properties/'+property.images[0].name" class="h-full w-full overflow-hidden" /> -->
+<div class="card w-full mx-auto rounded-lg shadow-lg bg-white">
+	<div class="h-[275px] relative">
+		<img [src]="environment.assets + '/storage/properties/' + property.images[0].name" class="h-full w-full overflow-hidden" />
 		<span class="absolute right-26 top-56 text-white bg-blue-400 px-4 py-2 text-sm rounded-md font-bold">Freatured</span>
 		<span class="absolute right-8 top-56 text-white bg-gray-400 px-4 py-2 text-sm rounded-md font-bold">Buy</span>
 		<span></span>
 	</div>
-	<div class="h-1/3 bg-[#fff] w-full flex flex-col gap-3 justify-center">
-		<h3 class="ml-6 font-bold text-2xl text-gray-700 -mt-3">{{ property.name }}</h3>
-		<p class="ml-6 font-semibold text-[14px] text-gray-500">{{ property.address }}</p>
-		<div class="flex flex-row ml-6 gap-4 mt-2 relative">
+	<div class="h-1/3 bg-[#fff] w-full flex flex-col gap-3 justify-center mt-3">
+		<h3 class="ml-6 font-bold text-2xl text-gray-700">{{ property.name }}</h3>
+		<p class="ml-6 font-semibold text-[14px] text-gray-500 mr-2">{{ property.address }}</p>
+		<div class="flex flex-row ml-6 gap-4 mt-2">
 			<span class="text-3xl text-blue-600 font-bold">${{ property.price }} </span>
 			<p class="mt-2">Sqft</p>
-			<span class="h-[1.5px] w-[320px] bg-gray-300 absolute top-14 left-2"></span>
+		</div>
+		<div class="relative w-full flex items-center justify-center">
+			<span class="h-[1.5px] w-[80%] bg-gray-300 absolute"></span>
 		</div>
 	</div>
 	<span></span>
-	<div class="stats w-full flex gap-5 mt-2">
+	<div class="stats w-full flex gap-5 pt-3 pb-4">
 		<div class="ml-[28px] flex gap-2 items-center">
 			<mat-icon svgIcon="mat_outline:bed" class="text-blue-600 text-sm"></mat-icon>
 			<span>{{ property.bedrooms }} </span>

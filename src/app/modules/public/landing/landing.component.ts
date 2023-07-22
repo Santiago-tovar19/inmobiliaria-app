@@ -15,18 +15,7 @@ import { environment } from 'environments/environment';
 	templateUrl: './landing.component.html',
 	styleUrls: ['./landing.component.scss'],
 	standalone: true,
-	imports: [
-		MatChipsModule,
-		FormsModule,
-		CarouselModule,
-		MatIconModule,
-		NgStyle,
-		NgFor,
-		NgClass,
-		ReactiveFormsModule,
-		PropertyCardModule,
-		JsonPipe
-	],
+	imports: [MatChipsModule, FormsModule, CarouselModule, MatIconModule, NgStyle, NgFor, NgClass, ReactiveFormsModule, PropertyCardModule, JsonPipe],
 })
 export class LandingComponent implements OnInit {
 	formLanding: FormGroup;
@@ -71,7 +60,9 @@ export class LandingComponent implements OnInit {
 			advanced: [false],
 		});
 
-		setInterval(() => { this.currentImageIndex = ++this.currentImageIndex % this.images.length }, 7000);
+		setInterval(() => {
+			this.currentImageIndex = ++this.currentImageIndex % this.images.length;
+		}, 7000);
 
 		this.getPropertyType();
 		this.getPropertiesList({}, { page: 1, perPage: 10 });
@@ -80,15 +71,13 @@ export class LandingComponent implements OnInit {
 	getPropertyType(): void {
 		this._propertiesService.getPropertyTypes().subscribe((response: any) => {
 			this.propertyTypes = response.data;
-			},
-		);
+		});
 	}
 
 	getPropertiesList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
 		this._propertiesService.getList({}).subscribe((response: any) => {
-				this.dataProperties = response.data.data;
-			}
-		);
+			this.dataProperties = response.data.data;
+		});
 	}
 
 	initForm(): void {
@@ -140,24 +129,6 @@ export class LandingComponent implements OnInit {
 					spacing: 15,
 				},
 			},
-			'(min-width: 1800px)': {
-				slides: {
-					perView: 4,
-					spacing: 15,
-				},
-			},
-			'(min-width: 2222px)': {
-				slides: {
-					perView: 5,
-					spacing: 15,
-				},
-			},
-			'(min-width: 2900px)': {
-				slides: {
-					perView: 6,
-					spacing: 15,
-				},
-			}
 		};
 	}
 
@@ -198,7 +169,7 @@ export class LandingComponent implements OnInit {
 					perView: 7,
 					spacing: 15,
 				},
-			}
+			},
 		};
 	}
 	setFeaturePropertiesBreakPoints() {
@@ -238,7 +209,7 @@ export class LandingComponent implements OnInit {
 					perView: 5,
 					spacing: 15,
 				},
-			}
+			},
 		};
 	}
 }

@@ -26,7 +26,7 @@ import { environment } from 'environments/environment';
 	templateUrl: './property-view.component.html',
 	styleUrls: ['./property-view.component.scss'],
 	standalone: true,
-	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule],
+	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule, CarouselModule],
 })
 export class PropertyViewComponent implements OnInit {
 	propertyID: string;
