@@ -1,5 +1,5 @@
-import { NgClass, NgFor } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { NgClass, NgFor, NgStyle } from '@angular/common';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -17,15 +17,24 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 	templateUrl: './advanced-search.component.html',
 	styleUrls: ['./advanced-search.component.scss'],
 	standalone: true,
-	imports: [CarouselModule, PropertyCardModule, NgFor, NgClass, MatPaginatorModule],
+	imports: [CarouselModule, PropertyCardModule, NgFor, NgClass, MatPaginatorModule, NgStyle],
 })
 export class AdvancedSearchComponent implements OnInit {
 	dataProperties: any = [];
 	propertiesPaginated: any;
+	@ViewChild('box2') secondBox: ElementRef;
 	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService) {}
 
 	ngOnInit(): void {
 		this.getPropertiesList({});
+
+		// Get width
+		this.secondBox.nativeElement.style.width = this.secondBox.nativeElement.offsetWidth + 'px';
+
+		setTimeout(() => {
+			console.log(this.secondBox.nativeElement.offsetWidth);
+		}, 1000);
+
 	}
 
 	paginate(event: any): void {
