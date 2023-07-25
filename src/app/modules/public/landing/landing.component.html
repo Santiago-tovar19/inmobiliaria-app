@@ -8,29 +8,31 @@
 			</div>
 			<div class="max-w-[1440px] px-5 sm:px-10 md:px-22 h-full mx-auto my-auto flex flex-col justify-center gap-5 relative">
 				<h1 class="text-white lg:text-[70px] text-6xl text-center lg:text-left font-bold">
-					Find Your Future <br />
-					Dream Home
+					Encuentre La Futura <br class="hidden lg:inline-block" />
+					Casa De sus Sueños
 				</h1>
 				<div [formGroup]="formLanding" class="relative flex justify-center items-center">
-					<div class="bg-white justify-center rounded z-2 w-full lg:w-full h-auto md:h-22 flex flex-col md:flex-row items-center relative">
+					<div class="bg-white justify-center rounded z-2 w-full lg:w-full h-auto md:h-22 flex flex-col md:flex-row items-center relative z-9999">
 						<!-- start main seeker -->
 						<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0" formControlName="buyOrRent">
-							<mat-chip-option class="rounded" value="buy">Comprar</mat-chip-option>
-							<mat-chip-option class="rounded" value="rent">Rentar</mat-chip-option>
+							<mat-chip-option class="rounded w-[150px] md:w-[80px]" value="buy">Comprar</mat-chip-option>
+							<mat-chip-option class="rounded w-[150px] md:w-[80px]" value="rent">Rentar</mat-chip-option>
 						</mat-chip-listbox>
 						<!-- end main seeker -->
 						<div class="lg:ml-7 h-full flex items-center">
 							<div class="flex flex-col lg:flex-row items-center gap-4">
-								<input type="text" placeholder="Enter keyword" class="text-base text-gray-500 w-full md:w-[300px] h-full mt-3 lg:mt-0 text-center lg:text-left" formControlName="keywords" />
-								<span class="bg-gray-300 lg:h-12 lg:w-[1px] h-[1px] w-28"></span>
-								<select name="select" id="" class="ml-4 text-lg text-gray-500 w-[70%] lg:w-full md:w-50" formControlName="selec1">
+								<input type="text" placeholder="Ingrese palabras claves" class="text-lg text-gray-500 w-full md:w-[300px] h-full mt-3 lg:mt-0 text-left lg:text-left" formControlName="keywords" />
+								<span class="bg-gray-300 lg:h-12 lg:w-[1px] h-[1px] w-64"></span>
+								<select name="select" id="" class="lg:ml-4 text-lg text-gray-500 w-full md:w-50" formControlName="property_type_id" onchange="onChangeSelect($event,'property_type_id') ">
+									<option value="" hidden disabled selected>Seleccionar</option>
 									<option value="house y villa" class="bg-gray-200">House & villa</option>
 									<option value="apartament" class="bg-gray-200">Apartment</option>
 									<option value="townhouse" class="bg-gray-200">Townhouse</option>
 								</select>
-								<span class="bg-gray-300 lg:h-12 lg:w-[1px] lg:ml-4 h-[1px] w-28"></span>
-								<button (click)="toggleAdvanced()" type="submit" class="text-gray-500 ml-2 flex justify-center gap-2"><mat-icon svgIcon="mat_outline:settings" class="text-blue-500"></mat-icon> Advanced</button>
-								<button class="ml-4 md:ml-11 text-white bg-blue-500 lg:px-8 lg:py-4 px-4 py-2 rounded-md mb-6 lg:mb-0" type="submit" (click)="onSubmit()">Search</button>
+								<span class="bg-gray-300 lg:h-12 lg:w-[1px] lg:ml-4 h-[1px] w-64"></span>
+								<button (click)="toggleAdvanced()" type="submit" class="text-gray-500 ml-2 flex justify-center gap-2"><mat-icon svgIcon="mat_outline:settings" class="text-blue-500 text-left"></mat-icon> Avanzado</button>
+								<span class="bg-gray-300 lg:h-12 lg:w-[1px] lg:ml-4 h-[1px] w-64 md:hidden"></span>
+								<button class="w-full md:w-32 md:ml-11 text-white bg-blue-500 lg:px-8 lg:py-4 px-4 py-2 rounded-md mb-6 lg:mb-0" type="submit" (click)="onSubmit()">Buscar</button>
 							</div>
 						</div>
 						<!-- end advances -->
@@ -42,115 +44,118 @@
 						[class.opacity-1]="mainSeeker.get('advanced').value"
 						[class.top-24]="mainSeeker.get('advanced').value"
 						[class.pointer-events-auto]="mainSeeker.get('advanced').value"
-						class="vis absolute w-full bg-white h-auto md:h-90 left-0 shadow-2xl rounded transition-all top-72 lg:top-24"
+						class="vis absolute w-full bg-white h-auto left-0 shadow-2xl rounded transition-all top-72 lg:top-24 z-50 mb-5"
 						style="height: 0px"
 					>
 						<!-- start advances search -->
-						<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3">
-							<div>
-								<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="region" value="seleccionar">
-									<option value="ciudad1">Ciudad 1</option>
-									<option value="ciudad2">Ciudad 2</option>
-								</select>
-							</div>
+						<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3 z-50">
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Baños</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bathrooms">
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bathrooms" onchange="onChangeSelect($event,'bathrooms') ">
+									<option value="" hidden disabled selected>Seleccionar</option>
+
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="+4">+4</option>
 								</select>
 							</div>
-							<div>
-								<h2 class="text-lg font-semibold text-gray-600">Garages</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="garages">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="+3">+3</option>
-								</select>
-							</div>
+
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Cuartos</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bedrooms">
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bedrooms" onchange="onChangeSelect($event,'bedrooms') ">
+									<option value="" hidden disabled selected>Seleccionar</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="+4">+4</option>
 								</select>
 							</div>
 							<div>
-								<h2 class="text-lg font-semibold text-gray-600">Niveles</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="levels">
-									<option>1</option>
-									<option>+2</option>
-								</select>
-							</div>
-							<div>
-								<h2 class="text-lg font-semibold text-gray-600">Region</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200">
-									<option>Ciudad 1</option>
-									<option>Ciudad 2</option>
+								<h2 class="text-lg font-semibold text-gray-600">Tamaño</h2>
+								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="size" onchange="onChangeSelect($event,'size') ">
+									<option value="" hidden disabled selected>Seleccionar</option>
+									<option value="80">+ 80</option>
+									<option value="100">+ 100</option>
+									<option value="200">+ 200</option>
+									<option value="400">+ 300</option>
+									<option value="500">+ 400</option>
 								</select>
 							</div>
 						</div>
 
 						<div>
 							<h3 class="pl-7 text-md text-gray-600 font-semibold mt-4">Preferencias</h3>
-							<div class="grid grid-cols-2 md:grid-cols-4 px-7 pt-3 gap-x-7 gap-y-2">
+							<div class="grid grid-cols-2 md:grid-cols-4 px-7 pt-3 gap-x-7 gap-y-2 mb-[30px] mt-1">
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="piscina" />
-									<label for="" class="text-gray-500">Piscina</label>
+									<input type="checkbox" name="" id="" formControlName="parking" (change)="onChangeCheckbox($event, 'parking')" />
+									<label for="" class="text-gray-500">Estacionamiento</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="parrillera" />
-									<label for="" class="text-gray-500">parrillera</label>
+									<input type="checkbox" name="" id="" formControlName="kitchen" (change)="onChangeCheckbox($event, 'kitchen')" />
+									<label for="" class="text-gray-500">Cocina</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="elevator" (change)="onChangeCheckbox($event, 'elevator')" />
+									<label for="" class="text-gray-500">Elevador</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="wifi" (change)="onChangeCheckbox($event, 'wifi')" />
+									<label for="" class="text-gray-500">Wifi</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="fireplace" (change)="onChangeCheckbox($event, 'fireplace')" />
+									<label for="" class="text-gray-500">Chimenea</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="level" (change)="onChangeCheckbox($event, 'level')" />
+									<label for="" class="text-gray-500">Niveles</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="security" (change)="onChangeCheckbox($event, 'security')" />
+									<label for="" class="text-gray-500">Seguridad</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="lobby" (change)="onChangeCheckbox($event, 'lobby')" />
+									<label for="" class="text-gray-500">Vestibulo</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="balcony" (change)="onChangeCheckbox($event, 'balcony')" />
+									<label for="" class="text-gray-500">Balcon</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="terrace" (change)="onChangeCheckbox($event, 'terrace')" />
+									<label for="" class="text-gray-500">Terraza</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="power_plant" (change)="onChangeCheckbox($event, 'power_plant')" />
+									<label for="" class="text-gray-500">Planta Electrica</label>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" />
-									<label for="" class="text-gray-500">Action</label>
+									<input type="checkbox" name="" id="" formControlName="gym" (change)="onChangeCheckbox($event, 'gym')" />
+									<label for="" class="text-gray-500">Gimnasio</label>
+								</div>
+								<div class="flex flex-row gap-4">
+									<input type="checkbox" name="" id="" formControlName="walk_in_closet" (change)="onChangeCheckbox($event, 'walk_in_closet')" />
+									<label for="" class="text-gray-500">Vestidor</label>
+								</div>
+								<div class="flex flex-row gap-4">
+									<input type="checkbox" name="" id="" formControlName="kids_area" (change)="onChangeCheckbox($event, 'kids_area')" />
+									<label for="" class="text-gray-500">Area de niños</label>
+								</div>
+								<div class="flex flex-row gap-4">
+									<input type="checkbox" name="" id="" formControlName="pets_allowed" (change)="onChangeCheckbox($event, 'pets_allowed')" />
+									<label for="" class="text-gray-500">Mascotas permitidas</label>
+								</div>
+
+								<div class="flex flex-row gap-4">
+									<input type="checkbox" name="" id="" formControlName="central_air_conditioner" (change)="onChangeCheckbox($event, 'central_air_conditioner')" />
+									<label for="" class="text-gray-500">Aire central</label>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<p class="text-[16px] font-bold px-4 lg:px-0 text-center lg:text-left"><span class="text-4xl"></span> Smart Real Estate Services All our the World</p>
+				<p class="text-[16px] font-bold px-4 lg:px-0 text-center lg:text-left"><span class="text-4xl"></span> Agencia De Servicios inmobiliarios inteligentes</p>
 			</div>
 		</div>
 	</div>
@@ -158,12 +163,12 @@
 	<!-- start explore cities -->
 	<section class="bg-[#FFFFFF] flex py-20 justify-center">
 		<div class="w-full flex flex-col justify-center max-w-[1440px] px-5 sm:px-10 md:px-22">
-			<p class="text-gray-400 text-2xl font-bold">Encuentra tu tipo de propiedad ideal</p>
-			<h2 class="text-7xl font-bold text-gray-800">Tipos de propiedades</h2>
+			<p class="text-gray-400 text-center text-xl lg:text-left lg:text-2xl font-bold mx-3 lg:mx-0 mb-2 lg:mb-0">Encuentra tu tipo de propiedad ideal</p>
+			<h2 class="text-center text-4xl lg:text-left lg:text-7xl font-bold text-gray-800 mx-2">Tipos de propiedades</h2>
 			<div class="flex gap-7">
 				<app-carousel class="w-full px-10 mt-4" [breakpoints]="propertyTypesBreakPoints">
 					<div class="h-60 mt-3 relative keen-slider__slide" *ngFor="let type of propertyTypes">
-						<div class="h-full w-full bg-cover bg-no-repeat rounded" [style]="'background-image: url(' + environment.assets + '/property-types/' + type.id + '.png)'">
+						<div class="h-full w-full bg-cover bg-no-repeat rounded" [style]="'background-image: url(' + environment.assets + '/property-types/' + type.id + '.png)'" (click)="onCardClick(type.id)">
 							<div class="bg-black/60 h-60 w-full flex flex-col justify-between px-5 py-3">
 								<span class="left-4 bg-white px-2 py-1 rounded-md font-semibold text-[14px]">{{ type.properties_count }} Propierties</span>
 								<span class="text-xl font-bold text-white left-3">{{ type.name }}</span>
@@ -178,8 +183,8 @@
 	<!-- start lastest propierties -->
 	<section class="w-full text-black flex flex-col justify-center items-center bg-[#f0f0f0]">
 		<div class="max-w-[1440px] px-5 sm:px-10 md:px-22 py-16">
-			<p class="text font-semibold text-[15px] text-center lg:text-[17px]">Browse Hot Offers</p>
-			<h2 class="lg:text-[52px] font-bold text-center text-[42px]">Latest Properties</h2>
+			<p class="text font-semibold text-[15px] text-center lg:text-[17px]">Explorar ofertas interesantes</p>
+			<h2 class="lg:text-[52px] font-bold text-center text-[42px]">Ultimas Propiedades</h2>
 			<p class="mt-3 font-[19px] text-center">Lorem ipsum dolor sit amet, cibo mundi ea duo, vim exerci phaedrum</p>
 
 			<app-carousel class="w-full px-10 mt-4" [breakpoints]="lattestPropertiesBreakPoints">
@@ -199,10 +204,10 @@
 	<section class="bg-[#FFFFFF] pb-8 w-full justify-center items-center px-10 lg:px-22 py-16">
 		<div class="flex flex-col lg:flex-row gap-10 max-w-[1440px] px-5 sm:px-10 md:px-22 justify-center mx-auto">
 			<div class="bg-white lg:w-4/12 flex flex-col justify-center gap-4 -mt-3 lg:mt-0 w-full">
-				<p class="text-blue-400 font-semibold text-lg text-center lg:text-left">Our Blog Potts</p>
-				<h2 class="text-gray-700 font-bold text-6xl text-center lg:text-left lg:text-[55px] lg:leading-[62px] leading-[52px]">Lasted News & Articles</h2>
+				<p class="text-blue-400 font-semibold text-lg text-center lg:text-left">Nuestras Publicaciones</p>
+				<h2 class="text-gray-700 font-bold text-6xl text-center lg:text-left lg:text-[48px] lg:leading-[62px] leading-[52px]">propiedades destacadas</h2>
 				<p class="lg:text-left text-center text-[16px] leading-[30px]">Lorem ipsum dolor sit amet, cibo mundi ea duo, vim exerci phaedrum</p>
-				<button class="px-2 py-3 bg-blue-500 text-white text-lg rounded-md mt-4">All news</button>
+				<button class="px-2 py-3 bg-blue-500 text-white text-lg rounded-md mt-4">Ver Mas</button>
 			</div>
 
 			<div class="lg:w-8/12 w-full">
@@ -210,13 +215,13 @@
 					<div class="h-100 bg-[#f0f0f0] rounded-md shadow-xl keen-slider__slide" *ngFor="let property of dataProperties">
 						<div class="h-[55%] relative">
 							<img [src]="environment.assets + '/storage/properties/' + property.images[0].name" alt="" class="w-full h-full object-cover rounded-t-md" />
-							<span class="absolute px-3 py-2 bg-blue-500 text-white rounded text-base font-semibold top-[92%] left-6">December 8, 2021</span>
+							<span class="absolute px-3 py-2 bg-blue-500 text-white rounded text-base font-semibold top-[92%] left-6">Diciembre 8, 2021</span>
 						</div>
 						<div class="h-1/3 flex flex-col justify-center">
-							<h2 class="text-gray-800 font-bold text-[23px] mt-10 ml-4">How To choose The Perfect Planner</h2>
+							<h2 class="text-gray-800 font-bold text-[23px] mt-10 ml-4">Lorem ipsum dolor sit amet</h2>
 							<div class="ml-4 mt-4">
 								<span class="text-gray-400">By Admin /</span>
-								<span class="text-gray-400"> 0 comments</span>
+								<span class="text-gray-400"> 0 Comentarios</span>
 							</div>
 						</div>
 					</div>
@@ -232,7 +237,7 @@
 	<section class="w-full flex items-center justify-center bg-[#f0f0f0]">
 		<app-carousel class="p-8 flex items-center flex-col justify-center xl:mt-0 h-72 bg-[#f0f0f0] px-8 w-[90%] gap-y-6">
 			<div class="keen-slider__slide flex items-center">
-				<img src="https://www.gavias-theme.com/wp/tolips/wp-content/uploads/2020/12/brand-5.png" alt="" class="w-28 h-full m-auto" />
+				<img src="/src/assets/images/empresas/brand-5.png" alt="" class="w-28 h-full m-auto" />
 			</div>
 			<div class="keen-slider__slide">
 				<img src="https://www.gavias-theme.com/wp/tolips/wp-content/uploads/2020/12/brand-1.png" alt="" class="w-28 h-full m-auto" />
@@ -244,7 +249,7 @@
 				<img src="https://www.gavias-theme.com/wp/tolips/wp-content/uploads/2020/12/brand-1.png" alt="" class="w-28 h-full m-auto" />
 			</div>
 			<div class="keen-slider__slide">
-				<img src="https://www.gavias-theme.com/wp/tolips/wp-content/uploads/2020/12/brand-5.png" alt="" class="w-28 h-full m-auto" />
+				<img src="/src/assets/images/empresas/brand1.png" alt="" class="w-28 h-full m-auto" />
 			</div>
 		</app-carousel>
 	</section>
@@ -260,7 +265,7 @@
 				<div class="flex gap-3 items-center bg-[#202739] shadow-lg rounded-[5px] px-1 py-4 mt-4">
 					<mat-icon svgIcon="mat_outline:call" class="text-[32px] text-blue-600 ml-4 mr-2"></mat-icon>
 					<div class="gap-2">
-						<p class="text-gray-400">Call agent</p>
+						<p class="text-gray-400">Contactar agentes</p>
 						<button class="text-gray-300 mt-1">00-000-000-000</button>
 					</div>
 				</div>

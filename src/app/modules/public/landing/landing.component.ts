@@ -70,7 +70,9 @@ export class LandingComponent implements OnInit {
 
 	getPropertyType(): void {
 		this._propertiesService.getPropertyTypes().subscribe((response: any) => {
+			console.log(response);
 			this.propertyTypes = response.data;
+			console.log(this.propertyTypes);
 		});
 	}
 
@@ -82,22 +84,55 @@ export class LandingComponent implements OnInit {
 
 	initForm(): void {
 		this.formLanding = this._formBuilder.group({
-			selec1: ['house y villa'],
-			buyOrRent: [''],
-			keywords: [''],
-			region: ['ciudad1'],
-			bathrooms: ['2'],
-			bedrooms: ['2'],
-			garages: ['1'],
-			levels: ['1'],
-			piscina: [null],
-			parrillera: [null],
+			buyOrRent: [''], //en revision
+			keywords: [''], //en revision
+			property_type_id: [''], //en revision
+			bathrooms: [''],
+			bedrooms: [''],
+			location_type: [''],
+			level: [0],
+			size: [''],
+			price: [''],
+			parking: [0],
+			kitchen: [0],
+			elevator: [0],
+			wifi: [0],
+			fireplace: [0],
+			exclusions: [0],
+			security: [0],
+			lobby: [0],
+			balcony: [0],
+			terrace: [0],
+			power_plant: [0],
+			gym: [0],
+			walk_in_closet: [0],
+			kids_area: [0],
+			pets_allowed: [0],
+			central_air_conditioner: [0],
 		});
+	}
+
+	onChangeCheckbox(event: Event, controlName: string) {
+		const checkbox = event.target as HTMLInputElement;
+		this.formLanding.get(controlName)?.setValue(checkbox.checked ? 1 : 0);
+	}
+
+	onChangeSelect(event: Event, controlName: string) {
+		const selectElement = event.target as HTMLSelectElement;
+		const selectedValue = selectElement.value;
+		this.formLanding.get(controlName)?.setValue(selectedValue);
 	}
 
 	onSubmit(): void {
 		console.log(this.formLanding.value);
-		this._router.navigate(['/buscador-avanzado']);
+		this._router.navigate(['/buscador-avanzado'], {
+			queryParams: this.formLanding.value,
+		});
+	}
+
+	onCardClick(id: number): void {
+		// Redirigir a la página con el Query Parameter
+		this._router.navigate(['/buscador-avanzado'], { queryParams: { property_type_id: id } });
 	}
 
 	toggleAdvanced(): void {
