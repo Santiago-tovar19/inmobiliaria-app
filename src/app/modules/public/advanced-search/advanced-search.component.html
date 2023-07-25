@@ -6,7 +6,7 @@
 			<div class="bg-white w-3/4 h-40 flex items-center rounded-lg mt-6 shadow-lg"></div>
 			<div class="bg-white w-3/4 h-56 flex items-center rounded-lg mt-6 shadow-lg"></div>
 		</div>
-		<div class="w-[70%] bg-gray-200 flex flex-col">
+		<div class="w-[70%] bg-gray-200 flex flex-col relative" >
 			<div class="flex gap-6 mt-6">
 				<div class="flex gap-4">
 					<div class="bg-blue-500 w-36 h-20 rounded-md"></div>
@@ -22,17 +22,16 @@
 					</div>
 				</div>
 			</div>
-			<div class="w-[97%] mt-10 grid grid-cols-3 gap-y-5 gap-x-3 z-60 relative">
+			<div class="w-[97%] mt-10 grid grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
 				<!-- <div class="col-span-1 w-[95%] h-80 bg-white rounded-md shadow-xl border border-gray-300"></div> -->
 				<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
 					<div class="w-full m-auto">
 						<app-property-card [property]="property"></app-property-card>
 					</div>
 				</div>
-				<div class="col-span-3 justify-end">
-					<button class="bg-blue-500 py-5 px-14 fixed left-24 bottom-2 z-50 text-white rounded-lg text-xl">Buscar</button>
-					<mat-paginator class="w-full fixed bottom-2 pr-3 bg-white" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
-				</div>
+			</div>
+			<div class="fixed top-[88%] z-99">
+				<mat-paginator class="shadow-2xl" [ngStyle]="{width: secondBox?.nativeElement?.offsetWidth + 'px'}" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
 			</div>
 		</div>
 	</section>
