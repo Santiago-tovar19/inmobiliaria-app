@@ -124,7 +124,6 @@ export class LandingComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-<<<<<<< HEAD
 		console.log(this.formLanding.value);
 		this._router.navigate(['/buscador-avanzado'], {
 			queryParams: this.formLanding.value,
@@ -134,13 +133,14 @@ export class LandingComponent implements OnInit {
 	onCardClick(id: number): void {
 		// Redirigir a la página con el Query Parameter
 		this._router.navigate(['/buscador-avanzado'], { queryParams: { property_type_id: id } });
-=======
-		this._router.navigate(['/buscador-avanzado']);
 	}
 
 	goToAdvancedSearch(): void {
-		this._router.navigate(['/buscador-avanzado']);
->>>>>>> master
+		this._router.navigate(['/buscador-avanzado'], { queryParams: { featured: 1 } });
+	}
+
+	explorerProperties(): void {
+		this._router.navigate(['/buscador-avanzado'], { queryParams: { orderBy: 'created_at', order: 'DESC' } });
 	}
 
 	toggleAdvanced(): void {
@@ -259,5 +259,4 @@ export class LandingComponent implements OnInit {
 	goToPropertyView(id): void {
 		this._router.navigate(['/propiedades', id]);
 	}
-
 }
