@@ -9,13 +9,17 @@ import { PropertiesService } from 'app/modules/properties/service/properties.ser
 import { PaginatorParams } from 'app/interfaces/general/paginator-params';
 import { PropertyCardModule } from 'app/modules/shared/property-card/property-card.module';
 import { environment } from 'environments/environment';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
 	selector: 'app-landing',
 	templateUrl: './landing.component.html',
 	styleUrls: ['./landing.component.scss'],
 	standalone: true,
-	imports: [DatePipe, MatChipsModule, FormsModule, CarouselModule, MatIconModule, NgStyle, NgFor, NgClass, ReactiveFormsModule, PropertyCardModule, JsonPipe],
+	imports: [MatInputModule, DatePipe, MatChipsModule, FormsModule, CarouselModule, MatIconModule, NgStyle, NgFor, NgClass, ReactiveFormsModule, PropertyCardModule, JsonPipe, MatCheckboxModule, MatSelectModule, MatFormFieldModule],
 })
 export class LandingComponent implements OnInit {
 	formLanding: FormGroup;
@@ -90,31 +94,31 @@ export class LandingComponent implements OnInit {
 			bathrooms: [''],
 			bedrooms: [''],
 			location_type: [''],
-			level: [0],
+			level: [],
 			size: [''],
 			price: [''],
-			parking: [0],
-			kitchen: [0],
-			elevator: [0],
-			wifi: [0],
-			fireplace: [0],
-			exclusions: [0],
-			security: [0],
-			lobby: [0],
-			balcony: [0],
-			terrace: [0],
-			power_plant: [0],
-			gym: [0],
-			walk_in_closet: [0],
-			kids_area: [0],
-			pets_allowed: [0],
-			central_air_conditioner: [0],
+			parking: [],
+			kitchen: [],
+			elevator: [],
+			wifi: [],
+			fireplace: [],
+			exclusions: [],
+			security: [],
+			lobby: [],
+			balcony: [],
+			terrace: [],
+			power_plant: [],
+			gym: [],
+			walk_in_closet: [],
+			kids_area: [],
+			pets_allowed: [],
+			central_air_conditioner: [],
 		});
 	}
 
-	onChangeCheckbox(event: Event, controlName: string) {
-		const checkbox = event.target as HTMLInputElement;
-		this.formLanding.get(controlName)?.setValue(checkbox.checked ? 1 : 0);
+	onChangeCheckbox(controlName: string) {
+		const v = this.formLanding.get(controlName)?.value ? 1 : 0;
+		this.formLanding.get(controlName)?.setValue(v);
 	}
 
 	onChangeSelect(event: Event, controlName: string) {
@@ -124,10 +128,18 @@ export class LandingComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		console.log(this.formLanding.value);
-		this._router.navigate(['/buscador-avanzado'], {
-			queryParams: this.formLanding.value,
+
+		const data = {};
+		Object.entries(this.formLanding.value).map((item) => {
+			if(item[1]){
+				data[item[0]] = item[1];
+			}
 		});
+
+		this._router.navigate(['/buscador-avanzado'], {
+			queryParams: data,
+		});
+
 	}
 
 	onCardClick(id: number): void {

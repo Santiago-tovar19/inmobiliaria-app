@@ -51,34 +51,35 @@
 						<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3 z-50">
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Baños</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bathrooms" onchange="onChangeSelect($event,'bathrooms') ">
-									<option value="" hidden disabled selected>Seleccionar</option>
+								<mat-form-field class="w-full">
+									<mat-select formControlName="bathrooms">
+										<mat-option value="" selected>Seleccionar</mat-option>
+										<mat-option value="2">2</mat-option>
+										<mat-option value="3">3</mat-option>
+										<mat-option value="+4">+4</mat-option>
+									</mat-select>
+								</mat-form-field>
 
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="+4">+4</option>
-								</select>
 							</div>
 
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Cuartos</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="bedrooms" onchange="onChangeSelect($event,'bedrooms') ">
-									<option value="" hidden disabled selected>Seleccionar</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="+4">+4</option>
-								</select>
+								<mat-form-field class="w-full">
+									<mat-select formControlName="bedrooms">
+										<mat-option value="" selected>Seleccionar</mat-option>
+										<mat-option value="2">2</mat-option>
+										<mat-option value="3">3</mat-option>
+										<mat-option value="+4">+4</mat-option>
+									</mat-select>
+								</mat-form-field>
+
 							</div>
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Tamaño</h2>
-								<select name="" id="" class="w-full bg-gray-100 text-md text-gray-500 rounded py-3 mt-4 px-1 border border-gray-200" formControlName="size" onchange="onChangeSelect($event,'size') ">
-									<option value="" hidden disabled selected>Seleccionar</option>
-									<option value="80">+ 80</option>
-									<option value="100">+ 100</option>
-									<option value="200">+ 200</option>
-									<option value="400">+ 300</option>
-									<option value="500">+ 400</option>
-								</select>
+								<mat-form-field class="w-full">
+									<input matInput formControlName="size" placeholder="Tamaño" type="number" class="w-full" />
+									<div matSuffix>m<sup>2</sup></div>
+								</mat-form-field>
 							</div>
 						</div>
 
@@ -86,69 +87,52 @@
 							<h3 class="pl-7 text-md text-gray-600 font-semibold mt-4">Preferencias</h3>
 							<div class="grid grid-cols-2 md:grid-cols-4 px-7 pt-3 gap-x-7 gap-y-2 mb-[30px] mt-1">
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="parking" (change)="onChangeCheckbox($event, 'parking')" />
-									<label for="" class="text-gray-500">Estacionamiento</label>
+									<mat-checkbox (change)="onChangeCheckbox('parking')" formControlName="parking" class="example-margin">Estacionamiento</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="kitchen" (change)="onChangeCheckbox($event, 'kitchen')" />
-									<label for="" class="text-gray-500">Cocina</label>
+									<mat-checkbox (change)="onChangeCheckbox('kitchen')" formControlName="kitchen" class="example-margin">Cocina</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="elevator" (change)="onChangeCheckbox($event, 'elevator')" />
-									<label for="" class="text-gray-500">Elevador</label>
+									<mat-checkbox (change)="onChangeCheckbox('elevator')" formControlName="elevator" class="example-margin">Elevador</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="wifi" (change)="onChangeCheckbox($event, 'wifi')" />
-									<label for="" class="text-gray-500">Wifi</label>
+									<mat-checkbox (change)="onChangeCheckbox('wifi')" formControlName="wifi" class="example-margin">Wifi</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="fireplace" (change)="onChangeCheckbox($event, 'fireplace')" />
-									<label for="" class="text-gray-500">Chimenea</label>
+									<mat-checkbox (change)="onChangeCheckbox('fireplace')" formControlName="fireplace" class="example-margin">Chimenea</mat-checkbox>
+								</div>
+								<!-- <div class="flex flex-row gap-4">
+									<mat-checkbox (change)="onChangeCheckbox('level')" formControlName="level" class="example-margin">Niveles</mat-checkbox>
+								</div> -->
+								<div class="flex flex-row gap-4">
+									<mat-checkbox (change)="onChangeCheckbox('security')" formControlName="security" class="example-margin">Seguridad</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="level" (change)="onChangeCheckbox($event, 'level')" />
-									<label for="" class="text-gray-500">Niveles</label>
+									<mat-checkbox (change)="onChangeCheckbox('lobby')" formControlName="lobby" class="example-margin">Vestibulo</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="security" (change)="onChangeCheckbox($event, 'security')" />
-									<label for="" class="text-gray-500">Seguridad</label>
+									<mat-checkbox (change)="onChangeCheckbox('balcony')" formControlName="balcony" class="example-margin">Balcon</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="lobby" (change)="onChangeCheckbox($event, 'lobby')" />
-									<label for="" class="text-gray-500">Vestibulo</label>
+									<mat-checkbox (change)="onChangeCheckbox('terrace')" formControlName="terrace" class="example-margin">Terraza</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="balcony" (change)="onChangeCheckbox($event, 'balcony')" />
-									<label for="" class="text-gray-500">Balcon</label>
+									<mat-checkbox (change)="onChangeCheckbox('power_plant')" formControlName="power_plant" class="example-margin">Electrica</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="terrace" (change)="onChangeCheckbox($event, 'terrace')" />
-									<label for="" class="text-gray-500">Terraza</label>
+									<mat-checkbox (change)="onChangeCheckbox('gym')" formControlName="gym" class="example-margin">Gimnasio</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="power_plant" (change)="onChangeCheckbox($event, 'power_plant')" />
-									<label for="" class="text-gray-500">Planta Electrica</label>
+									<mat-checkbox (change)="onChangeCheckbox('walk_in_closet')" formControlName="walk_in_closet" class="example-margin">Vestidor</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="gym" (change)="onChangeCheckbox($event, 'gym')" />
-									<label for="" class="text-gray-500">Gimnasio</label>
+									<mat-checkbox (change)="onChangeCheckbox('kids_area')" formControlName="kids_area" class="example-margin">Area de niños</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="walk_in_closet" (change)="onChangeCheckbox($event, 'walk_in_closet')" />
-									<label for="" class="text-gray-500">Vestidor</label>
+									<mat-checkbox (change)="onChangeCheckbox('pets_allowed')" formControlName="pets_allowed" class="example-margin">Mascotas permitidas</mat-checkbox>
 								</div>
 								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="kids_area" (change)="onChangeCheckbox($event, 'kids_area')" />
-									<label for="" class="text-gray-500">Area de niños</label>
-								</div>
-								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="pets_allowed" (change)="onChangeCheckbox($event, 'pets_allowed')" />
-									<label for="" class="text-gray-500">Mascotas permitidas</label>
-								</div>
-
-								<div class="flex flex-row gap-4">
-									<input type="checkbox" name="" id="" formControlName="central_air_conditioner" (change)="onChangeCheckbox($event, 'central_air_conditioner')" />
-									<label for="" class="text-gray-500">Aire central</label>
+									<mat-checkbox (change)="onChangeCheckbox('central_air_conditioner')" formControlName="central_air_conditioner" class="example-margin">Aire central</mat-checkbox>
 								</div>
 							</div>
 						</div>
