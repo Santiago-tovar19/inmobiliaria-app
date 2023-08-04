@@ -1,0 +1,9 @@
+/* Ejemplo de clase personalizada para un color azul */
+.custom-slider-color {
+	--thumb-background: #088bf7;
+	--slider-background: #90cdf4;
+}
+
+mat-slider input {
+	background-color: #088bf7;
+}
