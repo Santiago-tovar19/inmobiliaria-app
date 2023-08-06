@@ -38,9 +38,11 @@ export class AdvancedSearchComponent implements OnInit {
 		{ name: 'Estacionamiento', value: 'parking' },
 		{ name: 'Cocina', value: 'kitchet' },
 		{ name: 'Elevator', value: 'elevator' },
+		{ name: 'Propiedades destacadas', value: 'featured' },
 		{ name: 'Wifi', value: 'wifi' },
 		{ name: 'Chimenea', value: 'fireplace' },
 		{ name: 'Seguridad', value: 'security' },
+		{ name: 'Propiedad publicada', value: 'published' },
 		{ name: 'Vestibulo', value: 'lobby' },
 		{ name: 'Balcon', value: 'balcony' },
 		{ name: 'Terraza', value: 'terrace' },
@@ -50,8 +52,10 @@ export class AdvancedSearchComponent implements OnInit {
 		{ name: 'Area de niños', value: 'kids_area' },
 		{ name: 'Mascotas permitidas', value: 'pets_allowed' },
 		{ name: 'Aire Central', value: 'central_air_aconditioner' },
-		{ name: 'Piscina', value: 'pool' },
+		{ name: 'Piscina', value: 'swimming_pool' },
 		{ name: 'Exclusiones', value: 'exclusions' },
+		{ name: 'hoa', value: 'hoa' },
+		{ name: 'Historias', value: 'stories' },
 	];
 
 	filteredCheckboxList = this.checkboxList.slice();
@@ -85,6 +89,11 @@ export class AdvancedSearchComponent implements OnInit {
 			walk_in_closet: [],
 			kids_area: [],
 			pets_allowed: [],
+			hoa: [],
+			central_air_aconditioner: [],
+			histories: [],
+			published: [],
+			featured: [],
 		});
 
 		this.checkboxList.forEach((option) => {

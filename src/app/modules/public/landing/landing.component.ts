@@ -128,10 +128,9 @@ export class LandingComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-
 		const data = {};
 		Object.entries(this.formLanding.value).map((item) => {
-			if(item[1]){
+			if (item[1]) {
 				data[item[0]] = item[1];
 			}
 		});
@@ -139,7 +138,6 @@ export class LandingComponent implements OnInit {
 		this._router.navigate(['/buscador-avanzado'], {
 			queryParams: data,
 		});
-
 	}
 
 	onCardClick(id: number): void {
@@ -178,6 +176,14 @@ export class LandingComponent implements OnInit {
 					spacing: 12,
 				},
 			},
+
+			'(min-width: 1024px)': {
+				slides: {
+					perView: 3,
+					spacing: 15,
+				},
+			},
+
 			'(min-width: 1300px)': {
 				slides: {
 					perView: 3,
