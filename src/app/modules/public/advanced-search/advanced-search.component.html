@@ -26,7 +26,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="bg-white w-3/4 h-56 flex items-center rounded-lg mt-6 shadow-lg"></div>
+			<div class="bg-white w-3/4 h-80 flex flex-col items-center rounded-lg mt-6 shadow-lg px-5 py-4">
+				<div class="flex justify-between w-full px-2">
+					<h2 class="text-blue-500 font-semibold my-auto">preferencias</h2>
+					<button (click)="selectedAllCheckbox()" class="px-3 py-2 rounded-md border-none bg-gray-200 text-gray-500 font-semibold">{{ selectAllChecked ? 'Desmarcar Todo' : 'Seleccionar Todo' }}</button>
+				</div>
+				<div class="w-[85%] mt-5 flex flex-col justify-center overflow-y-scroll">
+					<input type="text" class="w-full border-b-[3px] border-gray-300" placeholder="Ingrese palabra clave" (input)="onInputChange($event)" formControlName="searchText" />
+					<div class="w-full mt-4 overflow-auto">
+						<div *ngFor="let filteredCheckbox of filteredCheckboxList" class="flex flex-row gap-4">
+							<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}" class="example-margin">{{ filteredCheckbox.name }} </mat-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="bg-white w-3/4 items-center rounded-lg mt-6 shadow-lg px-3 py-4 flex flex-col">
 				<h2>Tipos de propiedades</h2>
 				<div class="w-full flex items-center justify-center flex-col">
@@ -47,7 +60,7 @@
 					</mat-chip-listbox>
 				</div>
 			</div>
-			<button class="w-3/4 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
+			<button (click)="onSubmit()" class="w-3/4 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
 		</div>
 		<div class="w-[70%] bg-gray-200 flex flex-col relative">
 			<div class="flex gap-6 mt-6">

@@ -11,9 +11,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, RouterModule.forChild(advancedRoutes), CarouselModule, PropertyCardModule, NgStyle, MatPaginatorModule, MatFormFieldModule, MatChipsModule, FormsModule, ReactiveFormsModule],
+	imports: [CommonModule, RouterModule.forChild(advancedRoutes), CarouselModule, PropertyCardModule, NgStyle, MatPaginatorModule, MatFormFieldModule, MatChipsModule, FormsModule, ReactiveFormsModule, MatInputModule],
 })
 export class AdvancedSearchModule {}
