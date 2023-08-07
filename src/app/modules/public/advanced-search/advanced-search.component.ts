@@ -76,6 +76,7 @@ export class AdvancedSearchComponent implements OnInit {
 	selectedCheckboxes: { [key: string]: boolean } = {};
 
 	@ViewChild('box2') secondBox: ElementRef;
+	@ViewChild('sidebar') sidebarRef: ElementRef;
 	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService, private _formBuider: FormBuilder) {}
 
 	ngOnInit(): void {
@@ -108,6 +109,8 @@ export class AdvancedSearchComponent implements OnInit {
 			histories: [],
 			published: [],
 			featured: [],
+			minPrice: [40000],
+			maxPrice: [200000],
 			buyOrRent: [],
 		});
 
@@ -164,7 +167,7 @@ export class AdvancedSearchComponent implements OnInit {
 			}
 		});
 
-		console.log(data);
+		console.log(this.formAdvanced.value);
 	}
 
 	getPropertiesList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
