@@ -7,3 +7,13 @@
 mat-slider input {
 	background-color: #088bf7;
 }
+
+::ng-deep mat-drawer-content{
+	max-height: 93vh;
+	overflow: auto;
+}
+
+::ng-deep mat-drawer-content{
+	max-height: 93vh;
+	overflow: auto;
+}

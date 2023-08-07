@@ -1,94 +1,96 @@
+
+
+
 <main class="w-full mx-auto bg-gray-200">
 	<section class="flex w-full bg-gray-200 max-w-[1500px] justify-center mx-auto" [formGroup]="formAdvanced">
-		<div class="w-[30%] bg-gray-200 flex flex-col items-center">
-			<div class="bg-white w-3/4 h-48 flex items-center rounded-lg mt-6 shadow-lg"></div>
-			<div class="bg-white w-3/4 h-32 flex items-center rounded-lg mt-6 shadow-lg"></div>
-			<div class="bg-white w-3/4 py-4 flex items-center rounded-lg mt-6 shadow-lg">
-				<div class="flex flex-col w-full">
-					<div class="mx-6">
-						<h3 class="text-left ml-1 text-blue-400 font-semibold">Rango de precio</h3>
-					</div>
-					<div class="w-full px-8 flex flex-col justify-center items-center">
-						<div class="py-3 flex w-full justify-between">
-							<div class="flex flex-col justify-between">
-								<span class="ml-2 text-gray-400">Minimo</span>
-								<span class="bg-gray-200 px-12 py-2 rounded-lg text-gray-500 font-semibold">${{ minValue }}</span>
+
+		<mat-drawer-container class="example-container" autosize>
+			<mat-drawer #drawer class="example-sidenav" mode="side">
+				<div class="w-[100%] bg-gray-200 flex flex-col items-center">
+					<!-- <div class="bg-white w-3/4 h-48 flex items-center rounded-lg mt-6 shadow-lg"></div>
+					<div class="bg-white w-3/4 h-32 flex items-center rounded-lg mt-6 shadow-lg"></div> -->
+					<div class="bg-white w-3/4 py-4 flex items-center rounded-lg mt-6 shadow-lg">
+						<div class="flex flex-col w-full">
+							<div class="mx-6">
+
+								<h3 class="text-left ml-1 text-blue-400 font-semibold">Rango de precio</h3>
 							</div>
-							<div class="flex flex-col">
-								<span class="ml-2 text-gray-400">Maximo</span>
-								<span class="bg-gray-200 px-12 py-2 rounded-lg text-gray-500 font-semibold">${{ maxValue }}</span>
+							<div class="w-full px-8 flex flex-col justify-center items-center">
+								<div class="py-3 flex w-full justify-between gap-4" [formGroup]="formAdvanced">
+
+
+									<div class="flex flex-col w-1/2 justify-between">
+										<span class="ml-2 text-gray-400">Minimo</span>
+										<span class="bg-gray-200 w-full text-center py-2 rounded-lg text-gray-500 font-semibold">${{ formAdvanced.get('minPrice')?.value }}</span>
+									</div>
+									<div class="flex flex-col w-1/2">
+										<span class="ml-2 text-gray-400">Maximo</span>
+										<span class="bg-gray-200 w-full text-center py-2 rounded-lg text-gray-500 font-semibold">${{ formAdvanced.get('maxPrice')?.value }}</span>
+									</div>
+								</div>
+
+								<mat-slider min="200" max="500" class="w-full" color="''">
+									<input formControlName="minPrice" value="300" matSliderStartThumb />
+									<input formControlName="maxPrice" value="400" matSliderEndThumb />
+									<!-- [(ngModel)]="minValue"
+									[(ngModel)]="maxValue" -->
+								</mat-slider>
 							</div>
 						</div>
-						<mat-slider min="200" max="500" class="w-full" color="''">
-							<input value="300" [(ngModel)]="minValue" matSliderStartThumb />
-							<input value="400" [(ngModel)]="maxValue" matSliderEndThumb />
-						</mat-slider>
 					</div>
-				</div>
-			</div>
-			<div class="bg-white w-3/4 h-80 flex flex-col items-center rounded-lg mt-6 shadow-lg px-5 py-4">
-				<div class="flex justify-between w-full px-2">
-					<h2 class="text-blue-400 font-semibold my-auto">preferencias</h2>
-					<button (click)="selectedAllCheckbox()" class="px-3 py-2 rounded-md border-none bg-gray-200 text-gray-500 font-semibold">{{ selectAllChecked ? 'Desmarcar Todo' : 'Seleccionar Todo' }}</button>
-				</div>
-				<div class="w-[85%] mt-5 flex flex-col justify-center overflow-y-scroll">
-					<input type="text" class="w-full border-b-[3px] border-gray-300" placeholder="Ingrese palabra clave" (input)="onInputChange($event)" formControlName="searchText" />
-					<div class="w-full mt-4 overflow-auto">
-						<div *ngFor="let filteredCheckbox of filteredCheckboxList" class="flex flex-row gap-4">
-							<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}" class="example-margin">{{ filteredCheckbox.name }} </mat-checkbox>
+					<div class="bg-white w-3/4 h-80 flex flex-col items-center rounded-lg mt-6 shadow-lg px-5 py-4">
+						<div class="flex justify-between w-full px-2">
+							<h2 class="text-blue-400 font-semibold my-auto">preferencias</h2>
+							<button (click)="selectedAllCheckbox()" class="px-3 py-2 rounded-md border-none bg-gray-200 text-gray-500 font-semibold">{{ selectAllChecked ? 'Desmarcar Todo' : 'Seleccionar Todo' }}</button>
+						</div>
+						<div class="w-[85%] mt-5 flex flex-col justify-center overflow-y-scroll">
+							<input type="text" class="w-full border-b-[3px] border-gray-300" placeholder="Ingrese palabra clave" (input)="onInputChange($event)" formControlName="searchText" />
+							<div class="w-full mt-4 overflow-auto">
+								<div *ngFor="let filteredCheckbox of filteredCheckboxList" class="flex flex-row gap-4">
+									<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}" class="example-margin">{{ filteredCheckbox.name }} </mat-checkbox>
+								</div>
+							</div>
 						</div>
 					</div>
+					<div class="bg-white w-3/4 items-center rounded-lg mt-6 shadow-lg px-3 py-4 flex flex-col">
+						<h2>Tipos de propiedades</h2>
+						<div class="w-full flex items-center justify-center flex-col">
+							<mat-form-field class="w-full flex items-center justify-center lg:mt-[18px] z-99">
+								<mat-select class="w-full z-9999" formControlName="property_type_id">
+									<mat-option value="" class="z-99" selected>Seleccionar</mat-option>
+									<mat-option class="z-99" *ngFor="let propertyType of propertyTypes" [value]="propertyType.id">{{ propertyType.name }}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="bg-white w-3/4 flex flex-col items-center rounded-lg mt-6 shadow-lg px-3 py-4">
+						<h2>Tipo de seleccion</h2>
+						<div class="flex mt-2 gap-3">
+							<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0" formControlName="buyOrRent">
+								<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[140px]" value="buy">Comprar</mat-chip-option>
+								<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[128px]" value="rent">Rentar</mat-chip-option>
+							</mat-chip-listbox>
+						</div>
+					</div>
+					<button (click)="onSubmit()" class="w-3/4 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
 				</div>
-			</div>
-			<div class="bg-white w-3/4 items-center rounded-lg mt-6 shadow-lg px-3 py-4 flex flex-col">
-				<h2>Tipos de propiedades</h2>
-				<div class="w-full flex items-center justify-center flex-col">
-					<mat-form-field class="w-full flex items-center justify-center lg:mt-[18px] z-99">
-						<mat-select class="w-full z-9999" formControlName="property_type_id">
-							<mat-option value="" class="z-99" selected>Seleccionar</mat-option>
-							<mat-option class="z-99" *ngFor="let propertyType of propertyTypes" [value]="propertyType.id">{{ propertyType.name }}</mat-option>
-						</mat-select>
-					</mat-form-field>
-				</div>
-			</div>
-			<div class="bg-white w-3/4 flex flex-col items-center rounded-lg mt-6 shadow-lg px-3 py-4">
-				<h2>Tipo de seleccion</h2>
-				<div class="flex mt-2 gap-3">
-					<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0" formControlName="buyOrRent">
-						<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[140px]" value="buy">Comprar</mat-chip-option>
-						<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[128px]" value="rent">Rentar</mat-chip-option>
-					</mat-chip-listbox>
-				</div>
-			</div>
-			<button (click)="onSubmit()" class="w-3/4 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
-		</div>
-		<div class="w-[70%] bg-gray-200 flex flex-col relative">
-			<div class="flex gap-6 mt-6">
-				<div class="flex gap-4">
-					<div class="bg-blue-500 w-36 h-20 rounded-md"></div>
-					<div class="bg-blue-500 w-36 h-20 rounded-md"></div>
-					<div class="bg-blue-500 w-36 h-20 rounded-md"></div>
-				</div>
-				<div class="flex bg-white h-20 w-80 rounded-md flex-col">
-					<h2 class="text-blue-400 text-left text-sm font-bold px-2 py-2">Lorem ipsum dolor, sit</h2>
-					<div class="flex justify-center gap-6 mx-8">
-						<span class="bg-blue-500 px-3 py-1 rounded-md text-white">Mensaje</span>
-						<span class="bg-blue-500 px-3 py-1 rounded-md text-white">Correo</span>
-						<span class="bg-blue-500 px-3 py-1 rounded-md text-white">Llamada</span>
+			</mat-drawer>
+
+			<div class="example-sidenav-content">
+				<div class="w-[100%] bg-gray-200 flex flex-col relative">
+					<div class="w-[97%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
+						<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
+							<div class="w-full m-auto">
+								<app-property-card [property]="property"></app-property-card>
+							</div>
+						</div>
+					</div>
+					<div class="fixed top-[88%] z-99">
+						<mat-paginator class="shadow-2xl" [ngStyle]="{ width: secondBox?.nativeElement?.offsetWidth + 'px' }" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
 					</div>
 				</div>
 			</div>
-			<div class="w-[97%] mt-10 grid grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
-				<!-- <div class="col-span-1 w-[95%] h-80 bg-white rounded-md shadow-xl border border-gray-300"></div> -->
-				<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
-					<div class="w-full m-auto">
-						<app-property-card [property]="property"></app-property-card>
-					</div>
-				</div>
-			</div>
-			<div class="fixed top-[88%] z-99">
-				<mat-paginator class="shadow-2xl" [ngStyle]="{ width: secondBox?.nativeElement?.offsetWidth + 'px' }" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
-			</div>
-		</div>
+
+		</mat-drawer-container>
 	</section>
 </main>

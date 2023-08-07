@@ -17,13 +17,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
+
 
 @Component({
 	selector: 'app-advanced-search',
 	templateUrl: './advanced-search.component.html',
 	styleUrls: ['./advanced-search.component.scss'],
 	standalone: true,
-	imports: [MatInputModule, MatChipsModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, CarouselModule, PropertyCardModule, NgFor, NgClass, MatPaginatorModule, NgStyle, MatSliderModule, FormsModule, MatOptionModule, ReactiveFormsModule],
+	imports: [MatSidenavModule, MatInputModule, MatChipsModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, CarouselModule, PropertyCardModule, NgFor, NgClass, MatPaginatorModule, NgStyle, MatSliderModule, FormsModule, MatOptionModule, ReactiveFormsModule],
 })
 export class AdvancedSearchComponent implements OnInit {
 	dataProperties: any = [];
@@ -33,6 +35,18 @@ export class AdvancedSearchComponent implements OnInit {
 	maxValue = 450;
 	propertyTypes;
 	selectAllChecked = false;
+	@ViewChild('drawer') drawer: MatDrawer
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event) {
+		event.target.innerWidth;
+		if(event.target.innerWidth<1000){
+			this.drawer.close();
+		}
+		if(event.target.innerWidth>1000){
+			this.drawer.open();
+		}
+	}
 
 	checkboxList = [
 		{ name: 'Estacionamiento', value: 'parking' },
@@ -94,6 +108,7 @@ export class AdvancedSearchComponent implements OnInit {
 			histories: [],
 			published: [],
 			featured: [],
+			buyOrRent: [],
 		});
 
 		this.checkboxList.forEach((option) => {
@@ -101,10 +116,17 @@ export class AdvancedSearchComponent implements OnInit {
 		});
 
 		// Get width
-		this.secondBox.nativeElement.style.width = this.secondBox.nativeElement.offsetWidth + 'px';
+		// this.secondBox.nativeElement.style.width = this.secondBox.nativeElement.offsetWidth + 'px';
 
 		setTimeout(() => {
-			console.log(this.secondBox.nativeElement.offsetWidth);
+			// Get windows size
+			const width = window.innerWidth;
+			if(width<1000){
+				this.drawer.close();
+			}
+				if(width>1000){
+					this.drawer.open();
+				}
 		}, 1000);
 	}
 
