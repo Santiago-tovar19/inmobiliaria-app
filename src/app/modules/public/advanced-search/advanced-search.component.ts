@@ -17,8 +17,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
-import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
-
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { filter } from 'rxjs';
 
 @Component({
 	selector: 'app-advanced-search',
@@ -35,15 +35,15 @@ export class AdvancedSearchComponent implements OnInit {
 	maxValue = 450;
 	propertyTypes;
 	selectAllChecked = false;
-	@ViewChild('drawer') drawer: MatDrawer
+	@ViewChild('drawer') drawer: MatDrawer;
 
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
 		event.target.innerWidth;
-		if(event.target.innerWidth<1000){
+		if (event.target.innerWidth < 1000) {
 			this.drawer.close();
 		}
-		if(event.target.innerWidth>1000){
+		if (event.target.innerWidth > 1000) {
 			this.drawer.open();
 		}
 	}
@@ -124,12 +124,12 @@ export class AdvancedSearchComponent implements OnInit {
 		setTimeout(() => {
 			// Get windows size
 			const width = window.innerWidth;
-			if(width<1000){
+			if (width < 1000) {
 				this.drawer.close();
 			}
-				if(width>1000){
-					this.drawer.open();
-				}
+			if (width > 1000) {
+				this.drawer.open();
+			}
 		}, 1000);
 	}
 
@@ -167,8 +167,10 @@ export class AdvancedSearchComponent implements OnInit {
 			}
 		});
 
-		console.log(this.formAdvanced.value);
+		this.getPropertiesList(data);
 	}
+
+	filterProperties(): void {}
 
 	getPropertiesList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
 		this._propertiesServices.getList(search, PaginatorParams).subscribe((response: any) => {

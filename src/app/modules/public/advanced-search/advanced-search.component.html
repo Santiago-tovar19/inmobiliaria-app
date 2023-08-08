@@ -49,7 +49,7 @@
 							<input type="text" class="w-full border-b-[3px] border-gray-300" placeholder="Ingrese palabra clave" (input)="onInputChange($event)" formControlName="searchText" />
 							<div class="w-full mt-4 overflow-auto">
 								<div *ngFor="let filteredCheckbox of filteredCheckboxList" class="flex flex-row gap-4">
-									<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}" class="example-margin">{{ filteredCheckbox.name }} </mat-checkbox>
+									<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}" >{{ filteredCheckbox.name }} </mat-checkbox>
 								</div>
 							</div>
 						</div>
