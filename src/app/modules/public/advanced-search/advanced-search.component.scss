@@ -17,3 +17,20 @@ mat-slider input {
 	max-height: 93vh;
 	overflow: auto;
 }
+
+.buscador-tab{
+	position: fixed;
+	background: #2590f4;
+	z-index: 99;
+	color: white;
+	padding: 5px 14px;
+	top: 11%;
+	left: 0;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	font-size: 18px;
+}
+
+body{
+	overflow: hidden;
+}

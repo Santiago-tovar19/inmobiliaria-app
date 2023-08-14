@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgStyle } from '@angular/common';
+import { JsonPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ import { filter } from 'rxjs';
 	templateUrl: './advanced-search.component.html',
 	styleUrls: ['./advanced-search.component.scss'],
 	standalone: true,
-	imports: [MatSidenavModule, MatInputModule, MatChipsModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, CarouselModule, PropertyCardModule, NgFor, NgClass, MatPaginatorModule, NgStyle, MatSliderModule, FormsModule, MatOptionModule, ReactiveFormsModule],
+	imports: [JsonPipe, MatSidenavModule, MatInputModule, MatChipsModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, CarouselModule, PropertyCardModule, NgFor, NgIf, NgClass, MatPaginatorModule, NgStyle, MatSliderModule, FormsModule, MatOptionModule, ReactiveFormsModule],
 })
 export class AdvancedSearchComponent implements OnInit {
 	dataProperties: any = [];
@@ -35,17 +35,22 @@ export class AdvancedSearchComponent implements OnInit {
 	maxValue = 450;
 	propertyTypes;
 	selectAllChecked = false;
+	sideBarMode: any= 'side';
 	@ViewChild('drawer') drawer: MatDrawer;
 
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
 		event.target.innerWidth;
 		if (event.target.innerWidth < 1000) {
+			this.sideBarMode = 'over';
 			this.drawer.close();
 		}
 		if (event.target.innerWidth > 1000) {
+			this.sideBarMode = 'side';
 			this.drawer.open();
 		}
+
+
 	}
 
 	checkboxList = [
@@ -80,6 +85,10 @@ export class AdvancedSearchComponent implements OnInit {
 	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService, private _formBuider: FormBuilder) {}
 
 	ngOnInit(): void {
+
+		// Get windows width
+		const width = window.innerWidth;
+		this.sideBarMode = width < 1000 ? 'over' : 'side';
 		this.getPropertiesList({});
 
 		this._propertiesServices.getPropertyTypes().subscribe((response: any) => {
