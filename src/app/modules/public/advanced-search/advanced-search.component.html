@@ -2,10 +2,15 @@
 
 
 <main class="w-full mx-auto bg-gray-200">
+
+	<div *ngIf="!this.drawer.opened" class="buscador-tab" (click)="drawer.open()">
+		Buscador
+	</div>
+
 	<section class="flex w-full bg-gray-200 max-w-[1500px] justify-center mx-auto" [formGroup]="formAdvanced">
 
 		<mat-drawer-container class="example-container" autosize>
-			<mat-drawer #drawer class="example-sidenav" mode="side">
+			<mat-drawer #drawer class="example-sidenav" [mode]="this.sideBarMode">
 				<div #sidebar class="w-[100%] bg-gray-200 flex flex-col items-center relative">
 					<!-- <div class="bg-white w-3/4 h-48 flex items-center rounded-lg mt-6 shadow-lg"></div>
 					<div class="bg-white w-3/4 h-32 flex items-center rounded-lg mt-6 shadow-lg"></div> -->
@@ -81,7 +86,7 @@
 			</mat-drawer>
 
 			<div class="example-sidenav-content">
-				<div class="w-[100%] bg-gray-200 flex flex-col relative">
+				<div class="w-[100%] bg-gray-200 flex flex-col relative min-h-[100vh] min-w-[75vw] mx-auto">
 					<div class="w-[97%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
 						<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
 							<div class="w-full m-auto">
