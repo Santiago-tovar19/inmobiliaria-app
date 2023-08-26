@@ -19,13 +19,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { filter } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
 	selector: 'app-advanced-search',
 	templateUrl: './advanced-search.component.html',
 	styleUrls: ['./advanced-search.component.scss'],
 	standalone: true,
-	imports: [JsonPipe, MatSidenavModule, MatInputModule, MatChipsModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, CarouselModule, PropertyCardModule, NgFor, NgIf, NgClass, MatPaginatorModule, NgStyle, MatSliderModule, FormsModule, MatOptionModule, ReactiveFormsModule],
+	imports: [JsonPipe, MatSidenavModule, MatInputModule, MatChipsModule, MatCheckboxModule, MatSelectModule, MatFormFieldModule, CarouselModule, PropertyCardModule, NgFor, NgIf, NgClass, MatPaginatorModule, NgStyle, MatSliderModule, FormsModule, MatOptionModule, ReactiveFormsModule, MatProgressSpinnerModule],
 })
 export class AdvancedSearchComponent implements OnInit {
 	dataProperties: any = [];
@@ -35,7 +36,8 @@ export class AdvancedSearchComponent implements OnInit {
 	maxValue = 450;
 	propertyTypes;
 	selectAllChecked = false;
-	sideBarMode: any= 'side';
+	sideBarMode: any = 'side';
+	public hasLoaded: boolean = false;
 	@ViewChild('drawer') drawer: MatDrawer;
 
 	@HostListener('window:resize', ['$event'])
@@ -49,8 +51,6 @@ export class AdvancedSearchComponent implements OnInit {
 			this.sideBarMode = 'side';
 			this.drawer.open();
 		}
-
-
 	}
 
 	checkboxList = [
@@ -85,7 +85,6 @@ export class AdvancedSearchComponent implements OnInit {
 	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService, private _formBuider: FormBuilder) {}
 
 	ngOnInit(): void {
-
 		// Get windows width
 		const width = window.innerWidth;
 		this.sideBarMode = width < 1000 ? 'over' : 'side';
@@ -183,9 +182,15 @@ export class AdvancedSearchComponent implements OnInit {
 
 	getPropertiesList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
 		this._propertiesServices.getList(search, PaginatorParams).subscribe((response: any) => {
+			this.hasLoaded = true;
 			console.log(response);
 			this.dataProperties = response.data.data;
 			this.propertiesPaginated = response.data;
+
+			// Retrasar el cambio de hasLoaded a false después de 2 segundos (2000 ms)
+			setTimeout(() => {
+				this.hasLoaded = false;
+			}, 1500);
 		});
 	}
 }

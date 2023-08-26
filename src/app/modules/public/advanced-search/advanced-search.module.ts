@@ -12,9 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, RouterModule.forChild(advancedRoutes), CarouselModule, PropertyCardModule, NgStyle, MatPaginatorModule, MatFormFieldModule, MatChipsModule, FormsModule, ReactiveFormsModule, MatInputModule],
+	imports: [CommonModule, RouterModule.forChild(advancedRoutes), CarouselModule, PropertyCardModule, NgStyle, MatPaginatorModule, MatFormFieldModule, MatChipsModule, FormsModule, ReactiveFormsModule, MatInputModule, MatProgressSpinnerModule],
 })
 export class AdvancedSearchModule {}
