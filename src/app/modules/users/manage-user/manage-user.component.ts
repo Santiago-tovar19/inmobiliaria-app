@@ -48,7 +48,7 @@ export class ManageUserComponent implements OnInit {
 			console.log(this.brokers);
 		});
 		this._entityPropertiesService.getAllRoles().subscribe((response) => {
-			console.log(response);
+			console.log(response, 'rol');
 			this.roles = response.data;
 		});
 		this.initForm();
