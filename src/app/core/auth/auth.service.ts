@@ -72,6 +72,7 @@ export class AuthService {
 
 				// Store the user on the user service
 				this._userService.user = response.data.user;
+				console.log(response.data.user);
 
 				// Return a new observable with the response
 				return of(response);

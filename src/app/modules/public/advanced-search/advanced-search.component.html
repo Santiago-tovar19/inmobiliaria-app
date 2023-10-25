@@ -1,14 +1,7 @@
-
-
-
 <main class="w-full mx-auto bg-gray-200">
-
-	<div *ngIf="!this.drawer.opened" class="buscador-tab" (click)="drawer.open()">
-		Buscador
-	</div>
+	<div *ngIf="!this.drawer.opened" class="buscador-tab" (click)="drawer.open()">Buscador</div>
 
 	<section class="flex w-full bg-gray-200 max-w-[1500px] justify-center mx-auto" [formGroup]="formAdvanced">
-
 		<mat-drawer-container class="example-container" autosize>
 			<mat-drawer #drawer class="example-sidenav" [mode]="this.sideBarMode">
 				<div #sidebar class="w-[100%] bg-gray-200 flex flex-col items-center relative">
@@ -17,13 +10,10 @@
 					<div class="bg-white w-11/12 py-4 px-4 flex items-center rounded-lg mt-6 shadow-lg">
 						<div class="flex flex-col w-full">
 							<div class="mx-6">
-
 								<h3 class="text-left ml-1 text-blue-400 font-semibold">Rango de precio</h3>
 							</div>
 							<div class="w-full flex flex-col justify-center items-center">
 								<div class="py-3 flex w-full justify-between gap-4" [formGroup]="formAdvanced">
-
-
 									<div class="flex flex-col w-1/2 justify-between">
 										<span class="ml-2 text-gray-400">Minimo</span>
 										<span class="bg-gray-200 w-full text-center py-2 rounded-lg text-gray-500 font-semibold">${{ formAdvanced.get('minPrice')?.value }}</span>
@@ -54,7 +44,7 @@
 							<input type="text" class="w-full border-b-[3px] border-gray-300" placeholder="Ingrese palabra clave" (input)="onInputChange($event)" formControlName="searchText" />
 							<div class="w-full mt-4 overflow-auto">
 								<div *ngFor="let filteredCheckbox of filteredCheckboxList" class="flex flex-row gap-4">
-									<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}" >{{ filteredCheckbox.name }} </mat-checkbox>
+									<mat-checkbox (change)="onChangeCheckbox(filteredCheckbox.value)" formControlName="{{ filteredCheckbox.value }}">{{ filteredCheckbox.name }} </mat-checkbox>
 								</div>
 							</div>
 						</div>
@@ -80,26 +70,45 @@
 						</div>
 					</div>
 					<div class="w-full">
-						<button [ngStyle]="{ width: sidebarRef?.nativeElement?.offsetWidth - 32 + 'px' }" style="z-index: 999;" (click)="onSubmit()" class="ml-4 fixed bottom-7 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
+						<button [ngStyle]="{ width: sidebarRef?.nativeElement?.offsetWidth - 32 + 'px' }" style="z-index: 999" (click)="onSubmit()" class="ml-4 fixed bottom-7 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
 					</div>
 				</div>
 			</mat-drawer>
 
 			<div class="example-sidenav-content">
 				<div class="w-[100%] bg-gray-200 flex flex-col relative min-h-[100vh] min-w-[75vw] mx-auto">
-					<div class="w-[97%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
-						<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
-							<div class="w-full m-auto">
-								<app-property-card [property]="property"></app-property-card>
+					<ng-container *ngIf="hasLoaded">
+						<!-- Mostrar el spinner de carga mientras la petición esté en curso -->
+						<div class="w-[97%] mt-10 grid gap-y-5 gap-x-3 z-60 mb-4 items-center justify-center" #box2>
+							<div class="w-[100%] min-h-[75vh] flex items-center gap-12 px-6 py-2 rounded-md">
+								<mat-spinner></mat-spinner>
 							</div>
 						</div>
-					</div>
-					<div class="fixed top-[88%] z-99">
-						<mat-paginator class="shadow-2xl" [ngStyle]="{ width: secondBox?.nativeElement?.offsetWidth + 'px' }" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
-					</div>
+					</ng-container>
+					<ng-container *ngIf="!hasLoaded">
+						<!-- Mostrar las propiedades si la petición ha terminado y el arreglo no está vacío -->
+						<div class="w-[97%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
+							<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
+								<div class="w-full m-auto">
+									<app-property-card [property]="property"></app-property-card>
+								</div>
+							</div>
+						</div>
+						<!-- Mostrar el mensaje si la petición ha terminado y el arreglo está vacío -->
+						<div *ngIf="dataProperties.length === 0" class="w-[97%] mt-10 grid gap-y-5 gap-x-3 z-60 mb-4 items-center justify-center" #box2>
+							<div class="w-[450px] min-h-12 flex items-center gap-12 px-6 py-2 rounded-md">
+								<img src="../../../../assets/images/ui/pngs/searching.png" alt="" class="w-20 h-20" />
+								<h1 class="text-[16px] text-gray-500 font-semibold">No se encontraron propiedades</h1>
+							</div>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="dataProperties.length > 0">
+						<div class="fixed top-[88%] z-99">
+							<mat-paginator class="shadow-2xl" [ngStyle]="{ width: secondBox?.nativeElement?.offsetWidth + 'px' }" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
+						</div>
+					</ng-container>
 				</div>
 			</div>
-
 		</mat-drawer-container>
 	</section>
 </main>

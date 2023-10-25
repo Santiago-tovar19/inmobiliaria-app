@@ -19,26 +19,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserService } from 'app/core/user/user.service';
 
 @Component({
-    selector: 'app-manage-user',
-    templateUrl: './manage-user.component.html',
-    standalone: true,
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgIf,
-        NgFor,
-        MatSelectModule,
-        MatOptionModule,
-        FileInputComponent,
-        MatButtonModule,
-        MatIconModule,
-				MatSnackBarModule,
-    ],
+	selector: 'app-manage-user',
+	templateUrl: './manage-user.component.html',
+	standalone: true,
+	imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, NgIf, NgFor, MatSelectModule, MatOptionModule, FileInputComponent, MatButtonModule, MatIconModule, MatSnackBarModule],
 })
 export class ManageUserComponent implements OnInit {
 	alert: { type: FuseAlertType; message: string } = {
@@ -51,15 +38,17 @@ export class ManageUserComponent implements OnInit {
 	roles: any;
 	brokers: Broker[];
 	userImg: string;
+	user_rol: number;
 
-	constructor(public _globalService: GlobalService, private _activateRoute: ActivatedRoute, private _formBuilder: FormBuilder, private _router: Router, private _usersService: UsersService, private _entityPropertiesService: EntityPropertiesService, private _brokersService: BrokersService) {}
+	constructor(public _globalService: GlobalService, private _activateRoute: ActivatedRoute, private _formBuilder: FormBuilder, private _router: Router, private _usersService: UsersService, private _entityPropertiesService: EntityPropertiesService, private _brokersService: BrokersService, private _userService: UserService) {}
 
 	ngOnInit(): void {
 		this._brokersService.getAll().subscribe((response) => {
 			this.brokers = response.data;
+			console.log(this.brokers);
 		});
 		this._entityPropertiesService.getAllRoles().subscribe((response) => {
-			console.log(response);
+			console.log(response, 'rol');
 			this.roles = response.data;
 		});
 		this.initForm();
@@ -68,6 +57,10 @@ export class ManageUserComponent implements OnInit {
 				this.userID = params.id;
 				this.getUser();
 			}
+		});
+		this._userService.user$.subscribe((user: any) => {
+			console.log(user.role.id);
+			this.user_rol = user.role.id;
 		});
 	}
 

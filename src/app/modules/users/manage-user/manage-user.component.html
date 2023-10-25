@@ -84,6 +84,19 @@
 					</mat-error>
 				</mat-form-field>
 			</div>
+			<div class="col-span-2" *ngIf="user_rol === 1">
+				<mat-form-field class="w-full">
+					<mat-label>Broker</mat-label>
+					<mat-select formControlName="role_id">
+						<mat-option [value]="broker.id" *ngFor="let broker of brokers">{{ broker.name }}</mat-option>
+					</mat-select>
+					<mat-error *ngFor="let i of _globalService.errorsLength(userForm.get('role_id'))">
+						<ng-container *ngIf="userForm.get('role_id').hasError(i)">
+							{{ userForm.get('role_id').errors[i] }}
+						</ng-container>
+					</mat-error>
+				</mat-form-field>
+			</div>
 			<div class="col-span-2" *ngIf="userForm.get('role_id').value === 3">
 				<mat-form-field class="w-full">
 					<mat-label>Corredora</mat-label>
