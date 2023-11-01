@@ -1,7 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -18,6 +18,7 @@ import { DashboardsService } from 'app/modules/dashboards/service/dashboards.ser
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
 import { ImagesViewerComponent } from 'app/modules/shared/images-viewer/images-viewer.component';
 import { ImagesViewerModule } from 'app/modules/shared/images-viewer/images-viewer.module';
+import { UsersService } from 'app/modules/users/service/users.service';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { environment } from 'environments/environment';
 
@@ -31,15 +32,24 @@ import { environment } from 'environments/environment';
 export class PropertyViewComponent implements OnInit {
 	propertyID: string;
 	property: Property = {} as any;
+	brokerID: string;
 	environment = environment;
 	bannerImgs = [];
 	galleryImgs = [];
 	featureProperties;
 	user;
 	mapUrl: any;
-	favorite = 1;
+	favorite: any;
+	number: number = 0;
+	public serverResponse: string;
+	public showServerResponse: boolean = false;
+	public contactForm: FormGroup = this.formBuilder.group({
+		email: ['', [Validators.required, Validators.email]],
+		phone: ['', [Validators.required, Validators.minLength(6)]],
+		message: [''],
+	});
 
-	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _userService: UserService, private _dashboardsService: DashboardsService, public dialog: MatDialog, private router: Router) {}
+	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _userService: UserService, private _usersServices: UsersService, private _dashboardsService: DashboardsService, public dialog: MatDialog, private router: Router, private formBuilder: FormBuilder) {}
 
 	ngOnInit(): void {
 		this._activatedRouter.params.subscribe((params) => {
@@ -55,9 +65,11 @@ export class PropertyViewComponent implements OnInit {
 
 		this.getFeatureProperties();
 
+		this.getPropertyInFavorites(this.propertyID);
+
 		setTimeout(() => {
 			if (!this.user || this.user?.role_id === 4) {
-				this._propertiesService.registerView(this.user?.id, this.propertyID).subscribe((res) => {
+				this._propertiesService.registerView(this.user?.id, this.propertyID, this.brokerID).subscribe((res) => {
 					console.log(res);
 				});
 			}
@@ -73,6 +85,7 @@ export class PropertyViewComponent implements OnInit {
 	getProperty(): void {
 		this._propertiesService.get(this.propertyID).subscribe((res) => {
 			this.property = res.data;
+			this.brokerID = res.data.broker_id;
 			this.bannerImgs = this.property.images.filter((img) => img.type == 'Banner');
 			this.galleryImgs = this.property.images.filter((img) => img.type == 'Gallery');
 			this.mapUrl = this.sanitizeUrl();
@@ -126,9 +139,48 @@ export class PropertyViewComponent implements OnInit {
 	}
 
 	addFavoriteProperty(propertyID: any, fav: any): void {
-		console.log(propertyID, fav);
-		this._userService.getPropertyFavorites(propertyID, fav).subscribe((response): any => {
-			console.log(response);
+		// console.log(propertyID, fav);
+		this._usersServices.postPropertyFavorites(propertyID, fav).subscribe((response): any => {
+			this.favorite = response.message;
+			// console.log(response.message, 'desde addfavorite');
+			// console.log(this.favorite, 'desde addfavorite');
+		});
+	}
+
+	getPropertyInFavorites(propertyID: any): void {
+		this._usersServices.isPropertyInFavorites(propertyID).subscribe((response) => {
+			// console.log('desde getfavorite', response);
+			this.favorite = response.message;
+		});
+	}
+
+	itsFavorite() {
+		if (this.favorite === '1') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	onSubmit(formData: any, formDirective: FormGroupDirective) {
+		if (this.contactForm.invalid) {
+			return;
+		}
+
+		this.registerAppointment();
+		console.log(this.contactForm.value);
+		formDirective.resetForm();
+		this.contactForm.reset();
+	}
+
+	registerAppointment() {
+		this._propertiesService.registerAppointment(this.propertyID, this.contactForm.value.email, this.contactForm.value.phone, this.contactForm.value.message).subscribe((res) => {
+			this.serverResponse = res.message;
+			this.showServerResponse = true;
+
+			setTimeout(() => {
+				this.showServerResponse = false;
+			}, 5000);
 		});
 	}
 }

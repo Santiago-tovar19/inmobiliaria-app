@@ -1,8 +1,8 @@
-.property-banner .owl-carousel-o{
+.property-banner .owl-carousel-o {
 	width: 100%;
 }
 
-::ng-deep .property-banner .owl-nav{
+::ng-deep .property-banner .owl-nav {
 	display: flex !important;
 	justify-content: space-between !important;
 	margin: 0 20px !important;
@@ -11,7 +11,7 @@
 	position: relative !important;
 }
 
-::ng-deep .property-banner .owl-theme .owl-nav [class*=owl-]{
+::ng-deep .property-banner .owl-theme .owl-nav [class*='owl-'] {
 	background: rgb(0 0 0 / 51%) !important;
 	height: 40px !important;
 	width: 40px !important;
@@ -22,16 +22,19 @@
 }
 
 ::ng-deep .bar1 .mat-progress-bar-fill::after {
-	background-color: #00ba74
-	!important;
+	background-color: #00ba74 !important;
 }
 ::ng-deep .bar2 .mat-progress-bar-fill::after {
 	background-color: #fbb851 !important;
 }
 ::ng-deep .bar3 .mat-progress-bar-fill::after {
-	background-color: #83ce36
-	!important;
+	background-color: #83ce36 !important;
 }
 ::ng-deep .bar4 .mat-progress-bar-fill::after {
-	background-color: #e6453c!important;
+	background-color: #e6453c !important;
+}
+
+/* Cambiar el color del ícono a rojo */
+.mat-icon svg.mat-icon {
+	fill: red; /* Cambia "red" al color que desees */
 }

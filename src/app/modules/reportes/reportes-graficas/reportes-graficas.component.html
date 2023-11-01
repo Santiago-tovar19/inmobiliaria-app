@@ -1,0 +1,110 @@
+<div class="flex flex-col gap-y-10 w-full">
+	<div class="flex w-full items-center gap-x-12 bg-white p-8 rounded-xl">
+		<div class="w-full h-full">
+			<h2 class="text-xl font-semibold text-[#64748b] text-center mb-2">Visitas diarias a propiedades</h2>
+			<canvas id="canvas">{{ chart }}</canvas>
+		</div>
+		<div class="w-full h-full">
+			<h2 class="text-xl font-semibold text-[#64748b] text-center mb-2">Contactos diarios</h2>
+			<canvas id="canvas2">{{ chart }} </canvas>
+		</div>
+	</div>
+	<div class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+		<!-- Section -->
+		<div class="grid grid-cols-12 gap-5">
+			<div class="col-span-12 sm:col-span-3 text-center sm:text-left">
+				<div class="text-lg font-medium tracking-tight leading-6 truncate">Detalles de las cita</div>
+			</div>
+			<div class="col-span-12 sm:col-span-9">
+				<div class="flex gap-3 justify-end">
+					<div class="w-full sm:w-2/5">
+						<mat-form-field class="w-full">
+							<mat-label>Buscar cita</mat-label>
+							<input type="text" matInput formControlName="termino" />
+						</mat-form-field>
+					</div>
+					<div class="w-1/5">
+						<div class="flex mt-7 gap-1">
+							<button class="rounded w-full p-0 bg-primary-300 text-on-primary-300" mat-stroked-button>Buscar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-col flex-auto overflow-x-auto mt-2">
+			<table class="md:min-w-240 overflow-y-visible" mat-table [dataSource]="dataSource">
+				<!-- id -->
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef>ID</th>
+					<td data-label="ID" mat-cell *matCellDef="">
+						<span class="font-medium"> </span>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="propiedad">
+					<th mat-header-cell *matHeaderCellDef>Propiedad</th>
+					<td data-label="Propiedad" mat-cell *matCellDef="">
+						<span class="font-medium"> </span>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="usuario">
+					<th mat-header-cell *matHeaderCellDef>Usuario</th>
+					<td data-label="Usuario" mat-cell *matCellDef="">
+						<span class="font-medium"> </span>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="agente">
+					<th mat-header-cell *matHeaderCellDef>Agente</th>
+					<td data-label="Agente" mat-cell *matCellDef="">
+						<span class="font-medium"> </span>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="broker">
+					<th mat-header-cell *matHeaderCellDef>Broker</th>
+					<td data-label="Broker" mat-cell *matCellDef="">
+						<span class="font-medium"> </span>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="fecha">
+					<th mat-header-cell *matHeaderCellDef>Fecha</th>
+					<td data-label="Fecha" mat-cell *matCellDef="">
+						<span class="font-medium"> </span>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="status">
+					<th mat-header-cell *matHeaderCellDef>Status</th>
+					<td data-label="Status" mat-cell *matCellDef="" class="px-5">
+						<span class="font-medium">
+							<!-- <div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
+							<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div> -->
+						</span>
+					</td>
+				</ng-container>
+
+				<!-- Acciones -->
+				<ng-container matColumnDef="acciones">
+					<th mat-header-cell *matHeaderCellDef>Acciones</th>
+					<td data-label="Acciones" mat-cell *matCellDef="">
+						<div class="flex justify-end gap-2">
+							<div class="1/2">
+								<button class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
+							</div>
+							<!-- <div *ngIf="!user.email_verified_at" class="1/2">
+								<button (click)="" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Reenviar Correo</button>
+							</div> -->
+						</div>
+					</td>
+				</ng-container>
+
+				<tr class="table-header header" mat-header-row *matHeaderRowDef="columns"></tr>
+				<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: columns"></tr>
+			</table>
+			<!-- <mat-paginator [length]="usersPaginated?.total" [pageSize]="usersPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator> -->
+		</div>
+	</div>
+</div>

@@ -44,7 +44,7 @@ export const appRoutes: Route[] = [
 			},
 			{
 				path: 'propiedades/:id',
-				loadChildren: () => import('app/modules/public/properties/property-view/property-view.routes') ,
+				loadChildren: () => import('app/modules/public/properties/property-view/property-view.routes'),
 			},
 		],
 	},
@@ -132,6 +132,11 @@ export const appRoutes: Route[] = [
 			// 	path: 'home',
 			// 	loadChildren: () => import('app/modules/public/landing/landing.module').then((m) => m.LandingModule),
 			// },
+
+			{
+				path: 'reportes',
+				loadChildren: () => import('app/modules/reportes/reportes.routes'),
+			},
 		],
 	},
 

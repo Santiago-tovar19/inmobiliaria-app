@@ -57,8 +57,4 @@ export class UserService {
 			}),
 		);
 	}
-
-	getPropertyFavorites(perpertyId: any, fav: any): Observable<any> {
-		return this._httpClient.get<any>(`users/set-property-fav/${perpertyId}/${fav}`);
-	}
 }
