@@ -16,7 +16,7 @@
 				<div class="text-lg font-medium tracking-tight leading-6 truncate">Detalles de las cita</div>
 			</div>
 			<div class="col-span-12 sm:col-span-9">
-				<div class="flex gap-3 justify-end">
+				<div class="flex gap-3 justify-end" [formGroup]="seachFormGroup">
 					<div class="w-full sm:w-2/5">
 						<mat-form-field class="w-full">
 							<mat-label>Buscar cita</mat-label>
@@ -25,7 +25,7 @@
 					</div>
 					<div class="w-1/5">
 						<div class="flex mt-7 gap-1">
-							<button class="rounded w-full p-0 bg-primary-300 text-on-primary-300" mat-stroked-button>Buscar</button>
+							<button class="rounded w-full p-0 bg-primary-300 text-on-primary-300" mat-stroked-button (click)="filterAppointments()">Buscar</button>
 						</div>
 					</div>
 				</div>
@@ -36,75 +36,68 @@
 				<!-- id -->
 				<ng-container matColumnDef="id">
 					<th mat-header-cell *matHeaderCellDef>ID</th>
-					<td data-label="ID" mat-cell *matCellDef="">
-						<span class="font-medium"> </span>
+					<td data-label="ID" mat-cell *matCellDef="let appointment">
+						<span class="font-medium">{{ appointment.id }}</span>
 					</td>
 				</ng-container>
 
 				<ng-container matColumnDef="propiedad">
-					<th mat-header-cell *matHeaderCellDef>Propiedad</th>
-					<td data-label="Propiedad" mat-cell *matCellDef="">
-						<span class="font-medium"> </span>
+					<th mat-header-cell *matHeaderCellDef class="text-center">Propiedad_id</th>
+					<td data-label="Propiedad" mat-cell *matCellDef="let appointment" class="text-center">
+						<span class="font-medium text-center">{{ appointment.property_id }}</span>
 					</td>
 				</ng-container>
 
-				<ng-container matColumnDef="usuario">
-					<th mat-header-cell *matHeaderCellDef>Usuario</th>
-					<td data-label="Usuario" mat-cell *matCellDef="">
-						<span class="font-medium"> </span>
+				<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef class="">email</th>
+					<td data-label="Email" mat-cell *matCellDef="let appointment">
+						<span class="font-medium">{{ appointment.email }} </span>
 					</td>
 				</ng-container>
 
-				<ng-container matColumnDef="agente">
-					<th mat-header-cell *matHeaderCellDef>Agente</th>
-					<td data-label="Agente" mat-cell *matCellDef="">
-						<span class="font-medium"> </span>
+				<ng-container matColumnDef="phone">
+					<th mat-header-cell *matHeaderCellDef>Telefono</th>
+					<td data-label="Telefono" mat-cell *matCellDef="let appointment">
+						<span class="font-medium">{{ appointment.phone }} </span>
 					</td>
 				</ng-container>
 
-				<ng-container matColumnDef="broker">
-					<th mat-header-cell *matHeaderCellDef>Broker</th>
-					<td data-label="Broker" mat-cell *matCellDef="">
-						<span class="font-medium"> </span>
+				<ng-container matColumnDef="message">
+					<th mat-header-cell *matHeaderCellDef>Mensaje</th>
+					<td data-label="Message" mat-cell *matCellDef="let appointment">
+						<span class="font-medium">{{ appointment.message }} </span>
 					</td>
 				</ng-container>
 
-				<ng-container matColumnDef="fecha">
-					<th mat-header-cell *matHeaderCellDef>Fecha</th>
-					<td data-label="Fecha" mat-cell *matCellDef="">
-						<span class="font-medium"> </span>
-					</td>
-				</ng-container>
-
-				<ng-container matColumnDef="status">
+				<!-- <ng-container matColumnDef="status">
 					<th mat-header-cell *matHeaderCellDef>Status</th>
 					<td data-label="Status" mat-cell *matCellDef="" class="px-5">
 						<span class="font-medium">
-							<!-- <div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
-							<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div> -->
+							<div class="text-orange-600 font-semibold" *ngIf="!user.email_verified_at">Pendiente</div>
+							<div class="text-green-600 font-semibold" *ngIf="user.email_verified_at">Completado</div>
 						</span>
 					</td>
-				</ng-container>
+				</ng-container> -->
 
 				<!-- Acciones -->
-				<ng-container matColumnDef="acciones">
+				<!-- <ng-container matColumnDef="acciones">
 					<th mat-header-cell *matHeaderCellDef>Acciones</th>
 					<td data-label="Acciones" mat-cell *matCellDef="">
 						<div class="flex justify-end gap-2">
 							<div class="1/2">
 								<button class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Editar</button>
 							</div>
-							<!-- <div *ngIf="!user.email_verified_at" class="1/2">
+							<div *ngIf="!user.email_verified_at" class="1/2">
 								<button (click)="" class="rounded bg-primary-300 text-on-primary-300" mat-stroked-button>Reenviar Correo</button>
-							</div> -->
+							</div>
 						</div>
 					</td>
-				</ng-container>
+				</ng-container> -->
 
 				<tr class="table-header header" mat-header-row *matHeaderRowDef="columns"></tr>
 				<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: columns"></tr>
 			</table>
-			<!-- <mat-paginator [length]="usersPaginated?.total" [pageSize]="usersPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator> -->
+			<mat-paginator [length]="appointmenstPaginated.total" [pageSize]="appointmenstPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
 		</div>
 	</div>
 </div>

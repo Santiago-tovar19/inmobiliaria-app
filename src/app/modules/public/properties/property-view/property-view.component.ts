@@ -19,6 +19,7 @@ import { PropertiesService } from 'app/modules/properties/service/properties.ser
 import { ImagesViewerComponent } from 'app/modules/shared/images-viewer/images-viewer.component';
 import { ImagesViewerModule } from 'app/modules/shared/images-viewer/images-viewer.module';
 import { UsersService } from 'app/modules/users/service/users.service';
+import { AppointmentService } from 'app/services/appointment/appointment-service.service';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { environment } from 'environments/environment';
 
@@ -46,7 +47,7 @@ export class PropertyViewComponent implements OnInit {
 	public contactForm: FormGroup = this.formBuilder.group({
 		email: ['', [Validators.required, Validators.email]],
 		phone: ['', [Validators.required, Validators.minLength(6)]],
-		message: [''],
+		message: ['', [Validators.required]],
 	});
 
 	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _userService: UserService, private _usersServices: UsersService, private _dashboardsService: DashboardsService, public dialog: MatDialog, private router: Router, private formBuilder: FormBuilder) {}

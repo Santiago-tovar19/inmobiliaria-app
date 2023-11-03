@@ -1,8 +1,8 @@
 <div class="w-full">
 	<!-- {{property.images | json}} -->
-	<div class="w-screen property-banner -mx-10">
-		<app-carousel class="w-[90%] px-10 lg:p-0">
-			<div *ngFor="let img of bannerImgs" class="keen-slider__slide h-120">
+	<div class="w-screen property-banner">
+		<app-carousel class="w-[100%] px-10 lg:p-0 flex flex-col mt-12" [maxwidthStyle]="'100vw'">
+			<div *ngFor="let img of bannerImgs" class="keen-slider__slide h-120 m-auto w-full">
 				<div class="h-full w-full img bg-cover bg-no-repeat bg-center" (click)="openDialog(environment.assets + '/storage/properties/' + img.name, 'Banner')" style="background-image: url({{ environment.assets }}/storage/properties/{{ img.name }})"></div>
 			</div>
 		</app-carousel>
@@ -449,10 +449,11 @@
 							<mat-form-field class="w-full mt-2">
 								<mat-label>Mensaje</mat-label>
 								<textarea matInput formControlName="message"></textarea>
+								<mat-error *ngIf="contactForm.get('message').hasError('required')">El mensaje es requerido</mat-error>
 							</mat-form-field>
 						</div>
 						<div class="w-full">
-							<button class="w-full rounded-lg text-white" mat-stroked-button style="background: #263547">
+							<button class="w-full rounded-lg text-white mt-2" mat-stroked-button style="background: #263547">
 								<div class="flex items-center gap-2">
 									<mat-icon class="text-lg text-white">send</mat-icon>
 									<span>Enviar</span>

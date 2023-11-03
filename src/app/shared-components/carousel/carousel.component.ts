@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class CarouselComponent implements AfterViewInit {
 	@ViewChild('sliderRef') sliderRef: ElementRef<HTMLElement>;
 	@Input() width: string = '100%';
+	@Input() maxwidthStyle: string = '82vw';
 	@Input() breakpoints: any = {
 		'(min-width: 500px)': {
 			slides: {
@@ -39,7 +40,6 @@ export class CarouselComponent implements AfterViewInit {
 		},
 	};
 
-
 	slider: KeenSliderInstance = null;
 	currentSlide: number = 1;
 	dotHelper: Array<Number> = [];
@@ -47,56 +47,54 @@ export class CarouselComponent implements AfterViewInit {
 
 	constructor() {}
 
-
 	ngAfterViewInit() {
 		this.carouselInit = setInterval(() => {
-		this.slider = new KeenSlider(
-			this.sliderRef.nativeElement,
-			{
-				initial: this.currentSlide,
-				loop: true,
-				breakpoints: this.breakpoints,
-				slideChanged: (s) => {
-					this.currentSlide = s.track.details.rel;
+			this.slider = new KeenSlider(
+				this.sliderRef.nativeElement,
+				{
+					initial: this.currentSlide,
+					loop: true,
+					breakpoints: this.breakpoints,
+					slideChanged: (s) => {
+						this.currentSlide = s.track.details.rel;
+					},
 				},
-			},
-			[
-				// (slider) => {
-				// 	let timeout;
-				// 	let mouseOver = false;
-				// 	function clearNextTimeout() {
-				// 		clearTimeout(timeout);
-				// 	}
-				// 	function nextTimeout() {
-				// 		clearTimeout(timeout);
-				// 		if (mouseOver) return;
-				// 		timeout = setTimeout(() => {
-				// 			slider.next();
-				// 		}, 2000);
-				// 	}
-				// 	slider.on('created', () => {
-				// 		slider.container.addEventListener('mouseover', () => {
-				// 			mouseOver = true;
-				// 			clearNextTimeout();
-				// 		});
-				// 		slider.container.addEventListener('mouseout', () => {
-				// 			mouseOver = false;
-				// 			nextTimeout();
-				// 		});
-				// 		nextTimeout();
-				// 	});
-				// 	slider.on('dragStarted', clearNextTimeout);
-				// 	slider.on('animationEnded', nextTimeout);
-				// 	slider.on('updated', nextTimeout);
-				// },
-			],
-		);
-		try{
-			this.dotHelper = [...Array(this.slider.track.details.slides.length).keys()];
-			clearInterval(this.carouselInit);
-		}catch(e){}
-		console.log("Tratando de inicializar")
-
+				[
+					// (slider) => {
+					// 	let timeout;
+					// 	let mouseOver = false;
+					// 	function clearNextTimeout() {
+					// 		clearTimeout(timeout);
+					// 	}
+					// 	function nextTimeout() {
+					// 		clearTimeout(timeout);
+					// 		if (mouseOver) return;
+					// 		timeout = setTimeout(() => {
+					// 			slider.next();
+					// 		}, 2000);
+					// 	}
+					// 	slider.on('created', () => {
+					// 		slider.container.addEventListener('mouseover', () => {
+					// 			mouseOver = true;
+					// 			clearNextTimeout();
+					// 		});
+					// 		slider.container.addEventListener('mouseout', () => {
+					// 			mouseOver = false;
+					// 			nextTimeout();
+					// 		});
+					// 		nextTimeout();
+					// 	});
+					// 	slider.on('dragStarted', clearNextTimeout);
+					// 	slider.on('animationEnded', nextTimeout);
+					// 	slider.on('updated', nextTimeout);
+					// },
+				],
+			);
+			try {
+				this.dotHelper = [...Array(this.slider.track.details.slides.length).keys()];
+				clearInterval(this.carouselInit);
+			} catch (e) {}
+			console.log('Tratando de inicializar');
 		}, 100);
 	}
 }

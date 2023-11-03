@@ -83,7 +83,6 @@ export class UsersService {
 				formData.append(key, element);
 			}
 		}
-
 		if (data.img_changed && data.img) formData.append('img', data.img, data.img?.name);
 		else formData.append('img', '');
 

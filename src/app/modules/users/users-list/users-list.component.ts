@@ -39,12 +39,11 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 		// FuseAlertModule,
 		MatPaginatorModule,
 		MatSnackBarModule,
-		FileInputModule
-	]
+		FileInputModule,
+	],
 })
 export class UsersListComponent implements OnInit {
-
-	columns: Array<string> = ['id', 'nombres', 'email', 'role', 'broker_phone', 'broker_address', 'status','acciones'];
+	columns: Array<string> = ['id', 'nombres', 'email', 'role', 'broker_phone', 'broker_address', 'status', 'acciones'];
 	dataSource: MatTableDataSource<any>;
 	usersPaginated: any;
 	m: '1' | '2' | null = null;
@@ -52,23 +51,20 @@ export class UsersListComponent implements OnInit {
 	//
 	file: File;
 
-	files: any; filesFiltered: any;;
-	cities: any; 	citiesFiltered: any;;
-	companies: any; 	companiesFiltered: any;;
-	professions: any; 	professionsFiltered: any;;
+	files: any;
+	filesFiltered: any;
+	cities: any;
+	citiesFiltered: any;
+	companies: any;
+	companiesFiltered: any;
+	professions: any;
+	professionsFiltered: any;
 
 	seachFormGroup: FormGroup;
-	constructor(
-		private _usersService: UsersService,
-		private _activatedRoute: ActivatedRoute,
-		private _router: Router,
-		private _formBuilder: FormBuilder,
-		private _globalService: GlobalService,
-		private _matSnachBar: MatSnackBar
-	) { }
+	constructor(private _usersService: UsersService, private _activatedRoute: ActivatedRoute, private _router: Router, private _formBuilder: FormBuilder, private _globalService: GlobalService, private _matSnachBar: MatSnackBar) {}
 
 	paginate(event: PageEvent): void {
-		this.getUsers(this.seachFormGroup.value, {page: event.pageIndex + 1, perPage: event.pageSize});
+		this.getUsers(this.seachFormGroup.value, { page: event.pageIndex + 1, perPage: event.pageSize });
 	}
 
 	ngOnInit(): void {
@@ -84,28 +80,27 @@ export class UsersListComponent implements OnInit {
 		this.getUsers({});
 	}
 
-	getUsers(search: SearchObject, paginatorParams: PaginatorParams = {page: 1, perPage: 10}): void {
+	getUsers(search: SearchObject, paginatorParams: PaginatorParams = { page: 1, perPage: 10 }): void {
 		this._usersService.getList(search, paginatorParams).subscribe((response: any) => {
 			this.dataSource = new MatTableDataSource(response.data.data);
 			this.usersPaginated = response.data;
 		});
 	}
 
-
 	filter(value: string, array: any): any {
 		const filterValue = value.toLowerCase();
-		return array.filter(option => (option || '').toLowerCase().includes(filterValue));
+		return array.filter((option) => (option || '').toLowerCase().includes(filterValue));
 	}
 
-	fileChange(file: File): void{
+	fileChange(file: File): void {
 		this.file = file;
 	}
 
-	goToUser(id: string): void{
+	goToUser(id: string): void {
 		this._router.navigate(['usuarios', 'editar', id]);
 	}
 
-	uploadFile(): void{
+	uploadFile(): void {
 		this._usersService.uploadFile(this.file).subscribe((response) => {
 			console.log(response);
 		});
@@ -115,31 +110,30 @@ export class UsersListComponent implements OnInit {
 		this.getUsers(this.seachFormGroup.value);
 		// const filterValue = value.toLowerCase();
 		// return this.files.filter(option => option.toLowerCase().includes(filterValue));
+		console.log(this.seachFormGroup.value);
 	}
 
-	getValues(): SearchObject{
+	getValues(): SearchObject {
 		const values = {};
-		if(this.seachFormGroup.value.fileSelect && this.seachFormGroup.value.fileSelect!=='Seleccionar'){
+		if (this.seachFormGroup.value.fileSelect && this.seachFormGroup.value.fileSelect !== 'Seleccionar') {
 			values['file'] = this.seachFormGroup.value.fileSelect;
 		}
-		if(this.seachFormGroup.value.citySelect && this.seachFormGroup.value.citySelect!=='Seleccionar'){
+		if (this.seachFormGroup.value.citySelect && this.seachFormGroup.value.citySelect !== 'Seleccionar') {
 			values['city'] = this.seachFormGroup.value.citySelect;
 		}
-		if(this.seachFormGroup.value.companySelect && this.seachFormGroup.value.companySelect!=='Seleccionar'){
+		if (this.seachFormGroup.value.companySelect && this.seachFormGroup.value.companySelect !== 'Seleccionar') {
 			values['company'] = this.seachFormGroup.value.companySelect;
 		}
-		if(this.seachFormGroup.value.professionSelect && this.seachFormGroup.value.professionSelect!=='Seleccionar'){
+		if (this.seachFormGroup.value.professionSelect && this.seachFormGroup.value.professionSelect !== 'Seleccionar') {
 			values['profession'] = this.seachFormGroup.value.professionSelect;
 		}
 		return values;
 	}
 
-	resendSignUpEmail(id: number): void{
+	resendSignUpEmail(id: number): void {
 		this._usersService.resendSignUpEmail(id).subscribe((response) => {
 			this._globalService.openSnackBar(this._matSnachBar, 'Correo enviado', 5000, 'success');
 			console.log(response);
 		});
 	}
-
-
 }

@@ -1,16 +1,12 @@
-<div class="navigation-wrapper" class="relative" style="max-width: 82vw;">
-  <div class="keen-slider z-10" #sliderRef>
-    <ng-content></ng-content>
-  </div>
+<div class="navigation-wrapper" class="relative" [style.max-width]="maxwidthStyle">
+	<div class="keen-slider z-10" #sliderRef>
+		<ng-content></ng-content>
+	</div>
 	<div class="absolute w-full h-full right-0 left-0 top-0 m-auto flex items-center justify-between">
-		<mat-icon *ngIf="slider" class="cursor-pointer -translate-x-10" (click)="slider.prev()" >keyboard_arrow_left</mat-icon>
-		<mat-icon *ngIf="slider" class="cursor-pointer translate-x-10" (click)="slider.next()" >keyboard_arrow_right</mat-icon>
+		<mat-icon *ngIf="slider" class="cursor-pointer -translate-x-10" (click)="slider.prev()">keyboard_arrow_left</mat-icon>
+		<mat-icon *ngIf="slider" class="cursor-pointer translate-x-10" (click)="slider.next()">keyboard_arrow_right</mat-icon>
 	</div>
 </div>
 <div class="dots mt-5">
-  <button
-    (click)="slider.moveToIdx(i)"
-    *ngFor="let slide of dotHelper; let i = index"
-    [class]="'dot ' + (i === currentSlide ? 'active' : '')"
-  ></button>
+	<button (click)="slider.moveToIdx(i)" *ngFor="let slide of dotHelper; let i = index" [class]="'dot ' + (i === currentSlide ? 'active' : '')"></button>
 </div>

@@ -4,17 +4,19 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FileInputModule } from 'app/modules/shared/file-input/file-input.module';
 import { Subject } from 'rxjs';
 import { ReportesService } from '../service/reportes.service';
+import { AppointmentService } from 'app/services/appointment/appointment-service.service';
+import { PaginatorParams } from '../../../interfaces/general/paginator-params';
 
 @Component({
 	selector: 'app-reportes-graficas',
@@ -43,17 +45,24 @@ import { ReportesService } from '../service/reportes.service';
 export class ReportesGraficasComponent implements OnInit {
 	chart: any = [];
 	chart2: any = [];
-	columns: Array<string> = ['id', 'propiedad', 'usuario', 'agente', 'broker', 'fecha', 'status', 'acciones'];
+	columns: Array<string> = ['id', 'propiedad', 'email', 'phone', 'message'];
 	dataSource: MatTableDataSource<any>;
-	usersPaginated: any;
+	appointmenstPaginated: any;
 	m: '1' | '2' | null = null;
 	_unsubscribeAll: Subject<any> = new Subject<any>();
 	viewsPorDia = [0, 0, 0, 0, 0, 0, 0];
 	viewsData: any[] = [];
+	contactosPorDia = [0, 0, 0, 0, 0, 0, 0];
+	contactosData: any[] = [];
+	public seachFormGroup: FormGroup;
 
-	constructor(private _reportesService: ReportesService) {}
+	constructor(private _reportesService: ReportesService, private appoitmentsService: AppointmentService, private _formBuilder: FormBuilder) {}
 
 	ngOnInit(): void {
+		this.seachFormGroup = this._formBuilder.group({
+			termino: [''],
+		});
+		this.getAppointments({});
 		this.getViews();
 	}
 
@@ -120,5 +129,27 @@ export class ReportesGraficasComponent implements OnInit {
 				},
 			},
 		});
+	}
+	getAppointments(search: any, paginatorParams: PaginatorParams = { page: 1, perPage: 10 }): void {
+		this.appoitmentsService.getList(search, paginatorParams).subscribe((response: any) => {
+			this.dataSource = new MatTableDataSource(response.data.data);
+			console.log(response);
+			this.appointmenstPaginated = response.data;
+			this.contactosData = response.data.data;
+			for (const contactos of this.contactosData) {
+				const dayOfWeek = contactos.day_of_week;
+				this.contactosPorDia[dayOfWeek] += 1;
+				console.log(this.contactosPorDia);
+			}
+		});
+	}
+
+	paginate(event: PageEvent): void {
+		this.getAppointments(this.seachFormGroup.value, { page: event.pageIndex + 1, perPage: event.pageSize });
+	}
+
+	filterAppointments(): void {
+		this.getAppointments(this.seachFormGroup.value);
+		console.log(this.seachFormGroup.value);
 	}
 }
