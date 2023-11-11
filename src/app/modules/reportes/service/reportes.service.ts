@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,12 @@ import { Observable } from 'rxjs';
 export class ReportesService {
 	constructor(private _httpClient: HttpClient) {}
 
-	getAllViews(): Observable<any> {
-		return this._httpClient.get<any>(`${environment.api}/properties/get-property-views`);
+	getAllViews(search: any): Observable<any> {
+		const params = new HttpParams({
+			fromObject: {
+				...search,
+			},
+		} as any);
+		return this._httpClient.get<any>(`${environment.api}/properties/get-property-views`, { params });
 	}
 }

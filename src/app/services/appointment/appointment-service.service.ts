@@ -19,4 +19,13 @@ export class AppointmentService {
 		} as any);
 		return this._httpClient.get<any>(`${environment.api}/appointments`, { params });
 	}
+
+	getAllAppointments(search: any): Observable<any> {
+		const params = new HttpParams({
+			fromObject: {
+				...search,
+			},
+		} as any);
+		return this._httpClient.get<any>(`${environment.api}/appointments/get-all-appointments`, { params });
+	}
 }

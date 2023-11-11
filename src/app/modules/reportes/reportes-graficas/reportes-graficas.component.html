@@ -1,11 +1,33 @@
 <div class="flex flex-col gap-y-10 w-full">
 	<div class="flex w-full items-center gap-x-12 bg-white p-8 rounded-xl">
 		<div class="w-full h-full">
-			<h2 class="text-xl font-semibold text-[#64748b] text-center mb-2">Visitas diarias a propiedades</h2>
+			<div class="flex w-full justify-between items-center mx-4">
+				<h2 class="text-2xl font-semibold text-[#64748b] text-center mb-2">Visitas Diarias</h2>
+				<mat-form-field class="w-1/2">
+					<mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+						<input matStartDate formControlName="start" placeholder="Fecha Inicio" />
+						<input matEndDate formControlName="end" placeholder="Fecha Final" />
+					</mat-date-range-input>
+
+					<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-date-range-picker #picker></mat-date-range-picker>
+				</mat-form-field>
+			</div>
 			<canvas id="canvas">{{ chart }}</canvas>
 		</div>
 		<div class="w-full h-full">
-			<h2 class="text-xl font-semibold text-[#64748b] text-center mb-2">Contactos diarios</h2>
+			<div class="flex w-full justify-between items-center mx-4">
+				<h2 class="text-2xl font-semibold text-[#64748b] text-center mb-2">Contactos diarios</h2>
+				<mat-form-field class="w-1/2">
+					<mat-date-range-input [formGroup]="range2" [rangePicker]="picker2">
+						<input matStartDate formControlName="start2" placeholder="Fecha Inicio" />
+						<input matEndDate formControlName="end2" placeholder="Fecha Final" />
+					</mat-date-range-input>
+
+					<mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+					<mat-date-range-picker #picker2></mat-date-range-picker>
+				</mat-form-field>
+			</div>
 			<canvas id="canvas2">{{ chart }} </canvas>
 		</div>
 	</div>
