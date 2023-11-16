@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import {fuseAnimations} from '@fuse/animations';
-import {FuseAlertType} from '@fuse/components/alert';
-import {AuthService} from 'app/core/auth/auth.service';
-import {User} from 'app/interfaces/entities/user';
-import {HttpValidationErrorResponse} from 'app/interfaces/http-responses/http-validation-error-response';
-import {GlobalService} from 'app/services/global/global.service';
-import {Subject, takeUntil} from 'rxjs';
+import { fuseAnimations } from '@fuse/animations';
+import { FuseAlertType } from '@fuse/components/alert';
+import { AuthService } from 'app/core/auth/auth.service';
+import { User } from 'app/interfaces/entities/user';
+import { HttpValidationErrorResponse } from 'app/interfaces/http-responses/http-validation-error-response';
+import { GlobalService } from 'app/services/global/global.service';
+import { Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,31 +19,17 @@ import { NgIf, NgFor } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'auth-sign-in',
-    templateUrl: './sign-in.component.html',
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
-    standalone: true,
-    imports: [
-        NgIf,
-        FuseAlertComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgFor,
-        MatButtonModule,
-        MatIconModule,
-        MatCheckboxModule,
-        RouterLink,
-				MatSnackBarModule,
-        MatProgressSpinnerModule,
-    ],
+	selector: 'auth-sign-in',
+	templateUrl: './sign-in.component.html',
+	encapsulation: ViewEncapsulation.None,
+	animations: fuseAnimations,
+	standalone: true,
+	imports: [NgIf, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, NgFor, MatButtonModule, MatIconModule, MatCheckboxModule, RouterLink, MatSnackBarModule, MatProgressSpinnerModule],
 })
 export class AuthSignInComponent implements OnInit, OnDestroy {
 	@ViewChild('signInNgForm') signInNgForm: NgForm;
 
-	alert: {type: FuseAlertType; message: string} = {
+	alert: { type: FuseAlertType; message: string } = {
 		type: 'success',
 		message: '',
 	};
@@ -55,14 +41,7 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 	/**
 	 * Constructor
 	 */
-	constructor(
-		private _activatedRoute: ActivatedRoute,
-		private _authService: AuthService,
-		private _formBuilder: FormBuilder,
-		private _router: Router,
-		public _globalService: GlobalService,
-		public _matSnackBar: MatSnackBar,
-	) {}
+	constructor(private _activatedRoute: ActivatedRoute, private _authService: AuthService, private _formBuilder: FormBuilder, private _router: Router, public _globalService: GlobalService, public _matSnackBar: MatSnackBar) {}
 
 	// -----------------------------------------------------------------------------------------------------
 	// @ Lifecycle hooks
@@ -72,12 +51,11 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit(): void {
-
 		// Check if exist message in route
-		const message     = this._activatedRoute.snapshot.queryParamMap?.get('message');
+		const message = this._activatedRoute.snapshot.queryParamMap?.get('message');
 		const messageType = this._activatedRoute.snapshot.queryParamMap?.get('messageType') as FuseAlertType;
 
-		if(message && messageType){
+		if (message && messageType) {
 			this.alert = {
 				type: messageType,
 				message: message,
@@ -116,41 +94,43 @@ export class AuthSignInComponent implements OnInit, OnDestroy {
 		this.submitted = true;
 
 		// Sign in
-		this._authService.signIn(this.signInForm.value).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-			(response) => {
-				const user: User = response.data.user;
-				const path = 'dashboard';
+		this._authService
+			.signIn(this.signInForm.value)
+			.pipe(takeUntil(this._unsubscribeAll))
+			.subscribe(
+				(response) => {
+					const user: User = response.data.user;
+					const path = 'dashboard';
 
-				// Set the redirect url.
-				// The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-				// to the correct page after a successful sign in. This way, that url can be set via
-				// routing file and we don't have to touch here.
-				let redirectURL = path || this._activatedRoute.snapshot.queryParamMap?.get('redirectURL');
+					// Set the redirect url.
+					// The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
+					// to the correct page after a successful sign in. This way, that url can be set via
+					// routing file and we don't have to touch here.
+					let redirectURL = path || this._activatedRoute.snapshot.queryParamMap?.get('redirectURL');
 
-					if(user.role_id===4){
+					if (user.role_id === 4) {
 						redirectURL = '/';
 					}
 
-				// Navigate to the redirect url
-				this._router.navigateByUrl(redirectURL);
-			},
-			(response: HttpValidationErrorResponse) => {
+					// Navigate to the redirect url
+					this._router.navigateByUrl(redirectURL);
+				},
+				(response: HttpValidationErrorResponse) => {
+					// Re-enable the form
+					this.signInForm.enable();
 
-				// Re-enable the form
-				this.signInForm.enable();
+					this.signInForm = this._globalService.getValidationErrors(this.signInForm, response);
 
-				this.signInForm = this._globalService.getValidationErrors(this.signInForm, response);
+					// Set the alert
+					this.alert = {
+						type: 'error',
+						message: `${response.message}`,
+					};
 
-				// Set the alert
-				this.alert = {
-					type: 'error',
-					message: `${response.message}`,
-				};
-
-				// Show the alert
-				this.showAlert = true;
-			},
-		);
+					// Show the alert
+					this.showAlert = true;
+				},
+			);
 	}
 
 	ngOnDestroy(): void {

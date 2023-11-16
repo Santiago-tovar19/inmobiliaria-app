@@ -1,9 +1,9 @@
-<main class="w-full mx-auto bg-gray-200">
+<main class="w-full mx-auto bg-gray-200 h-[100%]">
 	<div *ngIf="!this.drawer.opened" class="buscador-tab" (click)="drawer.open()">Buscador</div>
 
-	<section class="flex w-full bg-gray-200 max-w-[1500px] justify-center mx-auto" [formGroup]="formAdvanced">
-		<mat-drawer-container class="example-container" autosize>
-			<mat-drawer #drawer class="example-sidenav" [mode]="this.sideBarMode">
+	<section class="flex w-full bg-gray-200 max-w-[1550px] justify-center mx-auto" [formGroup]="formAdvanced">
+		<mat-drawer-container class="bg-[#f1f5f9]" autosize>
+			<mat-drawer #drawer class="example-sidenav bg-[#E2E8F0]" [mode]="this.sideBarMode">
 				<div #sidebar class="w-[100%] bg-gray-200 flex flex-col items-center relative">
 					<!-- <div class="bg-white w-3/4 h-48 flex items-center rounded-lg mt-6 shadow-lg"></div>
 					<div class="bg-white w-3/4 h-32 flex items-center rounded-lg mt-6 shadow-lg"></div> -->
@@ -70,7 +70,7 @@
 						</div>
 					</div>
 					<div class="w-full">
-						<button [ngStyle]="{ width: sidebarRef?.nativeElement?.offsetWidth - 32 + 'px' }" style="z-index: 999" (click)="onSubmit()" class="ml-4 fixed bottom-7 bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
+						<button [ngStyle]="{ width: sidebarRef?.nativeElement?.offsetWidth - 32 + 'px' }" style="z-index: 999" (click)="onSubmit()" class="ml-4 fixed top-[87%] bg-blue-400 py-3 mt-5 text-white text-xl rounded-md">Buscar</button>
 					</div>
 				</div>
 			</mat-drawer>
@@ -87,7 +87,7 @@
 					</ng-container>
 					<ng-container *ngIf="!hasLoaded">
 						<!-- Mostrar las propiedades si la petición ha terminado y el arreglo no está vacío -->
-						<div class="w-[97%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44" #box2>
+						<div class="w-[99%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44 max-w-[1250px]" #box2>
 							<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
 								<div class="w-full m-auto">
 									<app-property-card [property]="property"></app-property-card>
@@ -103,7 +103,7 @@
 						</div>
 					</ng-container>
 					<ng-container *ngIf="dataProperties.length > 0">
-						<div class="fixed top-[88%] z-99">
+						<div class="fixed top-[88%] z-999 w-full">
 							<mat-paginator class="shadow-2xl" [ngStyle]="{ width: secondBox?.nativeElement?.offsetWidth + 'px' }" [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
 						</div>
 					</ng-container>

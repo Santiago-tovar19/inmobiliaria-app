@@ -74,6 +74,11 @@ export class UsersService {
 
 		return this._httpClient.post<HttpSimpleResponse>(`${environment.api}/users`, formData, { headers });
 	}
+
+	createUser(data: any): Observable<HttpSimpleResponse> {
+		return this._httpClient.post<HttpSimpleResponse>(`${environment.api}/users/create-user`, data);
+	}
+
 	update(id: string, data: any): Observable<HttpSimpleResponse> {
 		const formData = new FormData();
 

@@ -12,7 +12,7 @@
 					Casa De sus Sueños
 				</h1>
 				<div [formGroup]="formLanding" class="relative flex justify-center items-center">
-					<div class="bg-white justify-center rounded z-2 w-full lg:w-full h-auto md:h-22 flex flex-col md:flex-row md:w-full lg:flex-row items-center relative z-999 sm:w-[440px] sm:mx-auto">
+					<div class="bg-white justify-center rounded w-full lg:w-full h-auto md:h-22 flex flex-col md:flex-row md:w-full lg:flex-row items-center relative z-999 sm:w-[440px] sm:mx-auto">
 						<!-- start main seeker -->
 						<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 md:mt-0 lg:mt-0" formControlName="buyOrRent">
 							<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[108px] md:ml-6 lg:ml-3" value="buy">Comprar</mat-chip-option>
@@ -44,11 +44,11 @@
 						[class.opacity-1]="mainSeeker.get('advanced').value"
 						[class.top-24]="mainSeeker.get('advanced').value"
 						[class.pointer-events-auto]="mainSeeker.get('advanced').value"
-						class="absolute w-full bg-white h-auto left-0 shadow-2xl rounded transition-all top-72 lg:top-24 md:top-24 z-9999 mb-5 sm:w-[440px] sm:left-1/2 sm:-translate-x-1/2 md:ml-0 md:w-full lg:w-full"
+						class="absolute w-full bg-white h-auto left-0 shadow-2xl rounded transition-all top-72 lg:top-24 md:top-24 z-99 mb-5 sm:w-[440px] sm:left-1/2 sm:-translate-x-1/2 md:ml-0 md:w-full lg:w-full"
 						style="height: 0px"
 					>
 						<!-- start advances search -->
-						<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3 z-9999">
+						<div class="grid grid-cols-1 md:grid-cols-3 text-gray-400 px-7 pt-8 h-3/5 gap-3 z-99">
 							<div>
 								<h2 class="text-lg font-semibold text-gray-600">Baños</h2>
 								<mat-form-field class="w-full">
@@ -56,7 +56,7 @@
 										<mat-option value="" selected>Seleccionar</mat-option>
 										<mat-option value="2">2</mat-option>
 										<mat-option value="3">3</mat-option>
-										<mat-option value="+4">+4</mat-option>
+										<mat-option value="4">+4</mat-option>
 									</mat-select>
 								</mat-form-field>
 							</div>

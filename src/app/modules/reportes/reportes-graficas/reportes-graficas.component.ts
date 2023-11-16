@@ -47,7 +47,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 	],
 	providers: [DatePipe],
 })
-export class ReportesGraficasComponent implements OnInit, OnDestroy {
+export class ReportesGraficasComponent implements OnInit {
 	public chart: any;
 	public chart2: any;
 	columns: Array<string> = ['id', 'propiedad', 'email', 'phone', 'message'];
@@ -71,10 +71,6 @@ export class ReportesGraficasComponent implements OnInit, OnDestroy {
 	});
 
 	constructor(private _reportesService: ReportesService, private appoitmentsService: AppointmentService, private _formBuilder: FormBuilder, private datePipe: DatePipe) {}
-
-	ngOnDestroy(): void {
-		throw new Error('Method not implemented.');
-	}
 
 	ngOnInit(): void {
 		this.seachFormGroup = this._formBuilder.group({

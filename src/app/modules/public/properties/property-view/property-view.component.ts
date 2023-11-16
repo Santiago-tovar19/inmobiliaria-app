@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,6 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { AuthService } from 'app/core/auth/auth.service';
 import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
 import { DashboardsService } from 'app/modules/dashboards/service/dashboards.service';
@@ -21,6 +22,9 @@ import { ImagesViewerModule } from 'app/modules/shared/images-viewer/images-view
 import { UsersService } from 'app/modules/users/service/users.service';
 import { AppointmentService } from 'app/services/appointment/appointment-service.service';
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
+import { ModalUserComponent } from 'app/shared-components/modal-user/modal-user.component';
+import { SharedModule } from 'app/shared-components/shared.module';
+
 import { environment } from 'environments/environment';
 
 @Component({
@@ -28,7 +32,7 @@ import { environment } from 'environments/environment';
 	templateUrl: './property-view.component.html',
 	styleUrls: ['./property-view.component.scss'],
 	standalone: true,
-	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule, CarouselModule],
+	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule, CarouselModule, CommonModule, SharedModule],
 })
 export class PropertyViewComponent implements OnInit {
 	propertyID: string;
@@ -44,13 +48,26 @@ export class PropertyViewComponent implements OnInit {
 	number: number = 0;
 	public serverResponse: string;
 	public showServerResponse: boolean = false;
+	public mainSeeker: FormGroup;
 	public contactForm: FormGroup = this.formBuilder.group({
 		email: ['', [Validators.required, Validators.email]],
 		phone: ['', [Validators.required, Validators.minLength(6)]],
 		message: ['', [Validators.required]],
 	});
 
-	constructor(private _propertiesService: PropertiesService, private _activatedRouter: ActivatedRoute, private sanitizer: DomSanitizer, private _userService: UserService, private _usersServices: UsersService, private _dashboardsService: DashboardsService, public dialog: MatDialog, private router: Router, private formBuilder: FormBuilder) {}
+	constructor(
+		private _propertiesService: PropertiesService,
+		private _activatedRouter: ActivatedRoute,
+		private sanitizer: DomSanitizer,
+		private _userService: UserService,
+		private _usersServices: UsersService,
+		private _dashboardsService: DashboardsService,
+		public dialog: MatDialog,
+		private router: Router,
+		private formBuilder: FormBuilder,
+		private _dialog: MatDialog,
+		private _authService: AuthService,
+	) {}
 
 	ngOnInit(): void {
 		this._activatedRouter.params.subscribe((params) => {
@@ -67,6 +84,10 @@ export class PropertyViewComponent implements OnInit {
 		this.getFeatureProperties();
 
 		this.getPropertyInFavorites(this.propertyID);
+
+		this.mainSeeker = this.formBuilder.group({
+			advanced: [false],
+		});
 
 		setTimeout(() => {
 			if (!this.user || this.user?.role_id === 4) {
@@ -127,7 +148,7 @@ export class PropertyViewComponent implements OnInit {
 
 	goToProperty(id: string): void {
 		console.log('Hola que tal');
-		this.router.navigate(['/propiedad/', id]);
+		this.router.navigate(['/propiedades/', id]);
 	}
 
 	getVideoUrl() {
@@ -140,12 +161,13 @@ export class PropertyViewComponent implements OnInit {
 	}
 
 	addFavoriteProperty(propertyID: any, fav: any): void {
-		// console.log(propertyID, fav);
-		this._usersServices.postPropertyFavorites(propertyID, fav).subscribe((response): any => {
-			this.favorite = response.message;
-			// console.log(response.message, 'desde addfavorite');
-			// console.log(this.favorite, 'desde addfavorite');
-		});
+		if (this._authService._authenticated === false) {
+			this.abrirModal();
+		} else {
+			this._usersServices.postPropertyFavorites(propertyID, fav).subscribe((response): any => {
+				this.favorite = response.message;
+			});
+		}
 	}
 
 	getPropertyInFavorites(propertyID: any): void {
@@ -183,5 +205,20 @@ export class PropertyViewComponent implements OnInit {
 				this.showServerResponse = false;
 			}, 5000);
 		});
+	}
+
+	abrirModal(): void {
+		const dialogRef = this._dialog.open(ModalUserComponent, {
+			width: '400px',
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('El modal se cerró');
+		});
+	}
+
+	toggleAdvanced(): void {
+		const bool = !this.mainSeeker.get('advanced').value;
+		this.mainSeeker.get('advanced').setValue(bool);
 	}
 }
