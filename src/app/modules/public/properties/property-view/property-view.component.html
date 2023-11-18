@@ -14,7 +14,7 @@
 			</ng-template>
 		</owl-carousel-o> -->
 	</div>
-	<div class="grid grid-cols-3 gap-5 mx-auto mt-5 md:max-w-320 max-w-160">
+	<div class="grid md:grid-cols-3 grid-cols-1 md:gap-5 mx-10 lg:mx-auto mt-5 mb-5 md:max-w-320 max-w-160">
 		<div class="col-span-2">
 			<div class="flex flex-col gap-10">
 				<div class="bg-card shadow rounded-2xl p-6">
@@ -384,7 +384,7 @@
 				</mat-accordion> -->
 			</div>
 		</div>
-		<div class="col-span-3 md:col-span-1">
+		<div class="col-span-3 mt-8 md:mt-0 md:mx-0 md:col-span-1">
 			<div class="flex flex-col gap-3">
 				<div class="bg-card shadow rounded-2xl p-6">
 					<div class="w-full flex gap-4">
@@ -397,10 +397,12 @@
 									[class.top-10]="!mainSeeker.get('advanced').value"
 									[class.pointer-events-none]="!mainSeeker.get('advanced').value"
 									[class.opacity-1]="mainSeeker.get('advanced').value"
-									[class.top-24]="mainSeeker.get('advanced').value"
+									[class.-top-22]="mainSeeker.get('advanced').value"
 									[class.pointer-events-auto]="mainSeeker.get('advanced').value"
-									class="absolute w-[420px] bg-[#ffffff] rounded-xl transition-all shadow-xl h-20 z-9999 -left-[62px] top-16"
-								></div>
+									class="absolute w-[420px] bg-[#0fca98] rounded-xl transition-all shadow-xl h-[44px] z-9999 -left-[62px]"
+								>
+									<share-buttons [theme]="'sb-moon-theme'" [include]="['facebook', 'twitter', 'linkedin', 'whatsapp', 'telegram', 'messenger']" [show]="6" [title]="property.name" [autoSetMeta]="false" [url]="currentUrl"></share-buttons>
+								</div>
 							</div>
 						</button>
 						<button class="w-1/2 rounded-sm border-red-700 text-red-700 bg-red-100" mat-stroked-button (click)="addFavoriteProperty(propertyID, favorite === 1 ? 0 : 1)">

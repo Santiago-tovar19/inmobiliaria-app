@@ -1,4 +1,4 @@
-import {Route} from '@angular/router';
+import { Route } from '@angular/router';
 import { ManagePropertyComponent } from './manage-property/manage-property.component';
 import { PropertiesListComponent } from './properties-list/properties-list.component';
 

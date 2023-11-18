@@ -70,21 +70,49 @@ export class ReportesGraficasComponent implements OnInit {
 		end2: new FormControl<Date | null>(null),
 	});
 
-	constructor(private _reportesService: ReportesService, private appoitmentsService: AppointmentService, private _formBuilder: FormBuilder, private datePipe: DatePipe) {}
+	constructor(private _reportesService: ReportesService, private appoitmentsService: AppointmentService, private _formBuilder: FormBuilder, private datePipe: DatePipe) {
+		const endDate = new Date();
+		const startDate = new Date();
+		startDate.setDate(startDate.getDate() - 7);
+
+		// Establecer el valor por defecto en el formulario
+		this.range.setValue({
+			start: startDate,
+			end: endDate,
+		});
+
+		this.range2.setValue({
+			start2: startDate,
+			end2: endDate,
+		});
+	}
 
 	ngOnInit(): void {
 		this.seachFormGroup = this._formBuilder.group({
 			termino: [''],
 		});
 		this.getAppointments({});
-		this.getAllAppointments({});
+
 		this.range.valueChanges.subscribe(() => {
 			this.filterViews();
 		});
 		this.range2.valueChanges.subscribe(() => {
 			this.filterAppointmentsDate();
 		});
-		this.getViews({});
+
+		const endDate = new Date();
+		const startDate = new Date();
+		startDate.setDate(startDate.getDate() - 7);
+
+		// Formatear las fechas
+		const formattedStartDate = this.datePipe.transform(startDate, 'yyyy-MM-dd 00:00:00');
+		const formattedEndDate = this.datePipe.transform(endDate, 'yyyy-MM-dd 23:59:00');
+
+		console.log(formattedStartDate, formattedEndDate);
+
+		// Llamar a la función getViews con las fechas iniciales
+		this.getViews({ start: formattedStartDate, end: formattedEndDate });
+		this.getAllAppointments({ start: formattedStartDate, end: formattedEndDate });
 	}
 
 	chartContructor() {
@@ -160,8 +188,8 @@ export class ReportesGraficasComponent implements OnInit {
 
 	filterViews() {
 		if (this.range.value.start && this.range.value.end) {
-			const formattedStartDate = this.datePipe.transform(this.range.value.start, 'yyyy-MM-dd HH:mm:ss');
-			const formattedEndDate = this.datePipe.transform(this.range.value.end, 'yyyy-MM-dd HH:mm:ss');
+			const formattedStartDate = this.datePipe.transform(this.range.value.start, 'yyyy-MM-dd 00:00:00');
+			const formattedEndDate = this.datePipe.transform(this.range.value.end, 'yyyy-MM-dd 23:59:00');
 			console.log(formattedStartDate, formattedEndDate);
 			this.getViews({ start: formattedStartDate, end: formattedEndDate });
 		}
@@ -183,8 +211,8 @@ export class ReportesGraficasComponent implements OnInit {
 
 	filterAppointmentsDate() {
 		if (this.range2.value.start2 && this.range2.value.end2) {
-			const formattedStartDate2 = this.datePipe.transform(this.range2.value.start2, 'yyyy-MM-dd HH:mm:ss');
-			const formattedEndDate2 = this.datePipe.transform(this.range2.value.end2, 'yyyy-MM-dd HH:mm:ss');
+			const formattedStartDate2 = this.datePipe.transform(this.range2.value.start2, 'yyyy-MM-dd 00:00:00');
+			const formattedEndDate2 = this.datePipe.transform(this.range2.value.end2, 'yyyy-MM-dd 23:59:00');
 			console.log(formattedStartDate2, formattedEndDate2);
 			this.getAllAppointments({ start: formattedStartDate2, end: formattedEndDate2 });
 		}

@@ -125,7 +125,7 @@ export const appRoutes: Route[] = [
 				loadChildren: () => import('app/modules/users/users.routes'),
 			},
 			{
-				path: 'propiedades',
+				path: 'properties',
 				loadChildren: () => import('app/modules/properties/properties.routes'),
 			},
 			// {

@@ -63,9 +63,9 @@
 					<div class="bg-white w-11/12 mb-26 flex flex-col items-center rounded-lg mt-6 shadow-lg px-3 py-4">
 						<h2>Tipo de seleccion</h2>
 						<div class="flex mt-2 gap-3">
-							<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0" formControlName="buyOrRent">
-								<mat-chip-option class="rounded" value="buy">Comprar</mat-chip-option>
-								<mat-chip-option class="rounded" value="rent">Rentar</mat-chip-option>
+							<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 lg:mt-0" formControlName="contract_type_id">
+								<mat-chip-option class="rounded" value="1">Comprar</mat-chip-option>
+								<mat-chip-option class="rounded" value="2">Rentar</mat-chip-option>
 							</mat-chip-listbox>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 				</div>
 			</mat-drawer>
 
-			<div class="example-sidenav-content">
+			<div class="example-sidenav-content mx-6 lg:mx-0">
 				<div class="w-[100%] bg-gray-200 flex flex-col relative min-h-[100vh] min-w-[75vw] mx-auto">
 					<ng-container *ngIf="hasLoaded">
 						<!-- Mostrar el spinner de carga mientras la petición esté en curso -->
@@ -87,7 +87,7 @@
 					</ng-container>
 					<ng-container *ngIf="!hasLoaded">
 						<!-- Mostrar las propiedades si la petición ha terminado y el arreglo no está vacío -->
-						<div class="w-[99%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44 max-w-[1250px]" #box2>
+						<div class="w-[99%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44 max-w-[1250px] -mr-12" #box2>
 							<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
 								<div class="w-full m-auto">
 									<app-property-card [property]="property"></app-property-card>

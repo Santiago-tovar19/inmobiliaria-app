@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
 import { UserService } from 'app/core/user/user.service';
 import { Property } from 'app/interfaces/entities/properties';
@@ -24,15 +24,18 @@ import { AppointmentService } from 'app/services/appointment/appointment-service
 import { CarouselModule } from 'app/shared-components/carousel/carousel.component';
 import { ModalUserComponent } from 'app/shared-components/modal-user/modal-user.component';
 import { SharedModule } from 'app/shared-components/shared.module';
-
 import { environment } from 'environments/environment';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import Modern from 'ngx-sharebuttons/themes/modern.scss';
+import { filter } from 'rxjs';
 
 @Component({
 	selector: 'app-property-view',
 	templateUrl: './property-view.component.html',
 	styleUrls: ['./property-view.component.scss'],
 	standalone: true,
-	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule, CarouselModule, CommonModule, SharedModule],
+	imports: [NgIf, NgFor, MatIconModule, RouterModule, FormsModule, MatExpansionModule, MatButtonModule, HttpClientModule, MatFormFieldModule, MatTabsModule, MatDialogModule, MatProgressBarModule, MatInputModule, ImagesViewerModule, ReactiveFormsModule, CarouselModule, CommonModule, SharedModule, ShareButtonsModule, ShareIconsModule],
 })
 export class PropertyViewComponent implements OnInit {
 	propertyID: string;
@@ -46,6 +49,7 @@ export class PropertyViewComponent implements OnInit {
 	mapUrl: any;
 	favorite: any;
 	number: number = 0;
+	public currentUrl: string;
 	public serverResponse: string;
 	public showServerResponse: boolean = false;
 	public mainSeeker: FormGroup;
@@ -87,6 +91,10 @@ export class PropertyViewComponent implements OnInit {
 
 		this.mainSeeker = this.formBuilder.group({
 			advanced: [false],
+		});
+
+		this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+			this.currentUrl = window.location.href;
 		});
 
 		setTimeout(() => {

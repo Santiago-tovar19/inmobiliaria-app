@@ -38,3 +38,37 @@
 .mat-icon svg.mat-icon {
 	fill: red; /* Cambia "red" al color que desees */
 }
+
+.sb-moon-theme {
+	.sb-wrapper {
+		padding: 10px; // Ajusta el relleno según tus necesidades
+		background-color: #333; // Cambia el color de fondo según tus preferencias
+		border-radius: 5px; // Agrega bordes redondeados según tus preferencias
+
+		.sb-content {
+			display: flex;
+			align-items: center;
+
+			.sb-icon {
+				font-size: 24px; // Ajusta el tamaño del ícono según tus preferencias
+				margin-right: 5px; // Ajusta el margen derecho según tus preferencias
+				color: #fff; // Cambia el color del ícono según tus preferencias
+			}
+
+			.sb-text {
+				font-size: 16px; // Ajusta el tamaño del texto según tus preferencias
+				color: #fff; // Cambia el color del texto según tus preferencias
+			}
+		}
+
+		&.sb-show-icon.sb-show-text {
+			.sb-icon {
+				// Estilos adicionales cuando se muestra el ícono
+			}
+
+			.sb-text {
+				// Estilos adicionales cuando se muestra el texto
+			}
+		}
+	}
+}

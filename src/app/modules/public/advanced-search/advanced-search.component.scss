@@ -8,29 +8,29 @@ mat-slider input {
 	background-color: #088bf7;
 }
 
-::ng-deep mat-drawer-content{
+::ng-deep mat-drawer-content {
 	max-height: 93vh;
 	overflow: auto;
 }
 
-::ng-deep mat-drawer-content{
+::ng-deep mat-drawer-content {
 	max-height: 93vh;
 	overflow: auto;
 }
 
-.buscador-tab{
+.buscador-tab {
 	position: fixed;
 	background: #2590f4;
 	z-index: 99;
 	color: white;
-	padding: 5px 14px;
+	padding: 5px 16px;
 	top: 11%;
-	left: 0;
+	left: 0.5%;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 	font-size: 18px;
 }
 
-body{
+body {
 	overflow: hidden;
 }

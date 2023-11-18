@@ -5,8 +5,8 @@
 			<div class="text-secondary">Una lista de propiedades registradas en el sistema</div>
 		</div>
 		<div class="w-full col-span-1">
-			<div class='sm:text-right'>
-				<button [routerLink]="'/propiedades/crear'" class="w-full sm:w-fit rounded mr-1 px-3 bg-primary-300 text-on-primary-300" mat-stroked-button>Crear Propiedad</button>
+			<div class="sm:text-right">
+				<button [routerLink]="'/properties/crear'" class="w-full sm:w-fit rounded mr-1 px-3 bg-primary-300 text-on-primary-300" mat-stroked-button>Crear Propiedad</button>
 			</div>
 		</div>
 		<div class="w-full col-span-1">
@@ -32,7 +32,7 @@
 					<div class="w-full sm:w-2/5">
 						<mat-form-field class="w-full">
 							<mat-label>Buscar Propiedad</mat-label>
-							<input type="text" matInput>
+							<input type="text" matInput />
 						</mat-form-field>
 					</div>
 					<div class="w-1/5">
@@ -45,26 +45,22 @@
 			</div>
 		</div>
 		<div class="flex flex-col flex-auto mt-2 overflow-x-auto">
-				<table
-						class="md:min-w-240 overflow-y-visible"
-						mat-table
-						[dataSource]="dataSource">
-
+			<table class="md:min-w-240 overflow-y-visible" mat-table [dataSource]="dataSource">
 				<!-- id -->
 				<ng-container matColumnDef="id">
 					<th mat-header-cell *matHeaderCellDef>ID</th>
 					<td mat-cell *matCellDef="let property" data-label="id">
 						<span class="font-medium">
-							{{property.id}}
+							{{ property.id }}
 						</span>
 					</td>
 				</ng-container>
 
 				<ng-container matColumnDef="name">
 					<th mat-header-cell *matHeaderCellDef>Nombre</th>
- 					<td data-label="Nombre" mat-cell *matCellDef="let property" class="px-4" [matTooltip]="property.description" [matTooltipPosition]="'left'">
+					<td data-label="Nombre" mat-cell *matCellDef="let property" class="px-4" [matTooltip]="property.description" [matTooltipPosition]="'left'">
 						<span class="font-medium">
-							{{property.name | excerpt:100}}
+							{{ property.name | excerpt : 100 }}
 						</span>
 					</td>
 				</ng-container>
@@ -73,7 +69,7 @@
 					<th mat-header-cell *matHeaderCellDef>Direccion</th>
 					<td data-label="Dirección" mat-cell *matCellDef="let property" class="px-4">
 						<span class="font-medium">
-							{{property.address}}
+							{{ property.address }}
 						</span>
 					</td>
 				</ng-container>
@@ -82,7 +78,7 @@
 					<th mat-header-cell *matHeaderCellDef>Precio</th>
 					<td data-label="Precio" mat-cell *matCellDef="let property" class="px-4">
 						<span class="font-medium">
-							{{property.price || '-'}}
+							{{ property.price || '-' }}
 						</span>
 					</td>
 				</ng-container>
@@ -91,7 +87,7 @@
 					<th mat-header-cell *matHeaderCellDef># Habitaciones</th>
 					<td data-label="Habitaciones" mat-cell *matCellDef="let property" class="px-4">
 						<span class="font-medium">
-							{{property.bedrooms || '-'}}
+							{{ property.bedrooms || '-' }}
 						</span>
 					</td>
 				</ng-container>
@@ -100,7 +96,7 @@
 					<th mat-header-cell *matHeaderCellDef># Baños</th>
 					<td data-label="Baños" mat-cell *matCellDef="let property" class="px-4">
 						<span class="font-medium">
-							{{property.bathrooms || '-'}}
+							{{ property.bathrooms || '-' }}
 						</span>
 					</td>
 				</ng-container>
@@ -109,7 +105,7 @@
 					<th mat-header-cell *matHeaderCellDef>Estado</th>
 					<td data-label="Estado" mat-cell *matCellDef="let property" class="px-4">
 						<span [class.text-green-500]="!property.deleted_at" [class.text-red-500]="property.deleted_at" class="font-medium">
-							{{property.deleted_at ? 'Eliminado' : 'Activo'}}
+							{{ property.deleted_at ? 'Eliminado' : 'Activo' }}
 						</span>
 					</td>
 				</ng-container>
@@ -120,27 +116,22 @@
 					<td data-label="Acciones" mat-cell *matCellDef="let property">
 						<div class="flex justify-end gap-2">
 							<div class="1/3">
-									<mat-icon [routerLink]="'/propiedades/editar/'+property.id" class="text-on-primary-300">edit</mat-icon>
+								<mat-icon [routerLink]="'/properties/editar/' + property.id" class="text-on-primary-300">edit</mat-icon>
 							</div>
 							<div class="1/3">
-								<mat-icon (click)="newTab('propiedad/'+property.id)" class="text-on-primary-300">visibility</mat-icon>
-						</div>
-						<div class="1/3">
-									<mat-icon (click)="deleteProperty(property.id)" class="text-red-500">delete</mat-icon>
+								<mat-icon (click)="newTab('propiedad/' + property.id)" class="text-on-primary-300">visibility</mat-icon>
+							</div>
+							<div class="1/3">
+								<mat-icon (click)="deleteProperty(property.id)" class="text-red-500">delete</mat-icon>
 							</div>
 						</div>
 					</td>
 				</ng-container>
 
-					<tr class="table-header" mat-header-row *matHeaderRowDef="newColumns"></tr>
-					<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: newColumns;"></tr>
-				</table>
-				<mat-paginator [length]="propertiesPaginated?.total"
-						[pageSize]="propertiesPaginated?.per_page"
-						[pageSizeOptions]="[10, 25, 100]"
-						(page)="paginate($event)"
-						aria-label="Select page">
-				</mat-paginator>
+				<tr class="table-header" mat-header-row *matHeaderRowDef="newColumns"></tr>
+				<tr class="cursor-pointer" mat-row *matRowDef="let row; columns: newColumns"></tr>
+			</table>
+			<mat-paginator [length]="propertiesPaginated?.total" [pageSize]="propertiesPaginated?.per_page" [pageSizeOptions]="[10, 25, 100]" (page)="paginate($event)" aria-label="Select page"> </mat-paginator>
 		</div>
 	</div>
 </div>

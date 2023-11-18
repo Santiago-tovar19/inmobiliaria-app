@@ -119,7 +119,7 @@ export class AdvancedSearchComponent implements OnInit {
 			featured: [],
 			minPrice: [40000],
 			maxPrice: [200000],
-			buyOrRent: [],
+			contract_type_id: [],
 		});
 
 		this.checkboxList.forEach((option) => {
