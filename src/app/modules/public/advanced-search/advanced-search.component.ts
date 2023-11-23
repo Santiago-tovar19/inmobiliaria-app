@@ -1,7 +1,7 @@
 import { JsonPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
 import { UserService } from 'app/core/user/user.service';
 import { PropertiesService } from 'app/modules/properties/service/properties.service';
@@ -82,13 +82,24 @@ export class AdvancedSearchComponent implements OnInit {
 
 	@ViewChild('box2') secondBox: ElementRef;
 	@ViewChild('sidebar') sidebarRef: ElementRef;
-	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService, private _formBuider: FormBuilder) {}
+	constructor(private _router: Router, private _authService: AuthService, private _userService: UserService, private _propertiesServices: PropertiesService, private _formBuider: FormBuilder, private activatedRoute: ActivatedRoute) {}
 
 	ngOnInit(): void {
 		// Get windows width
 		const width = window.innerWidth;
 		this.sideBarMode = width < 1000 ? 'over' : 'side';
-		this.getPropertiesList({});
+
+		this.activatedRoute.queryParams.subscribe((params) => {
+			const queryParams = {};
+
+			for (const key in params) {
+				if (params.hasOwnProperty(key)) {
+					queryParams[key] = params[key];
+				}
+			}
+
+			this.getPropertiesList(queryParams);
+		});
 
 		this._propertiesServices.getPropertyTypes().subscribe((response: any) => {
 			this.propertyTypes = response.data;
@@ -117,8 +128,8 @@ export class AdvancedSearchComponent implements OnInit {
 			histories: [],
 			published: [],
 			featured: [],
-			minPrice: [40000],
-			maxPrice: [200000],
+			minPrice: [null],
+			maxPrice: [null],
 			contract_type_id: [],
 		});
 

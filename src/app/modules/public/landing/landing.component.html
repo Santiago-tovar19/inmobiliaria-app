@@ -14,9 +14,9 @@
 				<div [formGroup]="formLanding" class="relative flex justify-center items-center">
 					<div class="bg-white justify-center rounded w-full lg:w-full h-auto md:h-22 flex flex-col md:flex-row md:w-full lg:flex-row items-center relative z-999 sm:w-[440px] sm:mx-auto">
 						<!-- start main seeker -->
-						<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 md:mt-0 lg:mt-0" formControlName="buyOrRent">
-							<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[108px] md:ml-6 lg:ml-3" value="buy">Comprar</mat-chip-option>
-							<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[95px] md:ml-6 lg:ml-2" value="rent">Rentar</mat-chip-option>
+						<mat-chip-listbox aria-label="Fish selection" class="flex flex-col lg:flex-row mt-6 md:mt-0 lg:mt-0" formControlName="contract_type_id">
+							<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[108px] md:ml-6 lg:ml-3" value="1">Comprar</mat-chip-option>
+							<mat-chip-option class="rounded w-[150px] sm:w-[140px] md:w-[95px] md:ml-6 lg:ml-2" value="2">Rentar</mat-chip-option>
 						</mat-chip-listbox>
 						<!-- end main seeker -->
 						<div class="lg:ml-7 h-full flex items-center">
