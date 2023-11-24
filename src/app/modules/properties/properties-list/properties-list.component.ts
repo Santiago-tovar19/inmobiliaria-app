@@ -50,10 +50,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 		MatSelectModule,
 		MatSnackBarModule,
 		MatInputModule,
-	]
+	],
 })
 export class PropertiesListComponent implements OnInit {
-
 	columns: Array<string> = ['id', 'description', 'address', 'location_type', 'price', 'published_at', 'acciones'];
 	newColumns: Array<string> = ['id', 'name', 'address', 'price', 'rooms', 'bathrooms', 'actions'];
 	dataSource: MatTableDataSource<any>;
@@ -62,19 +61,14 @@ export class PropertiesListComponent implements OnInit {
 	user: User;
 	_unsubscribeAll: Subject<any> = new Subject<any>();
 
-	constructor(
-		private _propertiesService: PropertiesService,
-		private _globalService: GlobalService,
-		private _userService: UserService,
-		private _matSnachBar: MatSnackBar
-	) { }
+	constructor(private _propertiesService: PropertiesService, private _globalService: GlobalService, private _userService: UserService, private _matSnachBar: MatSnackBar) {}
 
 	ngOnInit(): void {
 		this.getProperties();
 		this._userService.user$.subscribe((user: any) => {
 			this.user = user;
 			console.log(this.user);
-			if(user.role_id === 1 || user.role_id === 2) {
+			if (user.role_id === 1 || user.role_id === 2) {
 				console.log('Hola que tal');
 				// Push estado after "bathrooms"
 				this.newColumns.splice(6, 0, 'state');
@@ -82,7 +76,7 @@ export class PropertiesListComponent implements OnInit {
 		});
 	}
 
-	getProperties(search: SearchObject = {}, paginatorParams: PaginatorParams = {page: 1, perPage: 10}): void {
+	getProperties(search: SearchObject = {}, paginatorParams: PaginatorParams = { page: 1, perPage: 10 }): void {
 		this._propertiesService.getList(search, paginatorParams).subscribe((response: any) => {
 			this.dataSource = new MatTableDataSource(response.data.data);
 			// console.log(this.dataSource);
@@ -91,8 +85,9 @@ export class PropertiesListComponent implements OnInit {
 		});
 	}
 
-	paginate(event: PageEvent): void { // PaginatorEvent
-		this.getProperties(this.getValues(), {page: event.pageIndex + 1, perPage: event.pageSize});
+	paginate(event: PageEvent): void {
+		// PaginatorEvent
+		this.getProperties(this.getValues(), { page: event.pageIndex + 1, perPage: event.pageSize });
 	}
 
 	getValues(): null {
@@ -100,16 +95,14 @@ export class PropertiesListComponent implements OnInit {
 	}
 
 	newTab(path: string): void {
-
 		const url = new URL(path, environment.front_url);
 		window.open(url.toString(), '_blank');
 	}
 
 	deleteProperty(id: number): void {
-		this._propertiesService.delete(id+'').subscribe(() => {
+		this._propertiesService.delete(id + '').subscribe(() => {
 			this.getProperties();
 			this._globalService.openSnackBar(this._matSnachBar, 'Propiedad eliminada correctamente', 5000, 'success');
 		});
 	}
-
 }

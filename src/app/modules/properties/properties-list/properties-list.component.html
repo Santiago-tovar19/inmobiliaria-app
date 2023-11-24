@@ -119,7 +119,7 @@
 								<mat-icon [routerLink]="'/properties/editar/' + property.id" class="text-on-primary-300">edit</mat-icon>
 							</div>
 							<div class="1/3">
-								<mat-icon (click)="newTab('propiedades/' + property.id)" class="text-on-primary-300">visibility</mat-icon>
+								<mat-icon [routerLink]="'/propiedades/' + property.id" class="text-on-primary-300">visibility</mat-icon>
 							</div>
 							<div class="1/3">
 								<mat-icon (click)="deleteProperty(property.id)" class="text-red-500">delete</mat-icon>
