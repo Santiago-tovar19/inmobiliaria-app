@@ -88,9 +88,9 @@ export class LandingComponent implements OnInit {
 
 	initForm(): void {
 		this.formLanding = this._formBuilder.group({
-			contract_type_id: [''], //en revision
-			keywords: [''], //en revision
-			property_type_id: [''], //en revision
+			contract_type_id: [''],
+			name: [''], //en revision
+			property_type_id: [''],
 			bathrooms: [''],
 			bedrooms: [''],
 			location_type: [''],

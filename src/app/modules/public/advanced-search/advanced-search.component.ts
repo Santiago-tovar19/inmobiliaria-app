@@ -55,7 +55,7 @@ export class AdvancedSearchComponent implements OnInit {
 
 	checkboxList = [
 		{ name: 'Estacionamiento', value: 'parking' },
-		{ name: 'Cocina', value: 'kitchet' },
+		{ name: 'Cocina', value: 'kitchen' },
 		{ name: 'Elevator', value: 'elevator' },
 		{ name: 'Propiedades destacadas', value: 'featured' },
 		{ name: 'Wifi', value: 'wifi' },
@@ -90,7 +90,7 @@ export class AdvancedSearchComponent implements OnInit {
 		this.sideBarMode = width < 1000 ? 'over' : 'side';
 
 		this.activatedRoute.queryParams.subscribe((params) => {
-			const queryParams = {};
+			const queryParams = { publico: 1 };
 
 			for (const key in params) {
 				if (params.hasOwnProperty(key)) {
@@ -131,6 +131,7 @@ export class AdvancedSearchComponent implements OnInit {
 			minPrice: [null],
 			maxPrice: [null],
 			contract_type_id: [],
+			publico: [1],
 		});
 
 		this.checkboxList.forEach((option) => {
@@ -153,7 +154,7 @@ export class AdvancedSearchComponent implements OnInit {
 	}
 
 	paginate(event: any): void {
-		this.getPropertiesList({}, { page: event.pageIndex + 1, perPage: event.pageSize });
+		this.getPropertiesList({ publico: 1 }, { page: event.pageIndex + 1, perPage: event.pageSize });
 	}
 
 	onInputChange(event: Event): void {
@@ -191,7 +192,7 @@ export class AdvancedSearchComponent implements OnInit {
 
 	filterProperties(): void {}
 
-	getPropertiesList(search: any, PaginatorParams: any = { page: 1, perPage: 10 }): void {
+	getPropertiesList(search: any = { publico: 1 }, PaginatorParams: any = { page: 1, perPage: 10 }): void {
 		this._propertiesServices.getList(search, PaginatorParams).subscribe((response: any) => {
 			this.hasLoaded = true;
 			console.log(response);
