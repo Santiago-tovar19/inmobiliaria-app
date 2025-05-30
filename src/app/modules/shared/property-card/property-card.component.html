@@ -1,7 +1,6 @@
 <div class="card h-[530px] w-full mx-auto rounded-lg shadow-lg bg-white">
 	<div class="h-[55%] relative">
-		<img [src]="environment.assets + '/storage/properties/' + property.images[0].name" class="h-full w-full overflow-hidden" />
-
+		<img [src]="imageUrl" class="h-full w-full overflow-hidden" />
 		<button (click)="goToPropertyView()" class="absolute right-8 top-56 text-white bg-blue-400 px-4 py-2 text-sm rounded-md font-bold">Ver propiedad</button>
 		<span></span>
 	</div>

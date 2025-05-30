@@ -77,6 +77,19 @@ export class AdvancedSearchComponent implements OnInit {
 		{ name: 'Historias', value: 'stories' },
 	];
 
+	imagesSliders: string[] = [
+		'https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187_640.jpg',
+		'https://images.freeimages.com/images/large-previews/e85/house-1224030.jpg',
+		'https://images.freeimages.com/images/large-previews/d5b/home-1224274.jpg',
+		'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+		'https://images.unsplash.com/photo-1600585153490-76fb20a32601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://images.unsplash.com/photo-1559329145-afaf18e3f349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://gpvivienda.com/blog/wp-content/uploads/2023/03/digital-marketing-agency-ntwrk-g39p1kDjvSY-unsplash-1.jpg',
+	];
+
 	filteredCheckboxList = this.checkboxList.slice();
 	selectedCheckboxes: { [key: string]: boolean } = {};
 
@@ -151,6 +164,10 @@ export class AdvancedSearchComponent implements OnInit {
 				this.drawer.open();
 			}
 		}, 1000);
+	}
+
+	getPropertyImage(index: number): string {
+		return this.imagesSliders[index % this.imagesSliders.length]; // Se repiten las imágenes cuando se acaban
 	}
 
 	paginate(event: any): void {

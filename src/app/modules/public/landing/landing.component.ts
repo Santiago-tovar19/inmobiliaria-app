@@ -42,13 +42,80 @@ export class LandingComponent implements OnInit {
 		'https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187_640.jpg',
 		'https://images.freeimages.com/images/large-previews/e85/house-1224030.jpg',
 		'https://images.freeimages.com/images/large-previews/d5b/home-1224274.jpg',
-		'https://www.gavias-theme.com/wp/tolips/wp-content/uploads/2020/12/post-2.jpg',
 		'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
 		'https://images.unsplash.com/photo-1600585153490-76fb20a32601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
 		'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
 		'https://images.unsplash.com/photo-1559329145-afaf18e3f349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
 		'https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+		'https://gpvivienda.com/blog/wp-content/uploads/2023/03/digital-marketing-agency-ntwrk-g39p1kDjvSY-unsplash-1.jpg',
 	];
+
+	propertyTypess = [
+		{
+			id: 1,
+			name: 'Casa',
+			properties_count: 12,
+			imageUrl: 'https://nhs-dynamic-secure.akamaized.net/Images/Homes/Brook41827/66415381-230321.jpg',
+		},
+		{
+			id: 2,
+			name: 'Apartamento',
+			properties_count: 7,
+			imageUrl: 'https://img.freepik.com/fotos-premium/parte-apartamento-residencial-moderno-detalles-exteriores-edificios-planos-nueva-casa-hogar-lujo_230311-48104.jpg',
+		},
+		{
+			id: 3,
+			name: 'Penthouse',
+			properties_count: 14,
+			imageUrl: 'https://static1.mansionglobal.com/production/media/article-images/1484cdf2759400ba58087dd9db27cae4/large_living-room-of-a-3-Bedroom-apartment.jpg',
+		},
+		{
+			id: 4,
+			name: 'Nuevo Proyecto',
+			properties_count: 15,
+			imageUrl: 'https://cl.habcdn.com/photos/business/medium/construccion-casas-de-madera-416219.jpg',
+		},
+		{
+			id: 5,
+			name: 'Terreno',
+			properties_count: 12,
+			imageUrl: 'https://img.freepik.com/foto-gratis/vista-terreno-desarrollo-inmobiliario-empresarial_23-2149916719.jpg?semt=ais_hybrid',
+		},
+		{
+			id: 6,
+			name: 'Corporativo',
+			properties_count: 18,
+			imageUrl: 'https://arqa.com/empresas/wp-content/uploads/sites/2/2024/08/casa-working-ocampo-860x600.jpg',
+		},
+		{
+			id: 7,
+			name: 'Propiedad',
+			properties_count: 12,
+			imageUrl: 'https://concepto.de/wp-content/uploads/2018/01/propiedad-privada-e1547745521439.jpg',
+		},
+		{
+			id: 8,
+			name: 'Vacacional',
+			properties_count: 11,
+			imageUrl: 'https://dinorank.com/img/dinobrain/171849/imagena1ae37d633827cf9b66a287326dd594c.jpg',
+		},
+	];
+
+	propiedades = [
+		'https://www.cdt.cl/wp-content/uploads/2023/03/Gary-Todd.jpeg',
+		'https://humanidades.com/wp-content/uploads/2018/07/propiedad-privada-1-e1572226252649.jpg',
+		'https://www.consumoteca.com/wp-content/uploads/Elevador.jpg',
+		'https://images.trvl-media.com/lodging/55000000/54030000/54021200/54021121/1bc080e8.jpg?impolicy=resizecrop&rw=400&ra=fit',
+		'https://images.trvl-media.com/lodging/35000000/34620000/34619800/34619713/1649e53b_w.jpg',
+		'https://www.viacelere.com/wp-content/uploads/old-blog/2017/12/Grace-scaled.jpg',
+		'https://gpvivienda.com/blog/wp-content/uploads/2023/03/digital-marketing-agency-ntwrk-g39p1kDjvSY-unsplash-1.jpg',
+		'https://curbelolaw.com/wp-content/uploads/2021/12/casa-estilo-rancho.jpg',
+		'https://res.listglobally.com/listings/5682245/103057474/de07f7fc37d54059bc9ecc2464198518?mode=crop&height=300',
+		'https://res.listglobally.com/listings/2882816/104198435/f83fe0760d06b7c4f8e41f9b4faccae4?mode=crop&height=300',
+	];
+
+	// Función para seleccionar la imagen ciclando el array
+
 	indexs: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	currentImageIndex = 0;
 	propertyTypes;
@@ -70,6 +137,14 @@ export class LandingComponent implements OnInit {
 
 		this.getPropertyType();
 		this.getPropertiesList({}, { page: 1, perPage: 10 });
+	}
+
+	getPropertyImage(index: number): string {
+		return this.propiedades[index % this.propiedades.length]; // Se repiten las imágenes cuando se acaban
+	}
+
+	getPropertyImageUltimate(index: number): string {
+		return this.imagesSliders[index % this.imagesSliders.length]; // Se repiten las imágenes cuando se acaban
 	}
 
 	getPropertyType(): void {

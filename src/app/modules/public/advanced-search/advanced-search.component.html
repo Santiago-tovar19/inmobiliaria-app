@@ -88,9 +88,9 @@
 					<ng-container *ngIf="!hasLoaded">
 						<!-- Mostrar las propiedades si la petición ha terminado y el arreglo no está vacío -->
 						<div class="w-[99%] mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-3 z-60 mb-44 max-w-[1250px] -mr-12" #box2>
-							<div *ngFor="let property of dataProperties" class="col-span-1 w-full">
+							<div *ngFor="let property; let i = index; of: dataProperties" class="col-span-1 w-full">
 								<div class="w-full m-auto">
-									<app-property-card [property]="property"></app-property-card>
+									<app-property-card [property]="property" [imageUrl]="getPropertyImage(i)"></app-property-card>
 								</div>
 							</div>
 						</div>
