@@ -166,8 +166,9 @@ export class AdvancedSearchComponent implements OnInit {
 		}, 1000);
 	}
 
-	getPropertyImage(index: number): string {
-		return this.imagesSliders[index % this.imagesSliders.length]; // Se repiten las imágenes cuando se acaban
+	getPropertyImageById(propertyId: number | string): string {
+		const id = Number(propertyId) || 0;
+		return this.imagesSliders[id % this.imagesSliders.length];
 	}
 
 	paginate(event: any): void {

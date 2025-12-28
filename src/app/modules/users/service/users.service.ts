@@ -114,17 +114,12 @@ export class UsersService {
 		return this._httpClient.get<HttpSimpleResponse>(`${environment.api}/users/resend-signup-email/${id}`, {});
 	}
 
-	postPropertyFavorites(perpertyId: any, fav: any): Observable<any> {
-		const data = {
-			perpertyId,
-			fav,
-		};
-		console.log(data);
-		return this._httpClient.post<any>(`${environment.api}/users/fav/${perpertyId}/${fav}`, { data });
+	postPropertyFavorites(propertyId: number): Observable<any> {
+		return this._httpClient.get<any>(`${environment.api}/users/set-property-fav/${propertyId}/1`);
 	}
 
-	isPropertyInFavorites(propertyId: any): Observable<any> {
-		return this._httpClient.get<any>(`${environment.api}/users/set-property-fav/${propertyId}/${0}`);
+	isPropertyInFavorites(propertyId: number): Observable<any> {
+		return this._httpClient.get<any>(`${environment.api}/users/set-property-fav/${propertyId}/0`);
 	}
 }
 

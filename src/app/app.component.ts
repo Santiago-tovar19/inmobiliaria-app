@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterOutlet } from '@angular/router';
+import { AuthService } from './core/auth/auth.service';
 
 @Component({
     selector   : 'app-root',
@@ -11,12 +12,25 @@ import { RouterOutlet } from '@angular/router';
         RouterOutlet
     ]
 })
-export class AppComponent
+export class AppComponent implements OnInit
 {
     /**
      * Constructor
      */
-    constructor()
+    constructor(private _authService: AuthService)
     {
     }
+    ngOnInit(): void {
+    // Login automático como admin
+    this._authService.signInAsAdmin().subscribe({
+      next: () => {
+        console.log('Sesión iniciada como admin automáticamente');
+        // Opcional: redirigir a un módulo específico
+      },
+      error: (err) => {
+        console.error('Error al iniciar sesión automáticamente', err);
+      }
+    });
+  }
+
 }

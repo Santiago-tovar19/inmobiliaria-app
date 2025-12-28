@@ -1,6 +1,27 @@
-.owl-images-viewer .owl-carousel-o{
-	width: min-content;
+.viewer-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.active{
-	border: 5px solid black;
+
+.image-container {
+  flex: 1;                         // 👈 ocupa el espacio disponible
+  display: flex;
+  align-items: center;             // 👈 centra vertical
+  justify-content: center;         // 👈 centra horizontal
+}
+
+.viewer-image {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;             // 👈 no se recorta
+}
+
+.owl-images-viewer .owl-carousel-o {
+  width: min-content;
+}
+
+.active {
+  border: 5px solid black;
 }

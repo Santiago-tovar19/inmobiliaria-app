@@ -30,9 +30,6 @@ export const appRoutes: Route[] = [
 		data: {
 			layout: 'modern',
 		},
-		resolve: {
-			initialData: UserResolver,
-		},
 		children: [
 			{
 				path: '',
